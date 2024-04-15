@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:29:25 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/15 12:42:19 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/15 13:32:30 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static char	*dup_token(char *line, int *i)
 	char	*word;
 
 	len = *i;
-	while (line[len] && ((line[len] != ' ') || (line[len] >= 13 
+	while (line[len] && ((line[len] != ' ') && (line[len] >= 13 
 			|| line[len] <= 9)))
 		len++;
 	word = ft_calloc(len - *i + 2, sizeof(char));
@@ -29,9 +29,9 @@ static char	*dup_token(char *line, int *i)
 		return (0);
 	}
 	j = 0;
-	while (line[*i + j] && *i <= len)
+	while (line[*i] && *i <= len)
 	{
-		word[j] =  line[*i + j];
+		word[j] =  line[*i];
 		j++;
 		(*i)++;
 	}
@@ -87,7 +87,15 @@ int	tokenizer(t_minishell *infos)
 					return (0);
 				}
 			}
-		i++;
+		if (infos->line[i])
+			i++;
+		t_token *tmp = infos->token;
+		while (tmp)
+		{
+			printf ("token : '%s', ", tmp->value);
+			printf ("type : %u\n", tmp->token_type);
+			tmp = tmp->next;
+		}
 	}
 	return (1);
 }

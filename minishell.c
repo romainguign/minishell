@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:01:18 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/15 11:14:19 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/15 13:06:45 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_minishell	*infos;
 
-	argv[0][0] = '\0';
+	(void)argv;
 	if (argc > 1)
 		return (1);
 	infos = ft_calloc(1, sizeof(t_minishell));
