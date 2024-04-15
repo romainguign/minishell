@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/15 11:12:48 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/15 14:51:25 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ void	free_all(t_minishell *infos);
 char	**get_env(char **envp);
 
 //tokenizer :
-int		tokenizer(t_minishell *infos);
-void	ft_tokenclear(t_token **lst, void (*del)(void*));
-
+int				tokenizer(t_minishell *infos);
+void			ft_tokenclear(t_token **lst, void (*del)(void*));
+t_token_type	get_token_type(char *value);
 //parser :
 
 #endif

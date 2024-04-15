@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:29:25 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/15 13:32:30 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/15 14:55:32 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,23 @@ static char	*dup_token(char *line, int *i)
 	int		len;
 	char	*word;
 
-	len = *i;
-	while (line[len] && ((line[len] != ' ') && (line[len] >= 13 
-			|| line[len] <= 9)))
-		len++;
-	word = ft_calloc(len - *i + 2, sizeof(char));
+	len = 0;
+	while (line[len] && ((line[len] != ' ') && !(line[len] <= 13 
+			&& line[len] >= 9)))
+			len++;
+	word = ft_calloc(len + 1, sizeof(char));
 	if (!word)
 	{
 		ft_putstr_fd(MALLOC_ERROR, 2);
 		return (0);
 	}
 	j = 0;
-	while (line[*i] && *i <= len)
+	while (line[j] && j < len)
 	{
-		word[j] =  line[*i];
+		word[j] =  line[j];
 		j++;
-		(*i)++;
 	}
+	*i = *i + j;
 	return (word);
 }
 
@@ -46,6 +46,7 @@ static t_token	*ft_newtoken(char *value)
 	if (!token)
 		return (0);
 	token->value = value;
+	token->token_type = get_token_type(value);
 	token->next = NULL;
 	return (token);
 }
@@ -89,13 +90,13 @@ int	tokenizer(t_minishell *infos)
 			}
 		if (infos->line[i])
 			i++;
-		t_token *tmp = infos->token;
-		while (tmp)
-		{
-			printf ("token : '%s', ", tmp->value);
-			printf ("type : %u\n", tmp->token_type);
-			tmp = tmp->next;
-		}
+	}
+	t_token *tmp = infos->token;
+	while (tmp)
+	{
+		printf ("token : '%s', ", tmp->value);
+		printf ("type : %u\n", tmp->token_type);
+		tmp = tmp->next;
 	}
 	return (1);
 }

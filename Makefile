@@ -6,7 +6,7 @@
 #    By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/12 15:00:46 by roguigna          #+#    #+#              #
-#    Updated: 2024/04/15 11:13:18 by roguigna         ###   ########.fr        #
+#    Updated: 2024/04/15 14:52:07 by roguigna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ SRC_FILES		= minishell.c \
 				  utils/free_all.c \
 				  parsing/env/pars_env.c \
 				  parsing/lexer/tokenizer.c \
+				  parsing/lexer/token_identifier.c \
 				  parsing/lexer/free_token.c
 
 OBJ             = $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))
