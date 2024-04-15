@@ -1,33 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils2.c                                           :+:      :+:    :+:   */
+/*   free_token.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/12 16:48:53 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/15 10:22:06 by roguigna         ###   ########.fr       */
+/*   Created: 2024/04/15 10:53:54 by roguigna          #+#    #+#             */
+/*   Updated: 2024/04/15 10:59:41 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+static void	ft_lstdelone(t_token *lst, void (*del)(void *))
 {
-	size_t				i;
-	const unsigned char	*ptr_s1;
-	const unsigned char	*ptr_s2;
+	if (!lst || !del)
+		return ;
+	del(lst->value);
+	free (lst);
+}
 
-	i = 0;
-	ptr_s1 = (const unsigned char *)s1;
-	ptr_s2 = (const unsigned char *)s2;
-	if (!s1 && s2)
-		return (s2[0]);
-	if (s1 && !s2)
-		return (s1[0]);
-	if (!s1 && !s2)
-		return (0);
-	while (ptr_s1[i] && ptr_s2[i] && ptr_s1[i] == ptr_s2[i])
-		i++;
-	return (ptr_s1[i] - ptr_s2[i]);
+void	ft_tokenclear(t_token **lst, void (*del)(void*))
+{
+	t_token	*tmp;
+
+	if (!lst || !del)
+		return ;
+	while (*lst)
+	{
+		tmp = (*lst)->next;
+		ft_lstdelone(*lst, del);
+		(*lst) = tmp;
+	}
 }
