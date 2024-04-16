@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:01:18 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/15 13:06:45 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/16 09:57:53 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	main(int argc, char **argv, char **envp)
 	infos->env = get_env(envp);
 	if (!infos->env)
 		return (1);
+	signal_handler();
 	minishell_loop(infos);
 	free_all(infos);
 	return (0);
