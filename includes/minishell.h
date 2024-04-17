@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/17 17:23:54 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/17 19:19:00 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,17 @@ typedef struct s_minishell
 
 /*----------------------------- Errors messages -----------------------------*/
 # define MALLOC_ERROR		"minishell: malloc: failed allocation memory\n"
+# define BRACKET_ERROR		"minishell: unclosed bracket\n"
 
 /*---------------------------------- utils ----------------------------------*/
 void	ft_putstr_fd(char *s, int fd);
 void	*ft_calloc(size_t nmemb, size_t size);
 int		ft_strcmp(const char *s1, const char *s2);
-int		ft_strlen(char *str);
+int		ft_strlen(const char *str);
+int		is_space(char c);
 char	*ft_strdup(char *s);
+char	*ft_strldup(char *s, int len);
+char	*ft_strjoin(char *s1, char *s2);
 void	ft_bzero(void *s, size_t n);
 
 //free_all :
@@ -70,6 +74,8 @@ void	free_all(t_minishell *infos);
 //env :
 int	get_env(char **envp, t_minishell *infos);
 void	ft_envclear(t_env **lst, void (*del)(void*));
+char	*bracket_env_name(char *line, int *len);
+char	*no_bracket_env_name(char *line, int *len);
 
 //tokenizer :
 int				tokenizer(t_minishell *infos);

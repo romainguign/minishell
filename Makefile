@@ -6,7 +6,7 @@
 #    By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/12 15:00:46 by roguigna          #+#    #+#              #
-#    Updated: 2024/04/17 13:05:13 by roguigna         ###   ########.fr        #
+#    Updated: 2024/04/17 19:18:36 by roguigna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,9 @@ SRC_FILES		= minishell.c \
 				  utils/free_all.c \
 				  parsing/env/pars_env.c \
 				  parsing/env/free_env.c \
+				  parsing/env/find_env_name.c \
 				  parsing/lexer/tokenizer.c \
+				  parsing/lexer/dup_token.c \
 				  parsing/lexer/token_identifier.c \
 				  parsing/lexer/free_token.c \
 				  signals/signal_handler.c

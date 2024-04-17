@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:29:25 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/17 17:22:41 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/17 19:48:35 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ int	tokenizer(t_minishell *infos)
 	"HERE_DOC" };
 	while (tmp)
 	{
-		printf ("token : '%s', ", tmp->value);
-		printf ("type : %s\n", tokensname[tmp->token_type]);
+		// printf ("token : '%s', ", tmp->value);
+		// printf ("type : %s\n", tokensname[tmp->token_type]);
 		tmp = tmp->next;
 	}
 	return (1);
