@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/16 10:12:59 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/04/17 17:23:54 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,13 @@ typedef enum e_token_type
 	HERE_DOC
 }	t_token_type;
 
+typedef struct s_env
+{
+	char				*name;
+	char				*value;
+	struct s_env		*next;
+}	t_env;
+
 typedef struct s_token
 {
 	char				*value;
@@ -39,7 +46,7 @@ typedef struct s_token
 typedef struct s_minishell
 {
 	char	*line;
-	char	**env;
+	t_env	*env;
 	t_token	*token;
 }	t_minishell;
 
@@ -61,12 +68,15 @@ void	free_all(t_minishell *infos);
 
 /*--------------------------------- parsing ---------------------------------*/
 //env :
-char	**get_env(char **envp);
+int	get_env(char **envp, t_minishell *infos);
+void	ft_envclear(t_env **lst, void (*del)(void*));
 
 //tokenizer :
 int				tokenizer(t_minishell *infos);
+char			*dup_token(char *line, int *i, t_env *env);
 void			ft_tokenclear(t_token **lst, void (*del)(void*));
 t_token_type	get_token_type(char *value);
+
 //parser :
 
 /*--------------------------------- signals ---------------------------------*/

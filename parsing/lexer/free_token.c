@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:53:54 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/15 10:59:41 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/17 12:54:45 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ static void	ft_lstdelone(t_token *lst, void (*del)(void *))
 {
 	if (!lst || !del)
 		return ;
-	del(lst->value);
+	if (lst->value)
+		del(lst->value);
 	free (lst);
 }
 

@@ -1,37 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_all.c                                         :+:      :+:    :+:   */
+/*   dup_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/12 16:41:06 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/17 17:17:20 by roguigna         ###   ########.fr       */
+/*   Created: 2024/04/17 17:22:24 by roguigna          #+#    #+#             */
+/*   Updated: 2024/04/17 17:22:59 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_tab(void **tab)
+char	*dup_token(char *line, int *i, t_env *env)
 {
-	int	i;
+	int		j;
+	int		len;
+	char	*word;
 
-	i = 0;
-	while (tab[i])
+	len = 0;
+	while (line[len] && ((line[len] != ' ') && !(line[len] <= 13 
+			&& line[len] >= 9)))
+			len++;
+	word = ft_calloc(len + 1, sizeof(char));
+	if (!word)
 	{
-		free(tab[i]);
-		i++;
+		ft_putstr_fd(MALLOC_ERROR, 2);
+		return (0);
 	}
-	free(tab);
-}
-
-void	free_all(t_minishell *infos)
-{
-	if (infos->env)
-		ft_envclear(&infos->env, free);
-	if (infos->token)
-		ft_tokenclear(&infos->token, free);
-	if (infos->line)
-		free(infos->line);
-	free(infos);
+	j = 0;
+	while (line[j] && j < len)
+	{
+		word[j] =  line[j];
+		j++;
+	}
+	*i = *i + j;
+	return (word);
 }

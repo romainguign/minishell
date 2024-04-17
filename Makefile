@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+         #
+#    By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/12 15:00:46 by roguigna          #+#    #+#              #
-#    Updated: 2024/04/16 10:12:20 by brguicho         ###   ########.fr        #
+#    Updated: 2024/04/17 13:05:13 by roguigna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ SRC_FILES		= minishell.c \
 				  utils/utils2.c \
 				  utils/free_all.c \
 				  parsing/env/pars_env.c \
+				  parsing/env/free_env.c \
 				  parsing/lexer/tokenizer.c \
 				  parsing/lexer/token_identifier.c \
 				  parsing/lexer/free_token.c \
