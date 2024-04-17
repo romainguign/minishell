@@ -6,7 +6,7 @@
 #    By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/12 15:00:46 by roguigna          #+#    #+#              #
-#    Updated: 2024/04/16 10:12:20 by brguicho         ###   ########.fr        #
+#    Updated: 2024/04/17 14:52:25 by brguicho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,9 @@ SRC_FILES		= minishell.c \
 				  parsing/lexer/tokenizer.c \
 				  parsing/lexer/token_identifier.c \
 				  parsing/lexer/free_token.c \
-				  signals/signal_handler.c
+				  builtins/pwd.c \
+				  builtins/cd.c \
+				  signals/signal_handler.c \
 
 OBJ             = $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))
 

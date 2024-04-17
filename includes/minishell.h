@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/16 10:12:59 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/04/17 19:35:18 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <signal.h>
+# include <string.h>
+# include <errno.h>
 
 typedef enum e_token_type
 {
@@ -51,6 +53,7 @@ typedef struct s_minishell
 void	ft_putstr_fd(char *s, int fd);
 void	*ft_calloc(size_t nmemb, size_t size);
 int		ft_strcmp(const char *s1, const char *s2);
+int		ft_strncmp(const char *first, const char *second, size_t length);
 int		ft_strlen(char *str);
 char	*ft_strdup(char *s);
 void	ft_bzero(void *s, size_t n);
@@ -71,4 +74,8 @@ t_token_type	get_token_type(char *value);
 
 /*--------------------------------- signals ---------------------------------*/
 void 			signal_handler(void);
+
+/*--------------------------------- builtins ---------------------------------*/
+void	ft_pwd(t_minishell *infos);
+void	ft_cd(t_minishell *infos);
 #endif
