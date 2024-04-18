@@ -6,7 +6,7 @@
 #    By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/12 15:00:46 by roguigna          #+#    #+#              #
-#    Updated: 2024/04/17 19:18:36 by roguigna         ###   ########.fr        #
+#    Updated: 2024/04/18 15:16:54 by roguigna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ OBJ_DIR			= object
 SRC_FILES		= minishell.c \
 				  utils/utils.c \
 				  utils/utils2.c \
+				  utils/isascii.c \
 				  utils/free_all.c \
 				  parsing/env/pars_env.c \
 				  parsing/env/free_env.c \

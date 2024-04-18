@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:01:18 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/17 20:08:40 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/18 15:12:54 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,6 @@ int	main(int argc, char **argv, char **envp)
 		free_all(infos);
 		return (1);
 	}
-	// t_env *tmp = infos->env;
-	// while (tmp)
-	// {
-	// 	printf("%s=%s\n", tmp->name, tmp->value);
-	// 	tmp = tmp->next;
-	// }
 	signal_handler();
 	minishell_loop(infos);
 	free_all(infos);

@@ -6,20 +6,20 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:30:21 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/17 17:15:29 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/18 15:17:41 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char *dup_envname(char *envp, int *i)
+static char	*dup_envname(char *envp, int *i)
 {
 	char	*name;
 	int		j;
 
 	while (envp[*i] && envp[*i] != '=')
 		(*i)++;
-	name = ft_calloc(sizeof(char), *i);
+	name = ft_calloc(sizeof(char), *i + 1);
 	if (!name)
 		return (NULL);
 	j = 0;

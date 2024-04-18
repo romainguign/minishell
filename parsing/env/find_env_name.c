@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:50:01 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/17 20:12:24 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/18 15:18:15 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ char	*bracket_env_name(char *line, int *len)
 {
 	int		j;
 	char	*name;
+
 	j = 2;
 	while (line[j] != '}')
 	{
@@ -32,23 +33,24 @@ char	*bracket_env_name(char *line, int *len)
 		ft_putstr_fd(MALLOC_ERROR, 2);
 		return (NULL);
 	}
-	*len += j;
+	*len += j - 1;
 	return (name);
 }
 
-char	*no_bracket_env_name(char *line, int *len)
+char	*no_bracket_env_name(char *line, int *len, char c)
 {
 	int		j;
 	char	*name;
+
 	j = 1;
-	while (line[j])
+	while (line[j] && (ft_isalnum(line[j]) || line[j] == '_'))
 		j++;
-	name = ft_strldup(&line[1], j - 2);
+	name = ft_strldup(&line[1], j - 1);
 	if (!name)
 	{
 		ft_putstr_fd(MALLOC_ERROR, 2);
 		return (NULL);
 	}
-	*len += j;
+	*len += j - 1;
 	return (name);
 }

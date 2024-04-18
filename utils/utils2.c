@@ -6,18 +6,11 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:48:53 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/17 19:17:12 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/18 15:16:35 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	is_space(char c)
-{
-	if ((c== ' ') || (c <= 13 && c >= 9))
-		return (1);
-	return (0);
-}
 
 char	*ft_strldup(char *s, int len)
 {
@@ -68,10 +61,14 @@ char	*ft_strjoin(char *s1, char *s2)
 	char			*str;
 
 	i = 0;
+	if (!s1)
+		s1 = ft_calloc(1, sizeof(char));
+	if (!s2)
+		s2 = ft_calloc(1, sizeof(char));
 	if (!s1 || !s2)
 		return (0);
 	str_len = ft_strlen(s1) + ft_strlen(s2) + 1;
-	str = malloc(sizeof(char) * (str_len));
+	str = ft_calloc(sizeof(char), (str_len + 1));
 	if (str == 0)
 		return (0);
 	while (s1[i])
@@ -79,9 +76,10 @@ char	*ft_strjoin(char *s1, char *s2)
 		str[i] = s1[i];
 		i++;
 	}
-	str[i] = '\0';
 	free(s1);
 	ft_strlcat(str, s2, str_len);
+	if (s2[0] == '\0')
+		free(s2);
 	return (str);
 }
 
