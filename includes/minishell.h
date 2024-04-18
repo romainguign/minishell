@@ -22,6 +22,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <signal.h>
+# include <string.h>
+# include <errno.h>
 
 typedef enum e_token_type
 {
@@ -58,9 +60,11 @@ typedef struct s_minishell
 # define BRACKET_ERROR		"minishell: unclosed bracket\n"
 
 /*---------------------------------- utils ----------------------------------*/
+
 void			ft_putstr_fd(char *s, int fd);
 void			*ft_calloc(size_t nmemb, size_t size);
 int				ft_strcmp(const char *s1, const char *s2);
+int		    ft_strncmp(const char *first, const char *second, size_t length);
 int				ft_strlen(const char *str);
 int				is_space(char c);
 int				ft_isalnum(int c);
@@ -89,5 +93,10 @@ t_token_type	get_token_type(char *value);
 //parser :
 
 /*--------------------------------- signals ---------------------------------*/
-void			signal_handler(void);
+void 			signal_handler(void);
+
+/*--------------------------------- builtins ---------------------------------*/
+void	ft_pwd(t_minishell *infos);
+void	ft_cd(t_minishell *infos);
+
 #endif

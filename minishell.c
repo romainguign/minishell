@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:01:18 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/18 15:12:54 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/17 15:04:46 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static int	exec_line(t_minishell *infos)
 {
 	if (!tokenizer(infos))
 		return (0);
+	ft_pwd(infos);
+	ft_cd(infos);
 	ft_tokenclear(&infos->token, free);
 	return (1);
 }
