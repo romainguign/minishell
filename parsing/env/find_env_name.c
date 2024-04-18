@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:50:01 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/18 15:18:15 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/18 15:43:49 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*bracket_env_name(char *line, int *len)
 	return (name);
 }
 
-char	*no_bracket_env_name(char *line, int *len, char c)
+char	*no_bracket_env_name(char *line, int *len)
 {
 	int		j;
 	char	*name;

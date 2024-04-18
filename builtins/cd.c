@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 14:28:25 by brguicho          #+#    #+#             */
-/*   Updated: 2024/04/17 19:30:19 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/04/18 15:45:48 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ void ft_cd(t_minishell *infos)
 	{
 		if (!infos->token->next)
 		{
-			while (infos->env[i])
-			{
-				printf("%s\n",infos->env[i]);
-				i++;
-			}
+			// while (infos->env[i])
+			// {
+			// 	printf("%s\n",infos->env[i]);
+			// 	i++;
+			// }
 		}
 		else if (chdir(infos->token->next->value) != 0)
 		{

@@ -6,13 +6,13 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:22:24 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/18 15:23:12 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/18 15:48:41 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*find_dollar_value(char *line, t_env *env, int *i, char c)
+static char	*find_dollar_value(char *line, t_env *env, int *i)
 {
 	char	*name;
 	t_env	*tmp;
@@ -20,7 +20,7 @@ static char	*find_dollar_value(char *line, t_env *env, int *i, char c)
 	if (line[1] == '{')
 		name = bracket_env_name(line, i);
 	else
-		name = no_bracket_env_name(line, i, c);
+		name = no_bracket_env_name(line, i);
 	if (!name)
 		return (0);
 	tmp = env;
@@ -77,7 +77,7 @@ static char	*manage_quote(char *word, char *line, int *i, t_env *env)
 			word = strljoin_token(word, &line[*i], 1);
 		if (line[*i] == '$' && c == '"')
 		{
-			dollar_value = find_dollar_value(&line[(*i)], env, i, c);
+			dollar_value = find_dollar_value(&line[(*i)], env, i);
 			word = ft_strjoin(word, dollar_value);
 		}
 		(*i)++;
@@ -95,10 +95,8 @@ static char	*manage_dollar_quote(char *word, char *line, int *len, t_env *env)
 	c = line[0];
 	if (line[0] == '$')
 	{
-		dollar_value = find_dollar_value(line, env, &i, '$');
+		dollar_value = find_dollar_value(line, env, &i);
 		word = ft_strjoin(word, dollar_value);
-		if (dollar_value)
-			free(dollar_value);
 		i--;
 	}
 	else
