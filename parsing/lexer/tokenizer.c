@@ -6,37 +6,11 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:29:25 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/15 14:55:32 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/18 15:20:26 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static char	*dup_token(char *line, int *i)
-{
-	int		j;
-	int		len;
-	char	*word;
-
-	len = 0;
-	while (line[len] && ((line[len] != ' ') && !(line[len] <= 13 
-			&& line[len] >= 9)))
-			len++;
-	word = ft_calloc(len + 1, sizeof(char));
-	if (!word)
-	{
-		ft_putstr_fd(MALLOC_ERROR, 2);
-		return (0);
-	}
-	j = 0;
-	while (line[j] && j < len)
-	{
-		word[j] =  line[j];
-		j++;
-	}
-	*i = *i + j;
-	return (word);
-}
 
 static t_token	*ft_newtoken(char *value)
 {
@@ -71,31 +45,34 @@ static int	ft_tokenadd_back(t_token **token, t_token *new)
 
 int	tokenizer(t_minishell *infos)
 {
-	int	i;
-	char *word;
+	int		i;
+	int		len_line;
+	char	*word;
 
 	i = 0;
-	while (infos->line[i])
+	len_line = ft_strlen(infos->line);
+	while (i < len_line)
 	{
-		if (infos->line[i] != ' ' && (infos->line[i] >= 13 
-			|| infos->line[i] <= 9))
-			{
-				word = dup_token(&infos->line[i], &i);
-				if (!word || !ft_tokenadd_back(&infos->token,
+		if (infos->line[i] != ' ' && (infos->line[i] >= 13
+				|| infos->line[i] <= 9))
+		{
+			word = dup_token(&infos->line[i], &i, infos->env);
+			if (!word || !ft_tokenadd_back(&infos->token,
 					ft_newtoken(word)))
-				{
-					ft_tokenclear(&infos->token, free);
-					return (0);
-				}
+			{
+				ft_tokenclear(&infos->token, free);
+				return (0);
 			}
-		if (infos->line[i])
-			i++;
+		}
+		i++;
 	}
 	t_token *tmp = infos->token;
+	const char* tokensname[] = {"WORD", "REDIRECT_IN", "REDIRECT_OUT", "PIPE",
+	"HERE_DOC" };
 	while (tmp)
 	{
-		printf ("token : '%s', ", tmp->value);
-		printf ("type : %u\n", tmp->token_type);
+		printf ("token : %s, ", tmp->value);
+		printf ("type : %s\n", tokensname[tmp->token_type]);
 		tmp = tmp->next;
 	}
 	return (1);

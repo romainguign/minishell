@@ -1,37 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_all.c                                         :+:      :+:    :+:   */
+/*   isascii.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/12 16:41:06 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/17 17:17:20 by roguigna         ###   ########.fr       */
+/*   Created: 2024/04/18 15:16:24 by roguigna          #+#    #+#             */
+/*   Updated: 2024/04/18 15:17:22 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-void	free_tab(void **tab)
+int	is_space(char c)
 {
-	int	i;
-
-	i = 0;
-	while (tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
+	if ((c == ' ') || (c <= 13 && c >= 9))
+		return (1);
+	return (0);
 }
 
-void	free_all(t_minishell *infos)
+int	ft_isalnum(int c)
 {
-	if (infos->env)
-		ft_envclear(&infos->env, free);
-	if (infos->token)
-		ft_tokenclear(&infos->token, free);
-	if (infos->line)
-		free(infos->line);
-	free(infos);
+	if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z')
+		|| (c >= 'a' && c <= 'z'))
+		return (8);
+	return (0);
 }

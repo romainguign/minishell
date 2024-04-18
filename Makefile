@@ -3,7 +3,7 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+         #
+#    By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/12 15:00:46 by roguigna          #+#    #+#              #
 #    Updated: 2024/04/17 14:52:25 by brguicho         ###   ########.fr        #
@@ -41,9 +41,13 @@ OBJ_DIR			= object
 SRC_FILES		= minishell.c \
 				  utils/utils.c \
 				  utils/utils2.c \
+				  utils/isascii.c \
 				  utils/free_all.c \
 				  parsing/env/pars_env.c \
+				  parsing/env/free_env.c \
+				  parsing/env/find_env_name.c \
 				  parsing/lexer/tokenizer.c \
+				  parsing/lexer/dup_token.c \
 				  parsing/lexer/token_identifier.c \
 				  parsing/lexer/free_token.c \
 				  builtins/pwd.c \

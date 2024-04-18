@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:01:18 by roguigna          #+#    #+#             */
 /*   Updated: 2024/04/17 15:04:46 by brguicho         ###   ########.fr       */
@@ -53,9 +53,11 @@ int	main(int argc, char **argv, char **envp)
 		ft_putstr_fd(MALLOC_ERROR, 2);
 		return (1);
 	}
-	infos->env = get_env(envp);
-	if (!infos->env)
+	if (!get_env(envp, infos))
+	{
+		free_all(infos);
 		return (1);
+	}
 	signal_handler();
 	minishell_loop(infos);
 	free_all(infos);

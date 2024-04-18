@@ -1,37 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_all.c                                         :+:      :+:    :+:   */
+/*   free_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/12 16:41:06 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/17 17:17:20 by roguigna         ###   ########.fr       */
+/*   Created: 2024/04/17 12:50:45 by roguigna          #+#    #+#             */
+/*   Updated: 2024/04/17 17:13:31 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_tab(void **tab)
+static void	ft_lstdelone(t_env *lst, void (*del)(void *))
 {
-	int	i;
-
-	i = 0;
-	while (tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
+	if (!lst || !del)
+		return ;
+	if (lst->name)
+		del(lst->name);
+	if (lst->value)
+		del(lst->value);
+	free (lst);
 }
 
-void	free_all(t_minishell *infos)
+void	ft_envclear(t_env **lst, void (*del)(void*))
 {
-	if (infos->env)
-		ft_envclear(&infos->env, free);
-	if (infos->token)
-		ft_tokenclear(&infos->token, free);
-	if (infos->line)
-		free(infos->line);
-	free(infos);
+	t_env	*tmp;
+
+	if (!lst || !del)
+		return ;
+	while (*lst)
+	{
+		tmp = (*lst)->next;
+		ft_lstdelone(*lst, del);
+		(*lst) = tmp;
+	}
 }
