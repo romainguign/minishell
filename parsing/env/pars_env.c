@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:30:21 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/18 15:17:41 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/21 21:40:08 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,9 @@ static int	ft_envadd_back(t_env **env, t_env *new)
 
 int	get_env(char **envp, t_minishell *infos)
 {
-	int		lines;
 	int		i;
 
 	i = 0;
-	lines = 0;
 	while (envp[i])
 	{
 		if (!ft_envadd_back(&infos->env, ft_newenv(envp[i])))

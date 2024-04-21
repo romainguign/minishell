@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dup_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:22:24 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/18 15:48:41 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/21 21:41:01 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,12 +87,10 @@ static char	*manage_quote(char *word, char *line, int *i, t_env *env)
 
 static char	*manage_dollar_quote(char *word, char *line, int *len, t_env *env)
 {
-	char	c;
 	char	*dollar_value;
 	int		i;
 
 	i = 1;
-	c = line[0];
 	if (line[0] == '$')
 	{
 		dollar_value = find_dollar_value(line, env, &i);

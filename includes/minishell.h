@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/18 15:43:55 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/21 22:24:39 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ typedef struct s_minishell
 void			ft_putstr_fd(char *s, int fd);
 void			*ft_calloc(size_t nmemb, size_t size);
 int				ft_strcmp(const char *s1, const char *s2);
-int		    ft_strncmp(const char *first, const char *second, size_t length);
+int		    	ft_strncmp(const char *first, const char *second, size_t length);
 int				ft_strlen(const char *str);
 int				is_space(char c);
 int				ft_isalnum(int c);
@@ -96,7 +96,13 @@ t_token_type	get_token_type(char *value);
 void 			signal_handler(void);
 
 /*--------------------------------- builtins ---------------------------------*/
-void	ft_pwd(t_minishell *infos);
-void	ft_cd(t_minishell *infos);
+//pwd :
+void			ft_pwd(t_minishell *infos);
+
+//cd :
+void			ft_cd(t_minishell *infos);
+
+//echo :
+void			ft_echo(t_token *token);
 
 #endif
