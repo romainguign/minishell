@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/21 22:24:39 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/04/21 22:33:13 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ typedef struct s_minishell
 /*----------------------------- Errors messages -----------------------------*/
 # define MALLOC_ERROR		"minishell: malloc: failed allocation memory\n"
 # define BRACKET_ERROR		"minishell: unclosed bracket\n"
-
+# define CD_ENV_HOME_ERROR	"minishell: cd: << HOME >> undefined\n"
 /*---------------------------------- utils ----------------------------------*/
 
 void			ft_putstr_fd(char *s, int fd);
