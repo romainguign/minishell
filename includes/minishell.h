@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/21 22:33:13 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/04/22 09:31:19 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <signal.h>
 # include <string.h>
 # include <errno.h>
+# include <dirent.h>
 
 typedef enum e_token_type
 {

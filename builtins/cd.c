@@ -6,61 +6,72 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 14:28:25 by brguicho          #+#    #+#             */
-/*   Updated: 2024/04/21 22:33:41 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/04/22 10:34:09 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void ft_cd(t_minishell *infos)
-{
-	t_env *tmp_env;
-
-	tmp_env = infos->env;
-	if (!ft_strcmp(infos->token->value, "cd"))
-	{
-		if (!infos->token->next)
-		{
-			 while (tmp_env->next)
-			{
-				if (!ft_strcmp(tmp_env->name, "HOME"))
-				{
-					break;
-				}
-				tmp_env = tmp_env->next;
-			}
-			if (chdir(tmp_env->value) != 0)
-			{
-				perror(CD_ENV_HOME_ERROR);
-				return ;
-			}
-				
-		}
-		else if (chdir(infos->token->next->value) != 0)
-		{
-			printf("%s\n", strerror(errno));
-		}
-	}
-}
-
 static int	check_env_home(t_env *env)
 {
-	t_env *tmp;
+	t_env	*tmp;
 
 	tmp = env;
 	while (tmp)
 	{
-		if (tmp->name == "HOME")
+		if (!ft_strcmp(tmp->name, "HOME"))
 			return (1);
 		tmp = tmp->next;
 	}
 	return (0);
 }
 
-static int check_is_path_valid(t_minishell *infos)
+static t_env	*get_home_node(t_env *env)
 {
-	// try to opendir
-	// ENOENT : Le répertoire n'existe pas, ou name est une chaîne vide. return -1;
-	// ENOTDIR : name n'est pas un répertoire return -2;
-	return (0);
+	t_env	*tmp;
+
+	tmp = env;
+	while (tmp)
+	{
+		if (!ft_strcmp(tmp->name, "HOME"))
+			return (tmp);
+		tmp = tmp->next;
+	}
+	return (tmp);
+}
+
+static void	print_cd_errors(char *str)
+{
+	ft_putstr_fd("cd: ", 2);
+	ft_putstr_fd(strerror(errno), 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd("\n", 2);
+}
+
+void	ft_cd(t_minishell *infos)
+{
+	t_env	*tmp_env;
+	t_env	*home_env;
+
+	tmp_env = infos->env;
+	if (!ft_strcmp(infos->token->value, "cd"))
+	{
+		if (!infos->token->next)
+		{
+			if (!check_env_home(infos->env))
+			{
+				ft_putstr_fd(CD_ENV_HOME_ERROR, 2);
+				return ;
+			}
+			home_env = get_home_node(infos->env);
+			if (chdir(home_env->value) != 0)
+			{
+				print_cd_errors(home_env->value);
+				return ;
+			}
+		}
+		else if (chdir(infos->token->next->value) != 0)
+			print_cd_errors(infos->token->next->value);
+	}
 }
