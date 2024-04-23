@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:30:21 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/21 21:40:08 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/04/23 10:02:14 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static char	*dup_envname(char *envp, int *i)
 	return (name);
 }
 
-static t_env	*ft_newenv(char *envp)
+t_env	*ft_newenv(char *envp)
 {
 	t_env	*env;
 	int		i;
@@ -56,7 +56,7 @@ static t_env	*ft_newenv(char *envp)
 	return (env);
 }
 
-static int	ft_envadd_back(t_env **env, t_env *new)
+int	ft_envadd_back(t_env **env, t_env *new)
 {
 	t_env	*e_last;
 

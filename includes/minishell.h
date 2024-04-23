@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/22 09:31:19 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/04/23 10:02:56 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,9 @@ void			free_all(t_minishell *infos);
 int				get_env(char **envp, t_minishell *infos);
 void			ft_envclear(t_env **lst, void (*del)(void*));
 char			*bracket_env_name(char *line, int *len);
-char			*no_bracket_env_name(char *line, int *len);
+char			*no_bracket_env_name(char *lstaticine, int *len);
+t_env			*ft_newenv(char *envp);
+int				ft_envadd_back(t_env **env, t_env *new);
 
 //tokenizer :
 int				tokenizer(t_minishell *infos);
