@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:01:18 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/25 13:47:07 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/04/25 14:20:40 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,11 @@ static int	exec_line(t_minishell *infos)
 	ft_pwd(infos);
 	ft_cd(infos);
 	ft_export(infos->env, infos->token);
+	// if (!parser(infos))
+	// 	return (0);
+	ft_execute(infos);
 	ft_tokenclear(&infos->token, free);
+	ft_cmdsclear(&infos->cmd, free);
 	return (1);
 }
 
@@ -59,8 +63,9 @@ int	main(int argc, char **argv, char **envp)
 		free_all(infos);
 		return (1);
 	}
-	signal_handler();
+	// signal_handler();
 	minishell_loop(infos);
 	free_all(infos);
+	ft_putstr_fd("exit\n", 1);
 	return (0);
 }

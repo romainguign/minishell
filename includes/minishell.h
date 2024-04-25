@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/25 13:47:36 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/04/25 14:22:53 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,20 @@
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <fcntl.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <signal.h>
 # include <string.h>
 # include <errno.h>
 # include <dirent.h>
+
+typedef struct s_env
+{
+	char				*name;
+	char				*value;
+	struct s_env		*next;
+}	t_env;
 
 typedef enum e_token_type
 {
@@ -35,31 +43,39 @@ typedef enum e_token_type
 	HERE_DOC
 }	t_token_type;
 
-typedef struct s_env
-{
-	char				*name;
-	char				*value;
-	struct s_env		*next;
-}	t_env;
-
 typedef struct s_token
 {
 	char				*value;
 	struct s_token		*next;
+	struct s_token		*prev;
 	t_token_type		token_type;
 }	t_token;
+
+typedef struct s_cmd
+{
+	char				**cmd;
+	char				*tmp_file;
+	int					fd_in;
+	int					fd_out;
+	struct s_cmd		*next;
+	struct s_cmd		*prev;
+} t_cmd;
 
 typedef struct s_minishell
 {
 	char	*line;
 	t_env	*env;
 	t_token	*token;
+	t_cmd	*cmd;
 }	t_minishell;
 
 /*----------------------------- Errors messages -----------------------------*/
 # define MALLOC_ERROR		"minishell: malloc: failed allocation memory\n"
 # define BRACKET_ERROR		"minishell: unclosed bracket\n"
 # define CD_ENV_HOME_ERROR	"minishell: cd: << HOME >> undefined\n"
+
+# define BASE "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
 /*---------------------------------- utils ----------------------------------*/
 
 void			ft_putstr_fd(char *s, int fd);
@@ -100,10 +116,14 @@ t_token_type	get_token_type(char *value);
 
 //parser :
 
+
 /*--------------------------------- signals ---------------------------------*/
 void 			signal_handler(void);
 
-/*--------------------------------- builtins ---------------------------------*/
+/*--------------------------------- errors ----------------------------------*/
+void			ft_puterrors(char *s);
+
+/*--------------------------------- builtins --------------------------------*/
 //pwd :
 void			ft_pwd(t_minishell *infos);
 
@@ -115,4 +135,15 @@ void			ft_echo(t_token *token);
 
 //export:
 void			ft_export(t_env *env, t_token *token);
+/*--------------------------------- execution -------------------------------*/
+int				ft_execute(t_minishell *infos);
+void			ft_cmdsclear(t_cmd **lst, void (*del)(void*));
+
+//here_doc :
+int				here_doc(t_token *token, t_cmd *cmd, char *limiter);
+int				init_tmp_file(t_cmd *cmd, t_token *token);
+int				make_lstcmd(t_minishell *infos);
+void			ft_create_tmp_file(int infile, char *doc, char *limiter,
+	int len_limiter);
+
 #endif

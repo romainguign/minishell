@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:29:25 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/18 15:20:26 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/25 14:13:59 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,25 @@ static t_token	*ft_newtoken(char *value)
 	token->value = value;
 	token->token_type = get_token_type(value);
 	token->next = NULL;
+	token->prev = NULL;
 	return (token);
 }
+
+// static int	ft_tokenadd_back(t_token **token, t_token *new)
+// {
+// 	if (!(*token))
+// 	{
+// 		*token = new;
+// 		(*token)->prev = new;
+// 		(*token)->next = new;
+// 		return (1);
+// 	}
+// 	new->next = *token;
+// 	new->prev = (*token)->prev;
+// 	(*token)->prev->next = new;
+// 	(*token)->prev = new;
+// 	return (1);
+// }
 
 static int	ft_tokenadd_back(t_token **token, t_token *new)
 {
@@ -42,6 +59,7 @@ static int	ft_tokenadd_back(t_token **token, t_token *new)
 	e_last->next = new;
 	return (1);
 }
+
 
 int	tokenizer(t_minishell *infos)
 {
@@ -65,15 +83,6 @@ int	tokenizer(t_minishell *infos)
 			}
 		}
 		i++;
-	}
-	t_token *tmp = infos->token;
-	const char* tokensname[] = {"WORD", "REDIRECT_IN", "REDIRECT_OUT", "PIPE",
-	"HERE_DOC" };
-	while (tmp)
-	{
-		printf ("token : %s, ", tmp->value);
-		printf ("type : %s\n", tokensname[tmp->token_type]);
-		tmp = tmp->next;
 	}
 	return (1);
 }

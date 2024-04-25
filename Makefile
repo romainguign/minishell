@@ -6,7 +6,11 @@
 #    By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/12 15:00:46 by roguigna          #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2024/04/24 11:16:34 by brguicho         ###   ########.fr        #
+=======
+#    Updated: 2024/04/25 12:58:32 by roguigna         ###   ########.fr        #
+>>>>>>> 3b4cb07 (CMD list ok + HEREDOC function)
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +60,12 @@ SRC_FILES		= minishell.c \
 				  builtins/cd.c \
 				  builtins/export.c \
 				  signals/signal_handler.c \
+				  errors/puterrors.c \
+				  execution/execute.c \
+				  execution/free_cmds.c \
+				  execution/make_lstcmd.c \
+				  execution/here_doc/here_doc.c \
+				  execution/here_doc/create_tmp_file.c
 
 OBJ             = $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))
 
