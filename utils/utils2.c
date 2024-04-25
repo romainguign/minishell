@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:48:53 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/17 19:35:24 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/04/24 10:46:54 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size)
 	return (total_len);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_strjoinfree(char *s1, char *s2)
 {
 	size_t			i;
 	size_t			str_len;

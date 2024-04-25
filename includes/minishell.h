@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/23 10:02:56 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/04/25 13:47:36 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,16 @@ void			*ft_calloc(size_t nmemb, size_t size);
 int				ft_strcmp(const char *s1, const char *s2);
 int		    	ft_strncmp(const char *first, const char *second, size_t length);
 int				ft_strlen(const char *str);
+int				ft_tab_len(char **tab);
+int				ft_lst_size_env(t_env *env);
 int				is_space(char c);
 int				ft_isalnum(int c);
 char			*ft_strdup(char *s);
 char			*ft_strldup(char *s, int len);
+char			*ft_strjoinfree(char *s1, char *s2);
 char			*ft_strjoin(char *s1, char *s2);
 void			ft_bzero(void *s, size_t n);
+size_t			ft_strlcat(char *dst, const char *src, size_t size);
 
 //free_all :
 void			free_tab(void **tab);
@@ -86,6 +90,7 @@ char			*bracket_env_name(char *line, int *len);
 char			*no_bracket_env_name(char *lstaticine, int *len);
 t_env			*ft_newenv(char *envp);
 int				ft_envadd_back(t_env **env, t_env *new);
+char			**lst_to_tab(t_env *env);
 
 //tokenizer :
 int				tokenizer(t_minishell *infos);
@@ -108,4 +113,6 @@ void			ft_cd(t_minishell *infos);
 //echo :
 void			ft_echo(t_token *token);
 
+//export:
+void			ft_export(t_env *env, t_token *token);
 #endif

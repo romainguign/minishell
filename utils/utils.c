@@ -3,25 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 17:18:59 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/18 14:06:56 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/24 10:46:44 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_strlen(const char *str)
+char	*ft_strjoin(char *s1, char *s2)
 {
-	int	i;
+	size_t			i;
+	size_t			str_len;
+	char			*str;
 
 	i = 0;
-	if (!str)
+	if (!s1)
+		s1 = ft_calloc(1, sizeof(char));
+	if (!s2)
+		s2 = ft_calloc(1, sizeof(char));
+	if (!s1 || !s2)
 		return (0);
-	while (str[i])
+	str_len = ft_strlen(s1) + ft_strlen(s2) + 1;
+	str = ft_calloc(sizeof(char), (str_len + 2));
+	if (str == 0)
+		return (0);
+	while (s1[i])
+	{
+		str[i] = s1[i];
 		i++;
-	return (i);
+	}
+	str[i] = '=';
+	i++;
+	ft_strlcat(str, s2, str_len);
+	return (str);
 }
 
 void	ft_putstr_fd(char *s, int fd)

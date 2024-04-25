@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:01:18 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/18 15:45:22 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/25 13:47:07 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static int	exec_line(t_minishell *infos)
 		return (0);
 	ft_pwd(infos);
 	ft_cd(infos);
+	ft_export(infos->env, infos->token);
 	ft_tokenclear(&infos->token, free);
 	return (1);
 }

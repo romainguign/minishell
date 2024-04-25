@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+         #
+#    By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/12 15:00:46 by roguigna          #+#    #+#              #
-#    Updated: 2024/04/17 14:52:25 by brguicho         ###   ########.fr        #
+#    Updated: 2024/04/24 11:16:34 by brguicho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,15 +43,18 @@ SRC_FILES		= minishell.c \
 				  utils/utils2.c \
 				  utils/isascii.c \
 				  utils/free_all.c \
+				  utils/len.c \
 				  parsing/env/pars_env.c \
 				  parsing/env/free_env.c \
 				  parsing/env/find_env_name.c \
+				  parsing/env/env_to_tab.c\
 				  parsing/lexer/tokenizer.c \
 				  parsing/lexer/dup_token.c \
 				  parsing/lexer/token_identifier.c \
 				  parsing/lexer/free_token.c \
 				  builtins/pwd.c \
 				  builtins/cd.c \
+				  builtins/export.c \
 				  signals/signal_handler.c \
 
 OBJ             = $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))

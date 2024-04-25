@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:22:24 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/21 21:41:01 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/04/24 10:31:43 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static char	*manage_quote(char *word, char *line, int *i, t_env *env)
 		if (line[*i] == '$' && c == '"')
 		{
 			dollar_value = find_dollar_value(&line[(*i)], env, i);
-			word = ft_strjoin(word, dollar_value);
+			word = ft_strjoinfree(word, dollar_value);
 		}
 		(*i)++;
 	}
@@ -94,7 +94,7 @@ static char	*manage_dollar_quote(char *word, char *line, int *len, t_env *env)
 	if (line[0] == '$')
 	{
 		dollar_value = find_dollar_value(line, env, &i);
-		word = ft_strjoin(word, dollar_value);
+		word = ft_strjoinfree(word, dollar_value);
 		i--;
 	}
 	else
