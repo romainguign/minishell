@@ -6,13 +6,13 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 09:35:33 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/26 18:19:14 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/27 14:43:28 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	ft_redirects(t_token *token, t_cmd *cmd)
+static int	ft_redirects(t_token *token, t_cmd *cmd, t_env *env)
 {
 	if (token->token_type == REDIRECT_IN)
 	{
@@ -36,7 +36,7 @@ static int	ft_redirects(t_token *token, t_cmd *cmd)
 		}
 	}
 	if (token->token_type == HERE_DOC)
-		return (here_doc(token, cmd, token->next->value));
+		return (here_doc(token, cmd, token->next->value, env));
 	return (1);
 }
 
@@ -58,7 +58,7 @@ static int	ft_cmdsize(t_token *token)
 	return (len);
 }
 
-static t_cmd	*ft_newcmd(t_token *token, t_token *pipe)
+static t_cmd	*ft_newcmd(t_token *token, t_token *pipe, t_env *env)
 {
 	t_cmd	*cmd;
 	int		i;
@@ -76,7 +76,7 @@ static t_cmd	*ft_newcmd(t_token *token, t_token *pipe)
 	{
 		if (pipe->token_type != WORD)
 		{
-			ft_redirects(pipe, cmd);
+			ft_redirects(pipe, cmd, env);
 			pipe = pipe->next;
 		}
 		else
@@ -125,7 +125,7 @@ int	make_lstcmd(t_minishell *infos)
 	{
 		if (tmp->token_type == PIPE || tmp->next == NULL)
 		{
-			if (!ft_cmdadd_back(&infos->cmd, ft_newcmd(tmp, pipe)))
+			if (!ft_cmdadd_back(&infos->cmd, ft_newcmd(tmp, pipe, infos->env)))
 			{
 				free_all(infos);
 				return (0);

@@ -6,21 +6,21 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:29:25 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/26 17:38:41 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/27 14:38:09 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_token	*ft_newtoken(char *value)
+static t_token	*ft_newtoken(t_minishell *infos, int *i)
 {
 	t_token	*token;
 
 	token = ft_calloc(1, sizeof(t_token));
 	if (!token)
 		return (0);
-	token->value = value;
-	token->token_type = get_token_type(value);
+	token->value = dup_token(&infos->line[*i], i, infos->env, token);
+	token->token_type = get_token_type(token->value);
 	token->next = NULL;
 	token->prev = NULL;
 	return (token);
@@ -49,7 +49,6 @@ int	tokenizer(t_minishell *infos)
 {
 	int		i;
 	int		len_line;
-	char	*word;
 
 	i = 0;
 	len_line = ft_strlen(infos->line);
@@ -58,9 +57,8 @@ int	tokenizer(t_minishell *infos)
 		if (infos->line[i] != ' ' && (infos->line[i] >= 13
 				|| infos->line[i] <= 9))
 		{
-			word = dup_token(&infos->line[i], &i, infos->env);
-			if (!word || !ft_tokenadd_back(&infos->token,
-					ft_newtoken(word)))
+			if (!ft_tokenadd_back(&infos->token,
+				ft_newtoken(infos, &i)))
 			{
 				ft_tokenclear(&infos->token, free);
 				return (0);

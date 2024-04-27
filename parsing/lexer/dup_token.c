@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   dup_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:22:24 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/24 10:31:43 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/04/27 15:14:11 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*find_dollar_value(char *line, t_env *env, int *i)
+char	*find_dollar_value(char *line, t_env *env, int *i)
 {
 	char	*name;
 	t_env	*tmp;
@@ -37,7 +37,7 @@ static char	*find_dollar_value(char *line, t_env *env, int *i)
 	return (tmp->value);
 }
 
-static char	*strljoin_token(char *s1, char *s2, int len)
+char	*strljoin_token(char *s1, char *s2, int len)
 {
 	int			i;
 	int			j;
@@ -103,7 +103,7 @@ static char	*manage_dollar_quote(char *word, char *line, int *len, t_env *env)
 	return (word);
 }
 
-char	*dup_token(char *line, int *i, t_env *env)
+char	*dup_token(char *line, int *i, t_env *env, t_token *token)
 {
 	int		len;
 	int		len_str;
@@ -120,11 +120,12 @@ char	*dup_token(char *line, int *i, t_env *env)
 	while (len < len_str && !is_space(line[len]))
 	{
 		if (line[len] != '"' && line[len] != '\'' && line[len] != '$')
-		{
 			word = strljoin_token(word, &line[len], 1);
-		}
 		else
+		{
 			word = manage_dollar_quote(word, &line[len], &len, env);
+			token->quote = line[len];
+		}
 		len++;
 	}
 	*i = *i + len;

@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/27 14:01:04 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/27 15:14:54 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef enum e_token_type
 typedef struct s_token
 {
 	char				*value;
+	char				quote;
 	struct s_token		*next;
 	struct s_token		*prev;
 	t_token_type		token_type;
@@ -113,7 +114,9 @@ char			**lst_to_tab(t_env *env);
 
 //tokenizer :
 int				tokenizer(t_minishell *infos);
-char			*dup_token(char *line, int *i, t_env *env);
+char			*dup_token(char *line, int *i, t_env *env, t_token *token);
+char			*strljoin_token(char *s1, char *s2, int len);
+char			*find_dollar_value(char *line, t_env *env, int *i);
 void			ft_tokenclear(t_token **lst, void (*del)(void*));
 t_token_type	get_token_type(char *value);
 
@@ -148,8 +151,9 @@ void			wait_and_close(t_minishell *infos, pid_t *pids, int (*pipes)[2]);
 void			close_std(void);
 
 //here_doc :
-int				here_doc(t_token *token, t_cmd *cmd, char *limiter);
+int				here_doc(t_token *token, t_cmd *cmd, char *limiter, t_env *env);
 int				init_tmp_file(t_cmd *cmd, t_token *token);
+char			*check_env_var(char quote, char *line, t_env *env);
 void			ft_create_tmp_file(int infile, char *doc, char *limiter,
 	int len_limiter);
 

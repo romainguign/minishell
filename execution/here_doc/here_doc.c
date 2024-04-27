@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:39:54 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/27 14:16:16 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/27 15:05:15 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	eof_warning(char *s)
 	ft_putstr_fd("')\n", 2);
 }
 
-static char	*here_doc_loop(char *limiter, char *doc)
+static char	*here_doc_loop(char *limiter, char *doc, t_token *token, t_env *env)
 {
 	char	*line;
 
@@ -56,6 +56,7 @@ static char	*here_doc_loop(char *limiter, char *doc)
 		line = readline(">");
 		if (!ft_strcmp(line, limiter) || line == NULL)
 			break ;
+		line = check_env_var(token->next->quote, line, env);
 		if (line)
 		{
 			add_history(line);
@@ -75,7 +76,7 @@ static char	*here_doc_loop(char *limiter, char *doc)
 	return (doc);
 }
 
-int	here_doc(t_token *token, t_cmd *cmd, char *limiter)
+int	here_doc(t_token *token, t_cmd *cmd, char *limiter, t_env *env)
 {
 	char	*doc;
 
@@ -87,7 +88,7 @@ int	here_doc(t_token *token, t_cmd *cmd, char *limiter)
 		ft_putstr_fd(MALLOC_ERROR, 2);
 		return (0);
 	}
-	doc = here_doc_loop(limiter, doc);
+	doc = here_doc_loop(limiter, doc, token, env);
 	if (!doc)
 		return (0);
 	ft_putstr_fd(doc, cmd->fd_in);

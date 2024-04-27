@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:50:01 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/18 15:43:49 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/27 15:10:00 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ char	*bracket_env_name(char *line, int *len)
 		}
 		j++;
 	}
-	name = ft_strldup(&line[2], j - 3);
+	name = ft_strldup(&line[2], j - 2);
 	if (!name)
 	{
 		ft_putstr_fd(MALLOC_ERROR, 2);
 		return (NULL);
 	}
-	*len += j - 1;
+	*len += j;
 	return (name);
 }
 
