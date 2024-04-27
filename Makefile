@@ -6,7 +6,7 @@
 #    By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/12 15:00:46 by roguigna          #+#    #+#              #
-#    Updated: 2024/04/27 14:01:40 by roguigna         ###   ########.fr        #
+#    Updated: 2024/04/27 15:06:06 by roguigna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,6 +65,7 @@ SRC_FILES		= minishell.c \
 				  execution/make_lstcmd.c \
 				  execution/wait_and_close.c \
 				  execution/here_doc/here_doc.c \
+				  execution/here_doc/here_doc_env.c \
 				  execution/here_doc/create_tmp_file.c
 
 OBJ             = $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))
