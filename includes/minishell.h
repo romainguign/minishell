@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/27 18:15:42 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/27 19:00:24 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ char			*ft_strjoinfree(char *s1, char *s2);
 char			*ft_strjoin_env(char *s1, char *s2);
 char			**ft_split(char const *s, char c);
 void			ft_bzero(void *s, size_t n);
+char			*get_pwd(t_env *env);
 size_t			ft_strlcat(char *dst, const char *src, size_t size);
 
 //free_all :
@@ -142,6 +143,7 @@ void			ft_echo(t_token *token);
 
 //export:
 void			ft_export(t_env *env, t_token *token);
+
 /*--------------------------------- execution -------------------------------*/
 int				ft_execute(t_minishell *infos);
 int				make_lstcmd(t_minishell *infos);

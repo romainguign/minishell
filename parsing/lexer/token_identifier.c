@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 14:47:54 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/27 17:33:43 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/27 19:15:33 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ char	*parse_redirect(char *line, int	*i)
 
 	len = 0;
 	word = ft_calloc(3, sizeof(char));
-	printf ("line %s\n", line);
 	if (!word)
 		return (0);
 	if ((line[1] != '>') && (line[1] != '<') && (line[1] != '|'))

@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:01:18 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/27 17:33:10 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/27 19:00:38 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,18 @@ static int	exec_line(t_minishell *infos)
 
 static int	minishell_loop(t_minishell *infos)
 {
+	char	*pwd;
+
 	while (1)
 	{
-		infos->line = readline("minishell > ");
+		pwd = get_pwd(infos->env);
+		if (!pwd)
+			return (0);
+		infos->line = readline(pwd);
+		free(pwd);
 		if (!ft_strcmp(infos->line, "exit") || infos->line == NULL)
 			break ;
-		if (infos->line)
+		if (infos->line && infos->line[0] != '\0')
 		{
 			add_history(infos->line);
 			exec_line(infos);
