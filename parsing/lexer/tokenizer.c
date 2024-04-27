@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:29:25 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/25 14:13:59 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/26 17:38:41 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,6 @@ static t_token	*ft_newtoken(char *value)
 	token->prev = NULL;
 	return (token);
 }
-
-// static int	ft_tokenadd_back(t_token **token, t_token *new)
-// {
-// 	if (!(*token))
-// 	{
-// 		*token = new;
-// 		(*token)->prev = new;
-// 		(*token)->next = new;
-// 		return (1);
-// 	}
-// 	new->next = *token;
-// 	new->prev = (*token)->prev;
-// 	(*token)->prev->next = new;
-// 	(*token)->prev = new;
-// 	return (1);
-// }
 
 static int	ft_tokenadd_back(t_token **token, t_token *new)
 {

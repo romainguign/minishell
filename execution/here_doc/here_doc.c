@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:39:54 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/25 14:14:44 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/27 14:16:16 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,18 @@ static char	*ft_strjoin_doc(char *s1, char *s2)
 	return (str);
 }
 
-static char	*here_doc_loop(char *limiter)
+static void	eof_warning(char *s)
 {
-	char	*doc;
+	ft_putstr_fd("pipex: warning: here-document delimited by end-of-file \
+	(wanted `", 2);
+	ft_putstr_fd(s, 2);
+	ft_putstr_fd("')\n", 2);
+}
+
+static char	*here_doc_loop(char *limiter, char *doc)
+{
 	char	*line;
 
-	doc = ft_calloc(1, sizeof(char));
 	while (doc)
 	{
 		line = readline(">");
@@ -57,6 +63,13 @@ static char	*here_doc_loop(char *limiter)
 			free(line);
 		}
 	}
+	if (!line)
+	{
+		eof_warning(limiter);
+		doc = ft_strjoinfree(doc, "\n");
+	}
+	else
+		free(line);
 	if (!doc)
 		ft_putstr_fd(MALLOC_ERROR, 2);
 	return (doc);
@@ -68,10 +81,20 @@ int	here_doc(t_token *token, t_cmd *cmd, char *limiter)
 
 	if (!init_tmp_file(cmd, token))
 		return (0);
-	doc = here_doc_loop(limiter);
+	doc = ft_calloc(1, sizeof(char));
+	if (!doc)
+	{
+		ft_putstr_fd(MALLOC_ERROR, 2);
+		return (0);
+	}
+	doc = here_doc_loop(limiter, doc);
 	if (!doc)
 		return (0);
-	ft_create_tmp_file(cmd->fd_in, doc, limiter, ft_strlen(limiter));
+	ft_putstr_fd(doc, cmd->fd_in);
+	close (cmd->fd_in);
+	cmd->fd_in = open(cmd->tmp_file, O_RDONLY, 0777);
+	if (cmd->fd_in == -1)
+		ft_puterrors(token->next->value);
 	free(doc);
 	return (1);
 }

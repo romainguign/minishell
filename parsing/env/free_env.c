@@ -6,11 +6,24 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:50:45 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/17 17:13:31 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/26 15:42:16 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	ft_free_env(char **env)
+{
+	int	i;
+
+	i = 0;
+	while (env[i])
+	{
+		free(env[i]);
+		i++;
+	}
+	free(env);
+}
 
 static void	ft_lstdelone(t_env *lst, void (*del)(void *))
 {

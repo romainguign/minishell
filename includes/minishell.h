@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/25 14:22:53 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/27 14:01:04 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <signal.h>
 # include <string.h>
 # include <errno.h>
+# include <sys/wait.h>
 # include <dirent.h>
 
 typedef struct s_env
@@ -58,7 +59,6 @@ typedef struct s_cmd
 	int					fd_in;
 	int					fd_out;
 	struct s_cmd		*next;
-	struct s_cmd		*prev;
 } t_cmd;
 
 typedef struct s_minishell
@@ -89,8 +89,10 @@ int				is_space(char c);
 int				ft_isalnum(int c);
 char			*ft_strdup(char *s);
 char			*ft_strldup(char *s, int len);
-char			*ft_strjoinfree(char *s1, char *s2);
 char			*ft_strjoin(char *s1, char *s2);
+char			*ft_strjoinfree(char *s1, char *s2);
+char			*ft_strjoin_env(char *s1, char *s2);
+char			**ft_split(char const *s, char c);
 void			ft_bzero(void *s, size_t n);
 size_t			ft_strlcat(char *dst, const char *src, size_t size);
 
@@ -101,6 +103,7 @@ void			free_all(t_minishell *infos);
 /*--------------------------------- parsing ---------------------------------*/
 //env :
 int				get_env(char **envp, t_minishell *infos);
+void			ft_free_env(char **env);
 void			ft_envclear(t_env **lst, void (*del)(void*));
 char			*bracket_env_name(char *line, int *len);
 char			*no_bracket_env_name(char *lstaticine, int *len);
@@ -137,12 +140,16 @@ void			ft_echo(t_token *token);
 void			ft_export(t_env *env, t_token *token);
 /*--------------------------------- execution -------------------------------*/
 int				ft_execute(t_minishell *infos);
+int				make_lstcmd(t_minishell *infos);
+int				check_cmds(t_cmd *cmds, t_env *env);
 void			ft_cmdsclear(t_cmd **lst, void (*del)(void*));
+void			close_pipes(int (*pipes)[2], t_cmd *cmd);
+void			wait_and_close(t_minishell *infos, pid_t *pids, int (*pipes)[2]);
+void			close_std(void);
 
 //here_doc :
 int				here_doc(t_token *token, t_cmd *cmd, char *limiter);
 int				init_tmp_file(t_cmd *cmd, t_token *token);
-int				make_lstcmd(t_minishell *infos);
 void			ft_create_tmp_file(int infile, char *doc, char *limiter,
 	int len_limiter);
 

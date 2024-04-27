@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 09:35:33 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/25 13:24:44 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/26 18:19:14 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ static int	ft_redirects(t_token *token, t_cmd *cmd)
 	{
 		if (token->value[1] == '>')
 		{
-			cmd->fd_out = open(token->next->value, O_TRUNC | O_WRONLY | O_CREAT,  0644);
+			cmd->fd_out = open(token->next->value, O_APPEND | O_WRONLY | O_CREAT,  0644);
 			if (cmd->fd_out == -1)
 				ft_puterrors(token->next->value);
 		}
 		else
 		{
-			cmd->fd_out = open(token->next->value, O_APPEND | O_WRONLY | O_CREAT,  0644);
+			cmd->fd_out = open(token->next->value, O_TRUNC| O_WRONLY | O_CREAT,  0644);
 			if (cmd->fd_out == -1)
 				ft_puterrors(token->next->value);
 		}
@@ -81,7 +81,12 @@ static t_cmd	*ft_newcmd(t_token *token, t_token *pipe)
 		}
 		else
 		{
-			cmd->cmd[i] = pipe->value;
+			cmd->cmd[i] = ft_strdup(pipe->value);
+			if (!cmd->cmd[i])
+			{
+				ft_putstr_fd(MALLOC_ERROR, 2);
+				return (0);
+			}
 			i++;
 		}
 		pipe = pipe->next;
@@ -129,22 +134,6 @@ int	make_lstcmd(t_minishell *infos)
 		}
 		tmp = tmp->next;
 		i++;
-	}
-	t_cmd *j;
-	int k;
-
-	j = infos->cmd;
-	while (j )
-	{
-		k = 0;
-		printf("%p : ", j);
-		while (j->cmd[k])
-		{
-			printf("%s, ", j->cmd[k]);
-			k++;
-		}
-		printf("\n");
-		j = j->next;
 	}
 	return (1);
 }

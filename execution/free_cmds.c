@@ -6,20 +6,28 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 12:53:42 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/25 12:57:19 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/26 17:39:12 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_lstdelone(t_cmd *lst, void (*del)(void *))
+static void	ft_cmddelone(t_cmd *lst, void (*del)(void *))
 {
+	int	i;
+
+	i = 0;
 	if (!lst || !del)
 		return ;
 	if (lst->tmp_file)
 	{
 		unlink(lst->tmp_file);
 		del(lst->tmp_file);
+	}
+	while (lst->cmd[i])
+	{
+		free(lst->cmd[i]);
+		i++;
 	}
 	if (lst->cmd)
 		free(lst->cmd);
@@ -39,9 +47,9 @@ void	ft_cmdsclear(t_cmd **lst, void (*del)(void*))
 	while (curr)
 	{
 		tmp = curr->next;
-		ft_lstdelone(curr, del);
+		ft_cmddelone(curr, del);
 		curr = tmp;
 	}
-	ft_lstdelone(curr, del);
+	ft_cmddelone(curr, del);
 	*lst = NULL;
 }

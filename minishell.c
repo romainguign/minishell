@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:01:18 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/25 14:20:40 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/26 15:39:05 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,10 @@ int	main(int argc, char **argv, char **envp)
 		free_all(infos);
 		return (1);
 	}
-	// signal_handler();
+	signal_handler();
 	minishell_loop(infos);
 	free_all(infos);
 	ft_putstr_fd("exit\n", 1);
+	close_std();
 	return (0);
 }

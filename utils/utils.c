@@ -6,39 +6,12 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 17:18:59 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/25 14:23:21 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/27 13:59:22 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*ft_strjoin(char *s1, char *s2)
-{
-	size_t			i;
-	size_t			str_len;
-	char			*str;
-
-	i = 0;
-	if (!s1)
-		s1 = ft_calloc(1, sizeof(char));
-	if (!s2)
-		s2 = ft_calloc(1, sizeof(char));
-	if (!s1 || !s2)
-		return (0);
-	str_len = ft_strlen(s1) + ft_strlen(s2) + 1;
-	str = ft_calloc(sizeof(char), (str_len + 2));
-	if (str == 0)
-		return (0);
-	while (s1[i])
-	{
-		str[i] = s1[i];
-		i++;
-	}
-	str[i] = '=';
-	i++;
-	ft_strlcat(str, s2, str_len);
-	return (str);
-}
 
 void	ft_putstr_fd(char *s, int fd)
 {

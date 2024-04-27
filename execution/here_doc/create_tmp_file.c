@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:41:45 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/24 15:48:46 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/26 16:38:55 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,25 +51,4 @@ int	init_tmp_file(t_cmd *cmd, t_token *token)
 	if (cmd->fd_in == -1)
 		ft_puterrors(token->next->value);
 	return (1);
-}
-
-void	ft_create_tmp_file(int infile, char *doc, char *limiter,
-	int len_limiter)
-{
-	// int	i;
-	// int	j;
-
-	// i = 0;
-	// j = 0;
-	// if (ft_cmp_lastline(limiter, doc, len_limiter) == 0)
-	// {
-	// 	while (doc[i])
-	// 		i++;
-	// 	i -= 2;
-	// 	while (i >= 0 && doc[i] != '\n')
-	// 		i--;
-	// 	write(infile, doc, i + 1);
-	// }
-	// else
-		ft_putstr_fd(doc, infile);
 }
