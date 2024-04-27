@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:50:01 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/27 15:10:00 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/27 16:16:56 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,29 @@ char	*no_bracket_env_name(char *line, int *len)
 	}
 	*len += j - 1;
 	return (name);
+}
+
+char	*find_dollar_value(char *line, t_env *env, int *i)
+{
+	char	*name;
+	t_env	*tmp;
+
+	if (line[1] == '{')
+		name = bracket_env_name(line, i);
+	else
+		name = no_bracket_env_name(line, i);
+	if (!name)
+		return (0);
+	tmp = env;
+	while (tmp)
+	{
+		if (!ft_strcmp(name, tmp->name))
+			break ;
+		tmp = tmp->next;
+	}
+	if (name)
+		free(name);
+	if (!tmp)
+		return (0);
+	return (tmp->value);
 }

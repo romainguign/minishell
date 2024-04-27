@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 14:46:39 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/27 15:45:12 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/27 18:13:56 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*check_env_var(char quote, char *line, t_env *env)
 	int		i;
 	char	*value;
 	char	*new_line;
-	
+
 	i = 0;
 	if (quote)
 		return (line);

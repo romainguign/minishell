@@ -6,36 +6,11 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:22:24 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/27 15:14:11 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/27 18:13:45 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	*find_dollar_value(char *line, t_env *env, int *i)
-{
-	char	*name;
-	t_env	*tmp;
-
-	if (line[1] == '{')
-		name = bracket_env_name(line, i);
-	else
-		name = no_bracket_env_name(line, i);
-	if (!name)
-		return (0);
-	tmp = env;
-	while (tmp)
-	{
-		if (!ft_strcmp(name, tmp->name))
-			break ;
-		tmp = tmp->next;
-	}
-	if (name)
-		free(name);
-	if (!tmp)
-		return (0);
-	return (tmp->value);
-}
 
 char	*strljoin_token(char *s1, char *s2, int len)
 {
@@ -103,7 +78,7 @@ static char	*manage_dollar_quote(char *word, char *line, int *len, t_env *env)
 	return (word);
 }
 
-char	*dup_token(char *line, int *i, t_env *env, t_token *token)
+static char	*token_loop(char *line, int *i, t_token *token, t_env *env)
 {
 	int		len;
 	int		len_str;
@@ -113,11 +88,9 @@ char	*dup_token(char *line, int *i, t_env *env, t_token *token)
 	len_str = ft_strlen(line);
 	word = ft_calloc(1, sizeof(char));
 	if (!word)
-	{
-		ft_putstr_fd(MALLOC_ERROR, 2);
-		return (NULL);
-	}
-	while (len < len_str && !is_space(line[len]))
+		return (0);
+	while (len < len_str && !is_space(line[len]) && (line[len] != '<'
+			&& line[len] != '|' && line[len] != '>'))
 	{
 		if (line[len] != '"' && line[len] != '\'' && line[len] != '$')
 			word = strljoin_token(word, &line[len], 1);
@@ -128,6 +101,28 @@ char	*dup_token(char *line, int *i, t_env *env, t_token *token)
 		}
 		len++;
 	}
-	*i = *i + len;
+	if (!word)
+		ft_putstr_fd(MALLOC_ERROR, 2);
+	*i += len;
+	return (word);
+}
+
+char	*dup_token(char *line, int *i, t_env *env, t_token *token)
+{
+	char	*word;
+	int		save_i;
+
+	save_i = *i;
+	if (line[0] == '<' || line[0] == '>' || line[0] == '|')
+		word = parse_redirect(line, i);
+	else
+	{
+		word = token_loop(line, i, token, env);
+		if (line[*i - save_i] == '|' || line[*i - save_i] == '>'
+			|| line[*i - save_i] == '<')
+			(*i)--;
+	}
+	if (!word)
+		return (NULL);
 	return (word);
 }

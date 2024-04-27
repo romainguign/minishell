@@ -6,7 +6,7 @@
 #    By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/12 15:00:46 by roguigna          #+#    #+#              #
-#    Updated: 2024/04/27 15:06:06 by roguigna         ###   ########.fr        #
+#    Updated: 2024/04/27 17:51:21 by roguigna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,6 +63,8 @@ SRC_FILES		= minishell.c \
 				  execution/free_cmds.c \
 				  execution/check_cmds.c \
 				  execution/make_lstcmd.c \
+				  execution/redirects.c \
+				  execution/dup_process.c \
 				  execution/wait_and_close.c \
 				  execution/here_doc/here_doc.c \
 				  execution/here_doc/here_doc_env.c \

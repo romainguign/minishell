@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 15:47:40 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/26 17:37:05 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/27 18:13:07 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static int	search_cmd(char **path, char **cmd, int command_finded)
 	return (command_finded);
 }
 
-static char **path_to_tab(t_env *env)
+static char	**path_to_tab(t_env *env)
 {
 	t_env	*tmp_env;
 	char	**path;
@@ -86,7 +86,7 @@ int	check_cmds(t_cmd *cmds, t_env *env)
 {
 	char	**path;
 	t_cmd	*tmp_cmd;
-	
+
 	tmp_cmd = cmds;
 	path = path_to_tab(env);
 	if (!path)

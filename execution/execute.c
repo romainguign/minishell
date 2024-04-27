@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:58:19 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/27 14:43:56 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/27 17:45:29 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,41 +21,6 @@ void	ft_execution(char **cmd, char **envp, t_minishell *infos)
 		exit(EXIT_FAILURE);
 	}
 	exit(EXIT_SUCCESS);
-}
-
-void	children_process(int (*pipes)[2], int i, t_cmd *cmd, t_minishell *infos)
-{
-	if (cmd->fd_in == -1 || cmd->fd_out == -1)
-	{
-		close_pipes(pipes, infos->cmd);
-		return ;
-	}
-	if (i > 0 && cmd->fd_in == 0)
-	{
-		if (dup2(pipes[i - 1][0], 0) == -1)
-			perror("minishell: dup2");
-	}
-	if (cmd->next != NULL && cmd->fd_out == 1)
-	{
-		if (dup2(pipes[i][1], 1) == -1)
-			perror("minishell: dup2");
-		close_pipes(pipes, infos->cmd);
-	}
-	if (cmd->fd_in > 0)
-	{
-		if (dup2(cmd->fd_in, 0) == -1)
-			perror("minishell: dup2");
-		close(cmd->fd_in);
-		close_pipes(pipes, infos->cmd);
-	}
-	if (cmd->fd_out > 1)
-	{
-		if (dup2(cmd->fd_out, 1) == -1)
-			perror("minishell: dup2");
-		close(cmd->fd_out);
-		close_pipes(pipes, infos->cmd);
-	}
-	close_pipes(pipes, infos->cmd);
 }
 
 void	create_pids(int (*pipes)[2], char **envp, t_minishell *infos, int i)
@@ -89,9 +54,9 @@ void	create_pids(int (*pipes)[2], char **envp, t_minishell *infos, int i)
 
 void	start_program(char **envp, t_minishell *infos)
 {
-	int	pipes[512][2];
-	int	i;
-	t_cmd *tmp;
+	int		pipes[512][2];
+	int		i;
+	t_cmd	*tmp;
 
 	i = 0;
 	tmp = infos->cmd;
@@ -114,7 +79,7 @@ void	start_program(char **envp, t_minishell *infos)
 int	ft_execute(t_minishell *infos)
 {
 	char	**envp;
-	
+
 	if (!make_lstcmd(infos))
 		return (0);
 	envp = lst_to_tab(infos->env);

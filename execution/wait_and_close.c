@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 14:52:39 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/26 18:18:29 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/27 17:46:20 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	close_std(void)
 
 void	wait_end(t_minishell *infos, pid_t *pids)
 {
-	int	i;
-	t_cmd *tmp;
+	int		i;
+	t_cmd	*tmp;
 
 	i = 0;
 	tmp = infos->cmd;

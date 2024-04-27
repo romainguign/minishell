@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/27 15:14:54 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/27 18:15:42 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct s_cmd
 	int					fd_in;
 	int					fd_out;
 	struct s_cmd		*next;
-} t_cmd;
+}	t_cmd;
 
 typedef struct s_minishell
 {
@@ -82,7 +82,8 @@ typedef struct s_minishell
 void			ft_putstr_fd(char *s, int fd);
 void			*ft_calloc(size_t nmemb, size_t size);
 int				ft_strcmp(const char *s1, const char *s2);
-int		    	ft_strncmp(const char *first, const char *second, size_t length);
+int				ft_strncmp(const char *first, const char *second,
+					size_t length);
 int				ft_strlen(const char *str);
 int				ft_tab_len(char **tab);
 int				ft_lst_size_env(t_env *env);
@@ -117,14 +118,14 @@ int				tokenizer(t_minishell *infos);
 char			*dup_token(char *line, int *i, t_env *env, t_token *token);
 char			*strljoin_token(char *s1, char *s2, int len);
 char			*find_dollar_value(char *line, t_env *env, int *i);
+char			*parse_redirect(char *line, int	*i);
 void			ft_tokenclear(t_token **lst, void (*del)(void*));
 t_token_type	get_token_type(char *value);
 
 //parser :
 
-
 /*--------------------------------- signals ---------------------------------*/
-void 			signal_handler(void);
+void			signal_handler(void);
 
 /*--------------------------------- errors ----------------------------------*/
 void			ft_puterrors(char *s);
@@ -145,9 +146,13 @@ void			ft_export(t_env *env, t_token *token);
 int				ft_execute(t_minishell *infos);
 int				make_lstcmd(t_minishell *infos);
 int				check_cmds(t_cmd *cmds, t_env *env);
+int				ft_redirects(t_token *token, t_cmd *cmd, t_env *env);
 void			ft_cmdsclear(t_cmd **lst, void (*del)(void*));
+void			children_process(int (*pipes)[2], int i, t_cmd *cmd,
+					t_minishell *infos);
 void			close_pipes(int (*pipes)[2], t_cmd *cmd);
-void			wait_and_close(t_minishell *infos, pid_t *pids, int (*pipes)[2]);
+void			wait_and_close(t_minishell *infos, pid_t *pids,
+					int (*pipes)[2]);
 void			close_std(void);
 
 //here_doc :
@@ -155,6 +160,6 @@ int				here_doc(t_token *token, t_cmd *cmd, char *limiter, t_env *env);
 int				init_tmp_file(t_cmd *cmd, t_token *token);
 char			*check_env_var(char quote, char *line, t_env *env);
 void			ft_create_tmp_file(int infile, char *doc, char *limiter,
-	int len_limiter);
+					int len_limiter);
 
 #endif

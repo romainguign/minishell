@@ -6,44 +6,16 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 09:35:33 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/27 14:43:28 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/27 18:12:47 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	ft_redirects(t_token *token, t_cmd *cmd, t_env *env)
-{
-	if (token->token_type == REDIRECT_IN)
-	{
-		cmd->fd_in = open(token->next->value, O_APPEND | O_RDONLY,  0644);
-		if (cmd->fd_in == -1)
-			ft_puterrors(token->next->value);
-	}
-	if (token->token_type == REDIRECT_OUT)
-	{
-		if (token->value[1] == '>')
-		{
-			cmd->fd_out = open(token->next->value, O_APPEND | O_WRONLY | O_CREAT,  0644);
-			if (cmd->fd_out == -1)
-				ft_puterrors(token->next->value);
-		}
-		else
-		{
-			cmd->fd_out = open(token->next->value, O_TRUNC| O_WRONLY | O_CREAT,  0644);
-			if (cmd->fd_out == -1)
-				ft_puterrors(token->next->value);
-		}
-	}
-	if (token->token_type == HERE_DOC)
-		return (here_doc(token, cmd, token->next->value, env));
-	return (1);
-}
-
 static int	ft_cmdsize(t_token *token)
 {
 	int		len;
-	t_token *tmp;
+	t_token	*tmp;
 
 	len = 0;
 	tmp = token;
@@ -58,19 +30,10 @@ static int	ft_cmdsize(t_token *token)
 	return (len);
 }
 
-static t_cmd	*ft_newcmd(t_token *token, t_token *pipe, t_env *env)
+static int	fill_cmd(t_cmd *cmd, t_token *token, t_token *pipe, t_env *env)
 {
-	t_cmd	*cmd;
-	int		i;
+	int	i;
 
-	cmd = ft_calloc(1, sizeof(t_cmd));
-	if (!cmd)
-		return (0);
-	cmd->cmd = ft_calloc(sizeof(char *), ft_cmdsize(pipe) + 1);
-	if (!cmd->cmd)
-		return (0);
-	cmd->fd_in = 0;
-	cmd->fd_out = 1;
 	i = 0;
 	while (pipe && pipe != token->next && pipe->token_type != PIPE)
 	{
@@ -91,6 +54,23 @@ static t_cmd	*ft_newcmd(t_token *token, t_token *pipe, t_env *env)
 		}
 		pipe = pipe->next;
 	}
+	return (1);
+}
+
+static t_cmd	*ft_newcmd(t_token *token, t_token *pipe, t_env *env)
+{
+	t_cmd	*cmd;
+
+	cmd = ft_calloc(1, sizeof(t_cmd));
+	if (!cmd)
+		return (0);
+	cmd->cmd = ft_calloc(sizeof(char *), ft_cmdsize(pipe) + 1);
+	if (!cmd->cmd)
+		return (0);
+	cmd->fd_in = 0;
+	cmd->fd_out = 1;
+	if (!fill_cmd(cmd, token, pipe, env))
+		return (0);
 	return (cmd);
 }
 

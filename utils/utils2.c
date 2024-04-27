@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:48:53 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/27 13:59:35 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/04/27 18:16:28 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size)
 	dst[len_dest] = '\0';
 	return (total_len);
 }
-
 
 int	ft_strcmp(const char *s1, const char *s2)
 {

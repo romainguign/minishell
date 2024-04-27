@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   len.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 09:20:37 by brguicho          #+#    #+#             */
-/*   Updated: 2024/04/25 13:35:24 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/04/27 18:16:42 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	ft_lst_size_env(t_env *env)
 {
 	t_env	*tmp;
 	int		i;
-	
+
 	tmp = env;
 	i = 0;
 	while (tmp)
