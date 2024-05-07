@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:41:06 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/17 17:17:20 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/07 10:49:00 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	free_all(t_minishell *infos)
 		ft_envclear(&infos->env, free);
 	if (infos->token)
 		ft_tokenclear(&infos->token, free);
+	if (infos->cmd)
+		ft_cmdsclear(&infos->cmd, free);
 	if (infos->line)
 		free(infos->line);
 	free(infos);

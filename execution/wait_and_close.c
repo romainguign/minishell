@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 14:52:39 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/27 17:46:20 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/07 11:00:36 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	close_pipes(int (*pipes)[2], t_cmd *cmd)
 
 	i = 0;
 	tmp = cmd;
-	while (tmp && i < 509)
+	while (tmp && i < 510)
 	{
 		if (pipes[i][0])
 			close(pipes[i][0]);
@@ -63,7 +63,7 @@ void	close_fds(t_cmd *cmd)
 
 	i = 0;
 	tmp = cmd;
-	while (tmp && i < 509)
+	while (tmp && i < 510)
 	{
 		if (tmp->fd_in > 0)
 			close(tmp->fd_in);

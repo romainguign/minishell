@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:58:19 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/27 17:45:29 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/07 13:07:06 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,12 @@
 
 void	ft_execution(char **cmd, char **envp, t_minishell *infos)
 {
-	if (execve(cmd[0], cmd, envp) == -1)
-	{
-		ft_puterrors(cmd[0]);
-		free_all(infos);
-		exit(EXIT_FAILURE);
-	}
-	exit(EXIT_SUCCESS);
+	execve(cmd[0], cmd, envp);
+	close_std();
+	ft_puterrors(cmd[0]);
+	ft_free_env(envp);
+	free_all(infos);
+	exit(EXIT_FAILURE);
 }
 
 void	create_pids(int (*pipes)[2], char **envp, t_minishell *infos, int i)
@@ -60,14 +59,13 @@ void	start_program(char **envp, t_minishell *infos)
 
 	i = 0;
 	tmp = infos->cmd;
-	while (tmp)
+	while (tmp && i < 512)
 	{
 		if (pipe(pipes[i]) == -1)
 		{
 			close_pipes(pipes, infos->cmd);
-			free_all(infos);
-			perror("pipe");
-			exit(EXIT_FAILURE);
+			perror("minishell");
+			return ;
 		}
 		tmp = tmp->next;
 		i++;
