@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:22:24 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/27 18:13:45 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/07 14:39:58 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,11 @@ static char	*manage_quote(char *word, char *line, int *i, t_env *env)
 			word = ft_strjoinfree(word, dollar_value);
 		}
 		(*i)++;
+		if (line[*i] != c)
+		{
+			syntax_errors(c);
+			return (0);
+		}
 	}
 	return (word);
 }

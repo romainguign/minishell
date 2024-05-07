@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 17:47:06 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/27 17:53:01 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/07 16:32:24 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static void	redirect_out(t_token *token, t_cmd *cmd)
 {
+	if (cmd->fd_out > 1)
+		close (cmd->fd_out);
 	if (token->value[1] == '>')
 	{
 		cmd->fd_out = open(token->next->value, O_APPEND | O_WRONLY
@@ -34,6 +36,13 @@ int	ft_redirects(t_token *token, t_cmd *cmd, t_env *env)
 {
 	if (token->token_type == REDIRECT_IN)
 	{
+		if (cmd->tmp_file)
+		{
+			unlink(cmd->tmp_file);
+			free(cmd->tmp_file);
+		}
+		if (cmd->fd_in > 0)
+			close(cmd->fd_in);
 		cmd->fd_in = open(token->next->value, O_APPEND | O_RDONLY, 0644);
 		if (cmd->fd_in == -1)
 			ft_puterrors(token->next->value);

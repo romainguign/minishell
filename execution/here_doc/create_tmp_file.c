@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:41:45 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/27 17:38:52 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/07 16:22:44 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,11 @@ void	create_tmp_filename(char *tmp_file)
 
 int	init_tmp_file(t_cmd *cmd, t_token *token)
 {
+	if (cmd->tmp_file)
+	{
+		unlink(cmd->tmp_file);
+		free(cmd->tmp_file);
+	}
 	cmd->tmp_file = ft_strdup(".00000000000000000000");
 	if (!cmd->tmp_file)
 	{
@@ -47,6 +52,8 @@ int	init_tmp_file(t_cmd *cmd, t_token *token)
 		return (0);
 	}
 	create_tmp_filename(cmd->tmp_file);
+	if (cmd->fd_in > 0)
+		close (cmd->fd_in);
 	cmd->fd_in = open(cmd->tmp_file, O_WRONLY | O_CREAT | O_APPEND, 0777);
 	if (cmd->fd_in == -1)
 		ft_puterrors(token->next->value);

@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/27 19:00:24 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/07 16:16:24 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,14 @@ typedef struct s_minishell
 
 void			ft_putstr_fd(char *s, int fd);
 void			*ft_calloc(size_t nmemb, size_t size);
+void			*ft_realloc(void *ptr, size_t newsize);
+void			ft_bzero(void *s, size_t n);
 int				ft_strcmp(const char *s1, const char *s2);
 int				ft_strncmp(const char *first, const char *second,
 					size_t length);
 int				ft_strlen(const char *str);
 int				ft_tab_len(char **tab);
+int				tab_size(int *tab);
 int				ft_lst_size_env(t_env *env);
 int				is_space(char c);
 int				ft_isalnum(int c);
@@ -95,7 +98,6 @@ char			*ft_strjoin(char *s1, char *s2);
 char			*ft_strjoinfree(char *s1, char *s2);
 char			*ft_strjoin_env(char *s1, char *s2);
 char			**ft_split(char const *s, char c);
-void			ft_bzero(void *s, size_t n);
 char			*get_pwd(t_env *env);
 size_t			ft_strlcat(char *dst, const char *src, size_t size);
 
@@ -130,6 +132,7 @@ void			signal_handler(void);
 
 /*--------------------------------- errors ----------------------------------*/
 void			ft_puterrors(char *s);
+void			syntax_errors(char c);
 
 /*--------------------------------- builtins --------------------------------*/
 //pwd :
@@ -156,6 +159,7 @@ void			close_pipes(int (*pipes)[2], t_cmd *cmd);
 void			wait_and_close(t_minishell *infos, pid_t *pids,
 					int (*pipes)[2]);
 void			close_std(void);
+void			close_fds(t_cmd *cmd);
 
 //here_doc :
 int				here_doc(t_token *token, t_cmd *cmd, char *limiter, t_env *env);

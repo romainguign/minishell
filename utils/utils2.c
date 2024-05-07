@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:48:53 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/27 18:16:28 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/07 15:18:35 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,14 @@ int	ft_strncmp(const char *first, const char *second, size_t length)
 		index++;
 	}
 	return (0);
+}
+
+int	tab_size(int *tab)
+{
+	int	size;
+
+	size = 0;
+	while (tab[size])
+		size++;
+	return (size);
 }

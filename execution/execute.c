@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:58:19 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/07 13:07:06 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/07 16:16:45 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,8 @@ void	create_pids(int (*pipes)[2], char **envp, t_minishell *infos, int i)
 		if (pids[i] == 0)
 		{
 			children_process(pipes, i, tmp, infos);
+			close_fds(infos->cmd);
 			ft_execution(tmp->cmd, envp, infos);
-			free_all(infos);
-			exit(EXIT_FAILURE);
 		}
 		i++;
 		tmp = tmp->next;
