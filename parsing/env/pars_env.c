@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:30:21 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/23 10:02:14 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/05/08 17:48:45 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ t_env	*ft_newenv(char *envp)
 	env->value = ft_strdup(&envp[i + 1]);
 	if (!env->value || !env->name)
 	{
-		ft_putstr_fd(MALLOC_ERROR, 2);
 		ft_envclear(&env, free);
 		return (0);
 	}

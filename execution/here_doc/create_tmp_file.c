@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:41:45 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/08 10:48:19 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/08 17:48:33 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,7 @@ int	init_tmp_file(t_cmd *cmd, t_token *token)
 	}
 	cmd->tmp_file = ft_strdup(".00000000000000000000");
 	if (!cmd->tmp_file)
-	{
-		ft_putstr_fd(MALLOC_ERROR, 2);
 		return (0);
-	}
 	create_tmp_filename(cmd->tmp_file);
 	if (cmd->fd_in > 0)
 		close (cmd->fd_in);

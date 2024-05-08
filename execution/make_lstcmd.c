@@ -6,13 +6,13 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 09:35:33 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/08 16:49:26 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/08 17:53:11 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	ft_cmdsize(t_token *token)
+static int	ft_cmdsize(t_token *token, int *len_redir)
 {
 	int		len;
 	t_token	*tmp;
@@ -26,22 +26,22 @@ static int	ft_cmdsize(t_token *token)
 		else
 			len++;
 		tmp = tmp->next;
+		(*len_redir)++;
 	}
 	return (len);
 }
 
-static int	fill_cmd(t_cmd *cmd, t_token *token, t_token *pipe, t_env *env)
+static int	fill_cmd(t_cmd *cmd, t_token *token, t_token *pipe)
 {
 	int	i;
+	int	j;
 
 	i = 0;
+	j = 0;
 	while (pipe && pipe != token->next && pipe->token_type != PIPE)
 	{
 		if (pipe->token_type != WORD)
-		{
-			ft_redirects(pipe, cmd, env);
 			pipe = pipe->next;
-		}
 		else
 		{
 			cmd->cmd[i] = ft_strdup(pipe->value);
@@ -57,19 +57,24 @@ static int	fill_cmd(t_cmd *cmd, t_token *token, t_token *pipe, t_env *env)
 	return (1);
 }
 
-static t_cmd	*ft_newcmd(t_token *token, t_token *pipe, t_env *env)
+static t_cmd	*ft_newcmd(t_token *token, t_token *pipe)
 {
 	t_cmd	*cmd;
+	int		len_redir;
 
+	len_redir = 0;
 	cmd = ft_calloc(1, sizeof(t_cmd));
 	if (!cmd)
 		return (0);
-	cmd->cmd = ft_calloc(sizeof(char *), ft_cmdsize(pipe) + 1);
+	cmd->cmd = ft_calloc(sizeof(char *), ft_cmdsize(pipe, &len_redir) + 1);
 	if (!cmd->cmd)
+		return (0);
+	cmd->redir = pipe;
+	if (!cmd->redir)
 		return (0);
 	cmd->fd_in = 0;
 	cmd->fd_out = 1;
-	if (!fill_cmd(cmd, token, pipe, env))
+	if (!fill_cmd(cmd, token, pipe))
 		return (0);
 	return (cmd);
 }
@@ -110,7 +115,7 @@ int	make_lstcmd(t_minishell *infos)
 		}
 		if (tmp->token_type == PIPE || tmp->next == NULL)
 		{
-			if (!ft_cmdadd_back(&infos->cmd, ft_newcmd(tmp, pipe, infos->env)))
+			if (!ft_cmdadd_back(&infos->cmd, ft_newcmd(tmp, pipe)))
 			{
 				free_all(infos);
 				return (0);

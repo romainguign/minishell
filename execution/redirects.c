@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 17:47:06 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/08 10:48:03 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/08 18:05:25 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	redirect_out(t_token *token, t_cmd *cmd)
 	}
 }
 
-int	ft_redirects(t_token *token, t_cmd *cmd, t_env *env)
+static int	ft_redirect_type(t_token *token, t_cmd *cmd, t_env *env)
 {
 	if (token->token_type == REDIRECT_IN)
 	{
@@ -53,5 +53,22 @@ int	ft_redirects(t_token *token, t_cmd *cmd, t_env *env)
 		redirect_out(token, cmd);
 	if (token->token_type == HERE_DOC)
 		return (here_doc(token, cmd, token->next->value, env));
+	return (1);
+}
+
+int	ft_redirects(t_cmd *cmd, t_env *env)
+{
+	t_token	*token;
+
+	token = cmd->redir;
+	while (token && token->token_type != PIPE)
+	{
+		if (token != WORD)
+		{
+			if (ft_redirect_type(token, cmd, env) == 0)
+				return (0);
+			token = token->next;
+		}
+	}
 	return (1);
 }

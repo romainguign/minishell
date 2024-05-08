@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/08 15:50:25 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/08 18:04:38 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_cmd
 	int					fd_in;
 	int					fd_out;
 	struct s_cmd		*next;
+	t_token				*redir;
 }	t_cmd;
 
 typedef struct s_minishell
@@ -152,7 +153,7 @@ void			ft_export(t_env *env, t_token *token);
 int				ft_execute(t_minishell *infos);
 int				make_lstcmd(t_minishell *infos);
 int				check_cmds(t_cmd *cmds, t_env *env);
-int				ft_redirects(t_token *token, t_cmd *cmd, t_env *env);
+int				ft_redirects(t_cmd *cmd, t_env *env);
 int				children_process(int (*pipes)[2], int i, t_cmd *cmd,
 					t_minishell *infos);
 void			ft_cmdsclear(t_cmd **lst, void (*del)(void*));
