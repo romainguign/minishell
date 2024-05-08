@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 17:18:59 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/07 15:13:01 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/08 10:44:57 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*ft_strdup(char *s)
 
 	i = 0;
 	len_src = ft_strlen(s);
-	copy = malloc(sizeof(char) * (len_src + 1));
+	copy = ft_calloc(sizeof(char), (len_src + 1));
 	if (copy == 0)
 		return (0);
 	while (s[i])

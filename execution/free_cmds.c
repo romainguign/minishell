@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 12:53:42 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/26 17:39:12 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/08 10:47:26 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ static void	ft_cmddelone(t_cmd *lst, void (*del)(void *))
 		return ;
 	if (lst->tmp_file)
 	{
-		unlink(lst->tmp_file);
+		printf("\nfile : %s\n", lst->tmp_file);
+		if (access(lst->tmp_file, F_OK | R_OK | W_OK) == 0)
+			unlink(lst->tmp_file);
 		del(lst->tmp_file);
 	}
 	while (lst->cmd[i])

@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:41:45 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/07 16:22:44 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/08 10:48:19 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,10 @@ int	init_tmp_file(t_cmd *cmd, t_token *token)
 {
 	if (cmd->tmp_file)
 	{
-		unlink(cmd->tmp_file);
+		if (access(cmd->tmp_file, F_OK | R_OK | W_OK) == 0)
+			unlink(cmd->tmp_file);
 		free(cmd->tmp_file);
+		cmd->tmp_file = NULL;
 	}
 	cmd->tmp_file = ft_strdup(".00000000000000000000");
 	if (!cmd->tmp_file)

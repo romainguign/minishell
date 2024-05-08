@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 17:47:06 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/07 16:32:24 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/08 10:48:03 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,10 @@ int	ft_redirects(t_token *token, t_cmd *cmd, t_env *env)
 	{
 		if (cmd->tmp_file)
 		{
-			unlink(cmd->tmp_file);
+			if (access(cmd->tmp_file, F_OK | R_OK | W_OK) == 0)
+				unlink(cmd->tmp_file);
 			free(cmd->tmp_file);
+			cmd->tmp_file = NULL;
 		}
 		if (cmd->fd_in > 0)
 			close(cmd->fd_in);
