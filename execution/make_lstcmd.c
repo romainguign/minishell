@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 09:35:33 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/07 15:58:07 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/08 16:49:26 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,11 @@ int	make_lstcmd(t_minishell *infos)
 	i = 0;
 	while (tmp)
 	{
+		if (tmp->next == NULL && tmp->token_type != WORD)
+		{
+			ft_tokenerror(tmp->token_type);
+			return (1);
+		}
 		if (tmp->token_type == PIPE || tmp->next == NULL)
 		{
 			if (!ft_cmdadd_back(&infos->cmd, ft_newcmd(tmp, pipe, infos->env)))

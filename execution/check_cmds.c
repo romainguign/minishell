@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 15:47:40 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/27 18:13:07 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/08 14:57:15 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,22 @@ static char	**path_to_tab(t_env *env)
 	tmp_env = env;
 	while (tmp_env && ft_strcmp(tmp_env->name, "PATH"))
 		tmp_env = tmp_env->next;
+	if (!tmp_env)
+	{
+		path = ft_calloc(sizeof(char *), 2);
+		if (!path)
+			return (0);
+		path[0] = ft_strdup("");
+		if (!path[0])
+		{
+			free(path);
+			return (0);
+		}
+		return (path);
+	}
 	path = ft_split(tmp_env->value, ':');
 	if (!path)
-	{
-		ft_putstr_fd(MALLOC_ERROR, 2);
 		return (0);
-	}
 	return (path);
 }
 
@@ -90,14 +100,20 @@ int	check_cmds(t_cmd *cmds, t_env *env)
 	tmp_cmd = cmds;
 	path = path_to_tab(env);
 	if (!path)
+	{
+		ft_putstr_fd(MALLOC_ERROR, 2);
 		return (0);
+	}
 	while (tmp_cmd)
 	{
-		search_cmd(path, &tmp_cmd->cmd[0], 0);
-		if (!tmp_cmd->cmd[0])
+		if (tmp_cmd->cmd[0])
 		{
-			ft_putstr_fd(MALLOC_ERROR, 2);
-			return (0);
+			search_cmd(path, &tmp_cmd->cmd[0], 0);
+			if (!tmp_cmd->cmd[0])
+			{
+				ft_putstr_fd(MALLOC_ERROR, 2);
+				return (0);
+			}
 		}
 		tmp_cmd = tmp_cmd->next;
 	}

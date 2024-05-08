@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:39:54 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/27 15:05:15 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/08 15:02:37 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,10 @@ static char	*here_doc_loop(char *limiter, char *doc, t_token *token, t_env *env)
 		}
 	}
 	if (!line)
-	{
 		eof_warning(limiter);
-		doc = ft_strjoinfree(doc, "\n");
-	}
 	else
 		free(line);
+	doc = ft_strjoinfree(doc, "\n");
 	if (!doc)
 		ft_putstr_fd(MALLOC_ERROR, 2);
 	return (doc);

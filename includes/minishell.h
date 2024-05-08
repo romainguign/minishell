@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/07 16:16:24 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/08 15:50:25 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ void			signal_handler(void);
 /*--------------------------------- errors ----------------------------------*/
 void			ft_puterrors(char *s);
 void			syntax_errors(char c);
+void			ft_tokenerror(t_token_type type);
 
 /*--------------------------------- builtins --------------------------------*/
 //pwd :
@@ -152,9 +153,9 @@ int				ft_execute(t_minishell *infos);
 int				make_lstcmd(t_minishell *infos);
 int				check_cmds(t_cmd *cmds, t_env *env);
 int				ft_redirects(t_token *token, t_cmd *cmd, t_env *env);
-void			ft_cmdsclear(t_cmd **lst, void (*del)(void*));
-void			children_process(int (*pipes)[2], int i, t_cmd *cmd,
+int				children_process(int (*pipes)[2], int i, t_cmd *cmd,
 					t_minishell *infos);
+void			ft_cmdsclear(t_cmd **lst, void (*del)(void*));
 void			close_pipes(int (*pipes)[2], t_cmd *cmd);
 void			wait_and_close(t_minishell *infos, pid_t *pids,
 					int (*pipes)[2]);

@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:01:18 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/07 12:49:38 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/08 17:05:20 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static int	exec_line(t_minishell *infos)
 	ft_pwd(infos);
 	ft_cd(infos);
 	ft_export(infos->env, infos->token);
-	ft_execute(infos);
+	if (ft_execute(infos) == 0)
+		return (0);
 	ft_tokenclear(&infos->token, free);
 	ft_cmdsclear(&infos->cmd, free);
 	return (1);

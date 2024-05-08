@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 17:40:15 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/27 17:42:48 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/08 13:57:33 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,14 @@ static void	dup_pipes(int (*pipes)[2], int i, t_cmd *cmd, t_minishell *infos)
 	}
 }
 
-void	children_process(int (*pipes)[2], int i, t_cmd *cmd, t_minishell *infos)
+int	children_process(int (*pipes)[2], int i, t_cmd *cmd, t_minishell *infos)
 {
 	if (cmd->fd_in == -1 || cmd->fd_out == -1)
 	{
 		close_pipes(pipes, infos->cmd);
-		return ;
+		free_all(infos);
+		close_std();
+		return (0);
 	}
 	dup_pipes(pipes, i, cmd, infos);
 	if (cmd->fd_in > 0)
@@ -50,4 +52,5 @@ void	children_process(int (*pipes)[2], int i, t_cmd *cmd, t_minishell *infos)
 		close_pipes(pipes, infos->cmd);
 	}
 	close_pipes(pipes, infos->cmd);
+	return (1);
 }

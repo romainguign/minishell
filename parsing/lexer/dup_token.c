@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:22:24 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/07 14:39:58 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/08 12:21:45 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,15 @@ static char	*manage_quote(char *word, char *line, int *i, t_env *env)
 			dollar_value = find_dollar_value(&line[(*i)], env, i);
 			word = ft_strjoinfree(word, dollar_value);
 		}
-		(*i)++;
-		if (line[*i] != c)
-		{
-			syntax_errors(c);
+		if (word == NULL)
 			return (0);
-		}
+		(*i)++;
+	}
+	if (line[*i] != c)
+	{
+		free (word);
+		syntax_errors(c);
+		return (0);
 	}
 	return (word);
 }
@@ -75,6 +78,8 @@ static char	*manage_dollar_quote(char *word, char *line, int *len, t_env *env)
 	{
 		dollar_value = find_dollar_value(line, env, &i);
 		word = ft_strjoinfree(word, dollar_value);
+		if (!word)
+			return (0);
 		i--;
 	}
 	else
@@ -106,8 +111,6 @@ static char	*token_loop(char *line, int *i, t_token *token, t_env *env)
 		}
 		len++;
 	}
-	if (!word)
-		ft_putstr_fd(MALLOC_ERROR, 2);
 	*i += len;
 	return (word);
 }
@@ -123,8 +126,8 @@ char	*dup_token(char *line, int *i, t_env *env, t_token *token)
 	else
 	{
 		word = token_loop(line, i, token, env);
-		if (line[*i - save_i] == '|' || line[*i - save_i] == '>'
-			|| line[*i - save_i] == '<')
+		if (line[*i - save_i - 1] == '\0' || line[*i - save_i] == '|'
+			|| line[*i - save_i] == '>' || line[*i - save_i] == '<')
 			(*i)--;
 	}
 	if (!word)

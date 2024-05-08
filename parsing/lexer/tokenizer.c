@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:29:25 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/27 17:35:21 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/08 17:03:36 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ static t_token	*ft_newtoken(t_minishell *infos, int *i)
 		return (0);
 	token->value = dup_token(&infos->line[*i], i, infos->env, token);
 	if (!token->value)
+	{
+		free (token);
 		return (0);
+	}
 	token->token_type = get_token_type(token->value);
 	token->next = NULL;
 	token->prev = NULL;
