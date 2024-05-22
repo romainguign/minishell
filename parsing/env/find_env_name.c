@@ -6,11 +6,39 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:50:01 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/27 16:16:56 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/16 14:32:24 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static char	*error_code(int *len)
+{
+	char *name;
+	
+	name = NULL;
+	name = ft_itoa(g_exit_code);
+	*len += 1;
+	if (!name)
+	{
+		ft_putstr_fd(MALLOC_ERROR, 2);
+		return (0);
+	}
+	return (name);
+}
+
+static char	*cpy_value(char *value)
+{
+	char *word;
+
+	word = ft_strdup(value);
+	if (!word)
+	{
+		ft_putstr_fd(MALLOC_ERROR, 2);
+		return (0);
+	}
+	return (word);
+}
 
 char	*bracket_env_name(char *line, int *len)
 {
@@ -43,9 +71,15 @@ char	*no_bracket_env_name(char *line, int *len)
 	char	*name;
 
 	j = 1;
+	name = NULL;
 	while (line[j] && (ft_isalnum(line[j]) || line[j] == '_'))
 		j++;
-	name = ft_strldup(&line[1], j - 1);
+	if (line[j] == '?')
+		name = ft_strdup("?");
+	if (!name && j == 1)
+		name = ft_strdup("$");
+	if (!name)
+		name = ft_strldup(&line[1], j - 1);
 	if (!name)
 	{
 		ft_putstr_fd(MALLOC_ERROR, 2);
@@ -66,6 +100,13 @@ char	*find_dollar_value(char *line, t_env *env, int *i)
 		name = no_bracket_env_name(line, i);
 	if (!name)
 		return (0);
+	if (name[0] == '?')
+	{
+		free(name);
+		return (error_code(i));
+	}
+	if (name[0] == '$')
+		return (name);
 	tmp = env;
 	while (tmp)
 	{
@@ -73,9 +114,8 @@ char	*find_dollar_value(char *line, t_env *env, int *i)
 			break ;
 		tmp = tmp->next;
 	}
-	if (name)
-		free(name);
+	free(name);
 	if (!tmp)
 		return (0);
-	return (tmp->value);
+	return (cpy_value(tmp->value));
 }

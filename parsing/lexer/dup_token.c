@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:22:24 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/08 12:21:45 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/14 18:41:15 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ static char	*manage_quote(char *word, char *line, int *i, t_env *env)
 		{
 			dollar_value = find_dollar_value(&line[(*i)], env, i);
 			word = ft_strjoinfree(word, dollar_value);
+			free(dollar_value);
 		}
 		if (word == NULL)
 			return (0);
@@ -78,6 +79,7 @@ static char	*manage_dollar_quote(char *word, char *line, int *len, t_env *env)
 	{
 		dollar_value = find_dollar_value(line, env, &i);
 		word = ft_strjoinfree(word, dollar_value);
+		free(dollar_value);
 		if (!word)
 			return (0);
 		i--;
@@ -102,7 +104,8 @@ static char	*token_loop(char *line, int *i, t_token *token, t_env *env)
 	while (len < len_str && !is_space(line[len]) && (line[len] != '<'
 			&& line[len] != '|' && line[len] != '>'))
 	{
-		if (line[len] != '"' && line[len] != '\'' && line[len] != '$')
+		if (line[len] != '"' && line[len] != '\'' && (line[len] != '$'
+			|| (line[len] == '$' && (line[len + 1] == ' ' || !line[len + 1]))))
 			word = strljoin_token(word, &line[len], 1);
 		else
 		{

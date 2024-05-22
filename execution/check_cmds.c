@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 15:47:40 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/08 14:57:15 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/22 09:55:59 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,23 +36,37 @@ static char	*ft_concatenate_dir(char *s1, char *s2)
 	return (str);
 }
 
-static int	search_cmd(char **path, char **cmd, int command_finded)
+static	void access_error(char *cmd, char *error)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(cmd, 2);
+	ft_putstr_fd(error, 2);
+}
+
+static int	search_directory(char *cmd)
+{
+	int	i;
+
+	i = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] == '/')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+static int	access_cmd(char **path, char **cmd, int command_finded, int j)
 {
 	char	*command_path;
-	int		j;
-
-	j = 0;
-	if (*cmd[0] == '\0')
-		return (0);
-	if (!access(*cmd, X_OK))
-		return (1);
+	
 	while (path[j])
 	{
 		command_path = ft_concatenate_dir(path[j], *cmd);
 		if (!command_path)
 			return (1);
-		command_finded = access(command_path, X_OK);
-		if (command_finded == 0)
+		if (!access(command_path, F_OK))
 		{
 			free(*cmd);
 			*cmd = ft_strdup(command_path);
@@ -62,7 +76,54 @@ static int	search_cmd(char **path, char **cmd, int command_finded)
 		free(command_path);
 		j++;
 	}
-	return (command_finded);
+	if (!path[j])
+	{
+		ft_free_env(path);
+		access_error(cmd[0], ": command not found\n");
+		exit (127);
+	}
+}
+
+void	is_dir(char *cmd)
+{
+	struct stat st;
+    
+    if (stat(cmd, &st) == 0) 
+	{
+		if (S_ISDIR(st.st_mode) && search_directory(cmd)) 
+		{
+            access_error(cmd, ": Is a Directory\n");
+			exit (126);
+        }
+    } 
+	else
+	{
+        perror("stat");
+        return ;
+    }
+}
+
+static int	search_cmd(char **path, char **cmd, int command_finded)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	if (*cmd[0] == '\0')
+		return (0);
+	is_dir(cmd[0]);
+	if (!access(*cmd, X_OK))
+		return (1);
+	while (cmd[i])
+		i++;
+	access_cmd(path, cmd, command_finded, i);
+	if (!access(*cmd, F_OK) && access(*cmd, X_OK) == -1)
+	{
+		access_error(cmd[0], ": Permission denied\n");
+		exit (126);
+	}
+	return (1);
 }
 
 static char	**path_to_tab(t_env *env)
@@ -104,18 +165,14 @@ int	check_cmds(t_cmd *cmds, t_env *env)
 		ft_putstr_fd(MALLOC_ERROR, 2);
 		return (0);
 	}
-	while (tmp_cmd)
+	if (tmp_cmd->cmd[0])
 	{
-		if (tmp_cmd->cmd[0])
+		search_cmd(path, &tmp_cmd->cmd[0], 0);
+		if (!tmp_cmd->cmd[0])
 		{
-			search_cmd(path, &tmp_cmd->cmd[0], 0);
-			if (!tmp_cmd->cmd[0])
-			{
-				ft_putstr_fd(MALLOC_ERROR, 2);
-				return (0);
-			}
+			ft_putstr_fd(MALLOC_ERROR, 2);
+			return (0);
 		}
-		tmp_cmd = tmp_cmd->next;
 	}
 	ft_free_env(path);
 	return (1);

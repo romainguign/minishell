@@ -6,13 +6,13 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 17:47:06 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/08 18:05:25 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/16 10:55:22 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	redirect_out(t_token *token, t_cmd *cmd)
+static int	redirect_out(t_token *token, t_cmd *cmd)
 {
 	if (cmd->fd_out > 1)
 		close (cmd->fd_out);
@@ -21,15 +21,22 @@ static void	redirect_out(t_token *token, t_cmd *cmd)
 		cmd->fd_out = open(token->next->value, O_APPEND | O_WRONLY
 				| O_CREAT, 0644);
 		if (cmd->fd_out == -1)
+		{
 			ft_puterrors(token->next->value);
+			return (0);
+		}
 	}
-	else
+	else if (cmd->fd_out != -1)
 	{
 		cmd->fd_out = open(token->next->value, O_TRUNC | O_WRONLY
 				| O_CREAT, 0644);
 		if (cmd->fd_out == -1)
+		{
 			ft_puterrors(token->next->value);
+			return (0);
+		}
 	}
+	return (1);
 }
 
 static int	ft_redirect_type(t_token *token, t_cmd *cmd, t_env *env)
@@ -47,7 +54,10 @@ static int	ft_redirect_type(t_token *token, t_cmd *cmd, t_env *env)
 			close(cmd->fd_in);
 		cmd->fd_in = open(token->next->value, O_APPEND | O_RDONLY, 0644);
 		if (cmd->fd_in == -1)
+		{
 			ft_puterrors(token->next->value);
+			return (0);
+		}
 	}
 	if (token->token_type == REDIRECT_OUT)
 		redirect_out(token, cmd);
@@ -56,19 +66,23 @@ static int	ft_redirect_type(t_token *token, t_cmd *cmd, t_env *env)
 	return (1);
 }
 
-int	ft_redirects(t_cmd *cmd, t_env *env)
+int	ft_redirects(t_cmd *cmd, t_env *env, t_minishell *infos)
 {
 	t_token	*token;
 
 	token = cmd->redir;
 	while (token && token->token_type != PIPE)
 	{
-		if (token != WORD)
+		if (token->token_type != WORD)
 		{
 			if (ft_redirect_type(token, cmd, env) == 0)
-				return (0);
+			{
+				free_all(infos);
+				exit(1);
+			}
 			token = token->next;
 		}
+		token = token->next;
 	}
 	return (1);
 }

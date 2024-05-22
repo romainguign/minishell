@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 09:22:39 by brguicho          #+#    #+#             */
-/*   Updated: 2024/04/25 13:05:15 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/14 13:11:51 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	signal_handler(void)
 	if (sigaction(SIGINT, &signal_int, NULL) < 0)
 	{
 		perror("Error: Signal error");
-		return ;
+		return ;	
 	}
 	if (sigaction(SIGQUIT, &signal_quit, NULL) < 0)
 	{

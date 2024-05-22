@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:58:19 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/08 18:16:16 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/16 10:59:34 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	ft_execution(char **cmd, char **envp, t_minishell *infos)
 	if (cmd[0])
 	{
 		execve(cmd[0], cmd, envp);
+		// ft_putstr_fd("execve : ", 2);
 		ft_puterrors(cmd[0]);
 	}
 	ft_free_env(envp);
@@ -43,6 +44,8 @@ void	create_pids(int (*pipes)[2], char **envp, t_minishell *infos, int i)
 		}
 		if (pids[i] == 0)
 		{
+			check_access(tmp->redir);
+			check_cmds(tmp, infos->env);
 			if (!children_process(pipes, i, tmp, infos))
 			{
 				ft_free_env(envp);
@@ -92,7 +95,6 @@ int	ft_execute(t_minishell *infos)
 		ft_putstr_fd(MALLOC_ERROR, 2);
 		return (0);
 	}
-	check_cmds(infos->cmd, infos->env);
 	start_program(envp, infos);
 	ft_free_env(envp);
 	return (1);

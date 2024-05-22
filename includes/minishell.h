@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/08 18:04:38 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/16 14:49:30 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <string.h>
 # include <errno.h>
 # include <sys/wait.h>
+# include <sys/stat.h>
 # include <dirent.h>
 
 typedef struct s_env
@@ -59,6 +60,7 @@ typedef struct s_cmd
 	char				*tmp_file;
 	int					fd_in;
 	int					fd_out;
+	int					exit;
 	struct s_cmd		*next;
 	t_token				*redir;
 }	t_cmd;
@@ -70,6 +72,8 @@ typedef struct s_minishell
 	t_token	*token;
 	t_cmd	*cmd;
 }	t_minishell;
+
+extern int	g_exit_code;
 
 /*----------------------------- Errors messages -----------------------------*/
 # define MALLOC_ERROR		"minishell: malloc: failed allocation memory\n"
@@ -93,6 +97,7 @@ int				tab_size(int *tab);
 int				ft_lst_size_env(t_env *env);
 int				is_space(char c);
 int				ft_isalnum(int c);
+char			*ft_itoa(int n);
 char			*ft_strdup(char *s);
 char			*ft_strldup(char *s, int len);
 char			*ft_strjoin(char *s1, char *s2);
@@ -153,7 +158,8 @@ void			ft_export(t_env *env, t_token *token);
 int				ft_execute(t_minishell *infos);
 int				make_lstcmd(t_minishell *infos);
 int				check_cmds(t_cmd *cmds, t_env *env);
-int				ft_redirects(t_cmd *cmd, t_env *env);
+int				check_access(t_token *redir);
+int				ft_redirects(t_cmd *cmd, t_env *env, t_minishell *infos);
 int				children_process(int (*pipes)[2], int i, t_cmd *cmd,
 					t_minishell *infos);
 void			ft_cmdsclear(t_cmd **lst, void (*del)(void*));

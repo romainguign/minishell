@@ -6,7 +6,7 @@
 #    By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/12 15:00:46 by roguigna          #+#    #+#              #
-#    Updated: 2024/05/08 16:52:44 by roguigna         ###   ########.fr        #
+#    Updated: 2024/05/14 17:02:12 by roguigna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ OBJ_DIR			= object
 SRC_FILES		= minishell.c \
 				  utils/utils.c \
 				  utils/utils2.c \
+				  utils/numbers.c \
 				  utils/ft_split.c \
 				  utils/isascii.c \
 				  utils/free_all.c \
@@ -63,6 +64,7 @@ SRC_FILES		= minishell.c \
 				  execution/free_cmds.c \
 				  execution/check_cmds.c \
 				  execution/make_lstcmd.c \
+				  execution/check_access.c \
 				  execution/redirects.c \
 				  execution/dup_process.c \
 				  execution/wait_and_close.c \

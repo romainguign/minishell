@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 14:52:39 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/07 16:14:28 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/15 15:09:06 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,32 @@ void	close_std(void)
 	close(2);
 }
 
+void	check_status(int status)
+{
+	if (WIFEXITED(status))
+		g_exit_code = WEXITSTATUS(status);
+	if (WIFSTOPPED(status))
+		g_exit_code = WSTOPSIG(status);
+	if (WIFCONTINUED(status))
+		g_exit_code = 0;
+}
+
 void	wait_end(t_minishell *infos, pid_t *pids)
 {
 	int		i;
+	int		status;
 	t_cmd	*tmp;
 
 	i = 0;
 	tmp = infos->cmd;
 	while (tmp)
 	{
-		if (waitpid(pids[i], NULL, 0) == -1)
+		if (waitpid(pids[i], &status, 0) == -1)
 		{
 			perror("minishell: waitpid");
 			exit(EXIT_FAILURE);
 		}
+		check_status(status);
 		tmp = tmp->next;
 		i++;
 	}
