@@ -6,7 +6,7 @@
 #    By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/12 15:00:46 by roguigna          #+#    #+#              #
-#    Updated: 2024/05/20 13:54:56 by brguicho         ###   ########.fr        #
+#    Updated: 2024/05/21 13:22:41 by brguicho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,9 @@ SRC_FILES		= minishell.c \
 				  builtins/pwd.c \
 				  builtins/cd.c \
 				  builtins/export.c \
+				  builtins/env.c \
 				  builtins/echo.c \
+				  builtins/unset.c \
 				  signals/signal_handler.c \
 				  errors/puterrors.c \
 				  execution/execute.c \

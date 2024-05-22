@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:58:19 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/08 18:16:16 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/21 15:50:51 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	ft_execution(char **cmd, char **envp, t_minishell *infos)
 {
 	if (cmd[0])
 	{
+		signal_handler(0);
 		execve(cmd[0], cmd, envp);
 		ft_puterrors(cmd[0]);
 	}

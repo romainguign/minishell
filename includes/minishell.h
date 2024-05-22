@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/20 11:23:39 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/05/21 15:14:50 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ t_token_type	get_token_type(char *value);
 //parser :
 
 /*--------------------------------- signals ---------------------------------*/
-void			signal_handler(void);
+void			signal_handler(int pid);
 
 /*--------------------------------- errors ----------------------------------*/
 void			ft_puterrors(char *s);
@@ -147,9 +147,14 @@ void			ft_cd(t_minishell *infos);
 //echo :
 void			ft_echo(t_token *token);
 
-//export:
+//export :
 void			ft_export(t_env *env, t_token *token);
 
+//unset :
+void			ft_unset(t_env *env, t_token *token);
+
+//env :
+void			ft_env(t_env *env);
 /*--------------------------------- execution -------------------------------*/
 int				ft_execute(t_minishell *infos);
 int				make_lstcmd(t_minishell *infos);
