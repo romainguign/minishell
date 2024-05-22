@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:01:22 by brguicho          #+#    #+#             */
-/*   Updated: 2024/04/25 15:19:16 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/21 13:21:04 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,10 @@ static void	print_env(char **env_tab)
 	i = 0;
 	while (env_tab[i])
 	{
-		printf("declare -x %s\n", env_tab[i]);
+		if (env_tab[i][0] == '_' && env_tab[i][1] == '=')
+			i++;
+		else
+			printf("declare -x %s\n", env_tab[i]);
 		i++;
 	}
 }
