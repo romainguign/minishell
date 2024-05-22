@@ -6,7 +6,7 @@
 #    By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/12 15:00:46 by roguigna          #+#    #+#              #
-#    Updated: 2024/05/14 17:02:12 by roguigna         ###   ########.fr        #
+#    Updated: 2024/05/22 10:03:11 by roguigna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,6 +58,7 @@ SRC_FILES		= minishell.c \
 				  builtins/pwd.c \
 				  builtins/cd.c \
 				  builtins/export.c \
+				  builtins/echo.c \
 				  signals/signal_handler.c \
 				  errors/puterrors.c \
 				  execution/execute.c \

@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 14:28:25 by brguicho          #+#    #+#             */
-/*   Updated: 2024/04/22 10:34:09 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/05/20 12:01:24 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ static int	check_env_home(t_env *env)
 	return (0);
 }
 
-static t_env	*get_home_node(t_env *env)
+static t_env	*get_env_node(t_env *env, char *node)
 {
 	t_env	*tmp;
 
 	tmp = env;
 	while (tmp)
 	{
-		if (!ft_strcmp(tmp->name, "HOME"))
+		if (!ft_strcmp(tmp->name, node))
 			return (tmp);
 		tmp = tmp->next;
 	}
@@ -53,7 +53,12 @@ void	ft_cd(t_minishell *infos)
 {
 	t_env	*tmp_env;
 	t_env	*home_env;
+	t_env	*pwd_env;
+	t_env 	*old_pwd;
+	char	*path;
 
+	path = NULL;
+	path = getcwd(path, 0);
 	tmp_env = infos->env;
 	if (!ft_strcmp(infos->token->value, "cd"))
 	{
@@ -64,14 +69,37 @@ void	ft_cd(t_minishell *infos)
 				ft_putstr_fd(CD_ENV_HOME_ERROR, 2);
 				return ;
 			}
-			home_env = get_home_node(infos->env);
+			home_env = get_env_node(infos->env, "HOME");
 			if (chdir(home_env->value) != 0)
 			{
 				print_cd_errors(home_env->value);
 				return ;
 			}
+			pwd_env = get_env_node(infos->env, "PWD");
+			old_pwd = get_env_node(infos->env, "OLDPWD");
+			old_pwd->value = ft_realloc((void *)old_pwd->value, ft_strlen(path));
+			old_pwd->value = ft_memcpy(old_pwd->value, path, ft_strlen(path));
+			path = NULL;
+			path = getcwd(path, 0);
+			pwd_env->value = ft_realloc((void *)pwd_env->value, ft_strlen(path));
+			pwd_env->value = ft_memcpy(pwd_env->value, path, ft_strlen(path));
+			
 		}
-		else if (chdir(infos->token->next->value) != 0)
-			print_cd_errors(infos->token->next->value);
+		if (infos->token->next)
+		{
+			if (chdir(infos->token->next->value) != 0)
+			{
+				print_cd_errors(infos->token->next->value);
+				return ;
+			}
+			pwd_env = get_env_node(infos->env, "PWD");
+			old_pwd = get_env_node(infos->env, "OLDPWD");
+			old_pwd->value = ft_realloc((void *)old_pwd->value, ft_strlen(path));
+			old_pwd->value = ft_memcpy(old_pwd->value, path, ft_strlen(path));
+			path = NULL;
+			path = getcwd(path, 0);
+			pwd_env->value = ft_realloc((void *)pwd_env->value, ft_strlen(path));
+			pwd_env->value = ft_memcpy(pwd_env->value, path, ft_strlen(path));
+		}
 	}
 }

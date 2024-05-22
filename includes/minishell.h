@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/16 14:49:30 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/22 10:04:16 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ int				is_space(char c);
 int				ft_isalnum(int c);
 char			*ft_itoa(int n);
 char			*ft_strdup(char *s);
+void			*ft_memcpy(void *dest, const void *src, size_t n);
 char			*ft_strldup(char *s, int len);
 char			*ft_strjoin(char *s1, char *s2);
 char			*ft_strjoinfree(char *s1, char *s2);
