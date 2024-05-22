@@ -6,13 +6,14 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:01:18 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/22 10:36:23 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/05/22 13:15:09 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int	g_exit_code;
+int	g_signal_receive;
 
 static int	exec_line(t_minishell *infos)
 {
@@ -56,9 +57,9 @@ static int	minishell_loop(t_minishell *infos)
 int	main(int argc, char **argv, char **envp)
 {
 	t_minishell	*infos;
-	rl_catch_signals = 0;
 	(void)argv;
 	g_exit_code = 0;
+	g_signal_receive = 0;
 	if (argc > 1)
 		return (1);
 	infos = ft_calloc(1, sizeof(t_minishell));
@@ -72,7 +73,7 @@ int	main(int argc, char **argv, char **envp)
 		free_all(infos);
 		return (1);
 	}
-	signal_handler(1);
+	signal_handler(0);
 	minishell_loop(infos);
 	free_all(infos);
 	ft_putstr_fd("exit\n", 1);

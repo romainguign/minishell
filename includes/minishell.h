@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/22 10:37:18 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/05/22 13:14:52 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct s_minishell
 }	t_minishell;
 
 extern int	g_exit_code;
+extern int g_signal_receive;
 
 /*----------------------------- Errors messages -----------------------------*/
 # define MALLOC_ERROR		"minishell: malloc: failed allocation memory\n"

@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:58:19 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/22 10:36:34 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/05/22 13:32:05 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_execution(char **cmd, char **envp, t_minishell *infos)
 {
 	if (cmd[0])
 	{
-		signal_handler(0);
+		signal_handler(1);
 		execve(cmd[0], cmd, envp);
 		// ft_putstr_fd("execve : ", 2);
 		ft_puterrors(cmd[0]);
@@ -36,6 +36,7 @@ void	create_pids(int (*pipes)[2], char **envp, t_minishell *infos, int i)
 	while (tmp)
 	{
 		pids[i] = fork();
+		g_signal_receive = 1;
 		if (pids[i] == -1)
 		{
 			close_pipes(pipes, infos->cmd);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmds.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 15:47:40 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/22 09:55:59 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/22 10:48:33 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int	search_directory(char *cmd)
 	return (0);
 }
 
-static int	access_cmd(char **path, char **cmd, int command_finded, int j)
+static int	access_cmd(char **path, char **cmd, int j)
 {
 	char	*command_path;
 	
@@ -82,6 +82,7 @@ static int	access_cmd(char **path, char **cmd, int command_finded, int j)
 		access_error(cmd[0], ": command not found\n");
 		exit (127);
 	}
+	return (0);
 }
 
 void	is_dir(char *cmd)
@@ -100,10 +101,10 @@ void	is_dir(char *cmd)
 	{
         perror("stat");
         return ;
-    }
+	}
 }
 
-static int	search_cmd(char **path, char **cmd, int command_finded)
+static int	search_cmd(char **path, char **cmd)
 {
 	int		i;
 	int		j;
@@ -117,7 +118,7 @@ static int	search_cmd(char **path, char **cmd, int command_finded)
 		return (1);
 	while (cmd[i])
 		i++;
-	access_cmd(path, cmd, command_finded, i);
+	access_cmd(path, cmd, i);
 	if (!access(*cmd, F_OK) && access(*cmd, X_OK) == -1)
 	{
 		access_error(cmd[0], ": Permission denied\n");
@@ -167,7 +168,7 @@ int	check_cmds(t_cmd *cmds, t_env *env)
 	}
 	if (tmp_cmd->cmd[0])
 	{
-		search_cmd(path, &tmp_cmd->cmd[0], 0);
+		search_cmd(path, &tmp_cmd->cmd[0]);
 		if (!tmp_cmd->cmd[0])
 		{
 			ft_putstr_fd(MALLOC_ERROR, 2);

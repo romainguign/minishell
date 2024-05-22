@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 14:52:39 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/22 10:36:51 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/05/22 13:44:19 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ void	check_status(int status)
 		g_exit_code = WSTOPSIG(status);
 	if (WIFCONTINUED(status))
 		g_exit_code = 0;
+	if (WIFSIGNALED(status))
+	{
+		if (WTERMSIG(status) == SIGQUIT)
+			ft_putstr_fd("Quit (core dumped)\n", 2);
+	}
 }
 
 void	wait_end(t_minishell *infos, pid_t *pids)
@@ -48,6 +53,7 @@ void	wait_end(t_minishell *infos, pid_t *pids)
 		tmp = tmp->next;
 		i++;
 	}
+	g_signal_receive = 0;
 }
 
 void	close_pipes(int (*pipes)[2], t_cmd *cmd)
