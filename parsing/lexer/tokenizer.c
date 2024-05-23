@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:29:25 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/08 17:03:36 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/22 17:42:31 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static t_token	*ft_newtoken(t_minishell *infos, int *i)
 	token = ft_calloc(1, sizeof(t_token));
 	if (!token)
 		return (0);
-	token->value = dup_token(&infos->line[*i], i, infos->env, token);
+	token->value = dup_token(&infos->line[*i], i, infos, token);
 	if (!token->value)
 	{
 		free (token);
@@ -37,6 +37,12 @@ static int	ft_tokenadd_back(t_token **token, t_token *new)
 
 	if (!new)
 		return (0);
+	if (new->value[0] == '\0')
+	{
+		free(new->value);
+		free(new);
+		return (1);
+	}
 	if (!(*token))
 	{
 		*token = new;
@@ -70,5 +76,7 @@ int	tokenizer(t_minishell *infos)
 		}
 		i++;
 	}
+	if (!infos->token)
+		return (-1);
 	return (1);
 }

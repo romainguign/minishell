@@ -3,26 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:01:18 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/22 13:15:09 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/05/23 10:49:07 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	g_exit_code;
 int	g_signal_receive;
 
 static int	exec_line(t_minishell *infos)
 {
-	if (!tokenizer(infos))
+	int	result;
+
+	result = tokenizer(infos);
+	if (!result || result == -1)
 		return (0);
 	// ft_pwd(infos);
 	// ft_cd(infos);
-	ft_export(infos->env, infos->token);
-	ft_unset(infos->env, infos->token);
+	// ft_export(infos->env, infos->token);
+	// ft_unset(infos->env, infos->token);
 	//ft_env(infos->env);
 	if (ft_execute(infos) == 0)
 		return (0);
@@ -58,7 +60,6 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_minishell	*infos;
 	(void)argv;
-	g_exit_code = 0;
 	g_signal_receive = 0;
 	if (argc > 1)
 		return (1);
@@ -78,5 +79,5 @@ int	main(int argc, char **argv, char **envp)
 	free_all(infos);
 	ft_putstr_fd("exit\n", 1);
 	close_std();
-	return (g_exit_code);
+	return (infos->exit_code);
 }

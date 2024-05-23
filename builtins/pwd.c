@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 14:46:29 by brguicho          #+#    #+#             */
-/*   Updated: 2024/05/20 14:21:42 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/05/23 10:34:54 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_pwd(t_minishell *infos)
+int	ft_pwd(t_minishell *infos)
 {
 	char	*path;
 
@@ -22,6 +22,7 @@ void	ft_pwd(t_minishell *infos)
 		path = getcwd(path, 0);
 		printf("%s\n", path);
 	}
+	return (0);
 }
 
 static char	*home_path(char *home, char *path)

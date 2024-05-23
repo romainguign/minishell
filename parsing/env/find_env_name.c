@@ -6,18 +6,18 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:50:01 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/16 14:32:24 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/22 17:47:40 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*error_code(int *len)
+static char	*error_code(int *len, t_minishell *infos)
 {
 	char *name;
 	
 	name = NULL;
-	name = ft_itoa(g_exit_code);
+	name = ft_itoa(infos->exit_code);
 	*len += 1;
 	if (!name)
 	{
@@ -89,7 +89,7 @@ char	*no_bracket_env_name(char *line, int *len)
 	return (name);
 }
 
-char	*find_dollar_value(char *line, t_env *env, int *i)
+char	*find_dollar_value(char *line, t_minishell *infos, int *i)
 {
 	char	*name;
 	t_env	*tmp;
@@ -103,11 +103,11 @@ char	*find_dollar_value(char *line, t_env *env, int *i)
 	if (name[0] == '?')
 	{
 		free(name);
-		return (error_code(i));
+		return (error_code(i, infos));
 	}
 	if (name[0] == '$')
 		return (name);
-	tmp = env;
+	tmp = infos->env;
 	while (tmp)
 	{
 		if (!ft_strcmp(name, tmp->name))

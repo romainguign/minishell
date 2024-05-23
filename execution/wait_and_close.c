@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wait_and_close.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 14:52:39 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/22 13:44:19 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/05/23 10:15:33 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ void	close_std(void)
 	close(2);
 }
 
-void	check_status(int status)
+static void	check_status(int status, t_minishell *infos)
 {
 	if (WIFEXITED(status))
-		g_exit_code = WEXITSTATUS(status);
+		infos->exit_code = WEXITSTATUS(status);
 	if (WIFSTOPPED(status))
-		g_exit_code = WSTOPSIG(status);
+		infos->exit_code = WSTOPSIG(status);
 	if (WIFCONTINUED(status))
-		g_exit_code = 0;
+		infos->exit_code = 0;
 	if (WIFSIGNALED(status))
 	{
 		if (WTERMSIG(status) == SIGQUIT)
@@ -49,7 +49,7 @@ void	wait_end(t_minishell *infos, pid_t *pids)
 			perror("minishell: waitpid");
 			exit(EXIT_FAILURE);
 		}
-		check_status(status);
+		check_status(status, infos);
 		tmp = tmp->next;
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:39:54 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/08 15:02:37 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/22 17:44:52 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	eof_warning(char *s)
 	ft_putstr_fd("')\n", 2);
 }
 
-static char	*here_doc_loop(char *limiter, char *doc, t_token *token, t_env *env)
+static char	*here_doc_loop(char *limiter, char *doc, t_token *token, t_minishell *infos)
 {
 	char	*line;
 
@@ -56,7 +56,7 @@ static char	*here_doc_loop(char *limiter, char *doc, t_token *token, t_env *env)
 		line = readline(">");
 		if (!ft_strcmp(line, limiter) || line == NULL)
 			break ;
-		line = check_env_var(token->next->quote, line, env);
+		line = check_env_var(token->next->quote, line, infos);
 		if (line)
 		{
 			add_history(line);
@@ -74,7 +74,7 @@ static char	*here_doc_loop(char *limiter, char *doc, t_token *token, t_env *env)
 	return (doc);
 }
 
-int	here_doc(t_token *token, t_cmd *cmd, char *limiter, t_env *env)
+int	here_doc(t_token *token, t_cmd *cmd, char *limiter, t_minishell *infos)
 {
 	char	*doc;
 
@@ -86,7 +86,7 @@ int	here_doc(t_token *token, t_cmd *cmd, char *limiter, t_env *env)
 		ft_putstr_fd(MALLOC_ERROR, 2);
 		return (0);
 	}
-	doc = here_doc_loop(limiter, doc, token, env);
+	doc = here_doc_loop(limiter, doc, token, infos);
 	if (!doc)
 		return (0);
 	ft_putstr_fd(doc, cmd->fd_in);

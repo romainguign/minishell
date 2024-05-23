@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmds.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 15:47:40 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/22 10:48:33 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/05/23 10:59:09 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,49 @@ static int	search_directory(char *cmd)
 	return (0);
 }
 
+static int	is_builtin(char *cmd)
+{
+	if (!ft_strcmp(cmd, "cd") || !ft_strcmp(cmd, "echo") || !ft_strcmp(cmd, "env")
+		|| !ft_strcmp(cmd, "exit") || !ft_strcmp(cmd, "export")
+		|| !ft_strcmp(cmd, "unset") || !ft_strcmp(cmd, "pwd"))
+		return (0);
+	return (1);
+}
+
+static int is_dir(char *cmd, int i)
+{
+    struct stat st;
+
+	if (stat(cmd, &st) != 0)
+		return (1);
+    if (S_ISDIR(st.st_mode))
+	{
+        if (i == 0 && search_directory(cmd))
+		{
+			access_error(cmd, ": Is a Directory\n");
+			exit(126);
+		}
+		else
+			return (0);
+    }
+	return (1);
+}
+
+static int	check_exec(char *cmd)
+{
+	if (access(cmd, F_OK))
+	{
+		access_error(cmd, ": No such file or directory\n");
+		exit(127);
+	}
+	if (access(cmd, X_OK))
+	{
+		access_error(cmd, ": Permission denied\n");
+		exit(126);
+	}
+	return (1);
+}
+
 static int	access_cmd(char **path, char **cmd, int j)
 {
 	char	*command_path;
@@ -66,7 +109,7 @@ static int	access_cmd(char **path, char **cmd, int j)
 		command_path = ft_concatenate_dir(path[j], *cmd);
 		if (!command_path)
 			return (1);
-		if (!access(command_path, F_OK))
+		if (!access(command_path, F_OK) && is_dir(command_path, 1))
 		{
 			free(*cmd);
 			*cmd = ft_strdup(command_path);
@@ -85,36 +128,22 @@ static int	access_cmd(char **path, char **cmd, int j)
 	return (0);
 }
 
-void	is_dir(char *cmd)
-{
-	struct stat st;
-    
-    if (stat(cmd, &st) == 0) 
-	{
-		if (S_ISDIR(st.st_mode) && search_directory(cmd)) 
-		{
-            access_error(cmd, ": Is a Directory\n");
-			exit (126);
-        }
-    } 
-	else
-	{
-        perror("stat");
-        return ;
-	}
-}
-
 static int	search_cmd(char **path, char **cmd)
 {
 	int		i;
 	int		j;
+	int		file;
 
 	i = 0;
 	j = 0;
+	if (!is_builtin(cmd[0]))
+		return (1);
 	if (*cmd[0] == '\0')
 		return (0);
-	is_dir(cmd[0]);
-	if (!access(*cmd, X_OK))
+	if (cmd[0][0] == '.' && cmd[0][1] == '/')
+		check_exec(cmd[0]);
+	file = is_dir(cmd[0], 0);
+	if (!access(*cmd, X_OK) && file == 1)
 		return (1);
 	while (cmd[i])
 		i++;

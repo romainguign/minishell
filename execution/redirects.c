@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 17:47:06 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/16 10:55:22 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/22 17:46:47 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	redirect_out(t_token *token, t_cmd *cmd)
 	return (1);
 }
 
-static int	ft_redirect_type(t_token *token, t_cmd *cmd, t_env *env)
+static int	ft_redirect_type(t_token *token, t_cmd *cmd, t_env *env, t_minishell *infos)
 {
 	if (token->token_type == REDIRECT_IN)
 	{
@@ -62,7 +62,7 @@ static int	ft_redirect_type(t_token *token, t_cmd *cmd, t_env *env)
 	if (token->token_type == REDIRECT_OUT)
 		redirect_out(token, cmd);
 	if (token->token_type == HERE_DOC)
-		return (here_doc(token, cmd, token->next->value, env));
+		return (here_doc(token, cmd, token->next->value, infos));
 	return (1);
 }
 
@@ -75,7 +75,7 @@ int	ft_redirects(t_cmd *cmd, t_env *env, t_minishell *infos)
 	{
 		if (token->token_type != WORD)
 		{
-			if (ft_redirect_type(token, cmd, env) == 0)
+			if (ft_redirect_type(token, cmd, env, infos) == 0)
 			{
 				free_all(infos);
 				exit(1);

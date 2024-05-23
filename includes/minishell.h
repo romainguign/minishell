@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/22 13:14:52 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/05/23 11:11:45 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,12 @@ typedef struct s_cmd
 typedef struct s_minishell
 {
 	char	*line;
+	int		exit_code;
 	t_env	*env;
 	t_token	*token;
 	t_cmd	*cmd;
 }	t_minishell;
 
-extern int	g_exit_code;
 extern int g_signal_receive;
 
 /*----------------------------- Errors messages -----------------------------*/
@@ -126,9 +126,9 @@ char			**lst_to_tab(t_env *env);
 
 //tokenizer :
 int				tokenizer(t_minishell *infos);
-char			*dup_token(char *line, int *i, t_env *env, t_token *token);
+char			*dup_token(char *line, int *i, t_minishell *infos, t_token *token);
 char			*strljoin_token(char *s1, char *s2, int len);
-char			*find_dollar_value(char *line, t_env *env, int *i);
+char			*find_dollar_value(char *line, t_minishell *infos, int *i);
 char			*parse_redirect(char *line, int	*i);
 void			ft_tokenclear(t_token **lst, void (*del)(void*));
 t_token_type	get_token_type(char *value);
@@ -145,24 +145,29 @@ void			ft_tokenerror(t_token_type type);
 
 /*--------------------------------- builtins --------------------------------*/
 //pwd :
-void			ft_pwd(t_minishell *infos);
+int			ft_pwd(t_minishell *infos);
 
 //cd :
-void			ft_cd(t_minishell *infos);
+int			ft_cd(t_minishell *infos);
 
 //echo :
-void			ft_echo(t_token *token);
+int			ft_echo(char **cmd);
 
 //export :
-void			ft_export(t_env *env, t_token *token);
+int			ft_export(t_env *env, t_token *token);
 
 //unset :
-void			ft_unset(t_env *env, t_token *token);
+int			ft_unset(t_env *env, t_token *token);
 
 //env :
-void			ft_env(t_env *env);
+int			ft_env(t_env *env);
+
+//exit :
+int		ft_exit(t_token *token);
+
 /*--------------------------------- execution -------------------------------*/
 int				ft_execute(t_minishell *infos);
+void			exec_builtin(char **cmd, t_minishell *infos);
 int				make_lstcmd(t_minishell *infos);
 int				check_cmds(t_cmd *cmds, t_env *env);
 int				check_access(t_token *redir);
@@ -177,9 +182,9 @@ void			close_std(void);
 void			close_fds(t_cmd *cmd);
 
 //here_doc :
-int				here_doc(t_token *token, t_cmd *cmd, char *limiter, t_env *env);
+int				here_doc(t_token *token, t_cmd *cmd, char *limiter, t_minishell *infos);
 int				init_tmp_file(t_cmd *cmd, t_token *token);
-char			*check_env_var(char quote, char *line, t_env *env);
+char			*check_env_var(char quote, char *line, t_minishell *infos);
 void			ft_create_tmp_file(int infile, char *doc, char *limiter,
 					int len_limiter);
 

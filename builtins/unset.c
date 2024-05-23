@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 14:22:55 by brguicho          #+#    #+#             */
-/*   Updated: 2024/05/21 13:17:35 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/05/23 10:35:23 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,29 +47,27 @@ static void	erase_env_node(t_env **env, char *key)
 	}
 }
 
-void	ft_unset(t_env *env, t_token *token)
+int	ft_unset(t_env *env, t_token *token)
 {
 	t_token *tmp_token;
 
 	tmp_token = token;
-	if (!ft_strcmp(tmp_token->value, "unset"))
+	if (!tmp_token->next)
+		return (0);
+	else
 	{
-		if (!tmp_token->next)
-			return ;
-		else
+		tmp_token = tmp_token->next;
+		while (tmp_token)
 		{
-			tmp_token = tmp_token->next;
-			while (tmp_token)
+			if (is_env_key_exist(env, tmp_token->value))
 			{
-				if (is_env_key_exist(env, tmp_token->value))
-				{
-					erase_env_node(&env, tmp_token->value);
-					tmp_token = tmp_token->next;
-				}
-				else
-					tmp_token = tmp_token->next;
+				erase_env_node(&env, tmp_token->value);
+				tmp_token = tmp_token->next;
 			}
-			return ;
+			else
+				tmp_token = tmp_token->next;
 		}
+		return (0);
 	}
+	return (1);
 }

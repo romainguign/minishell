@@ -6,13 +6,13 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 14:46:39 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/27 18:13:56 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/22 17:43:18 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*check_env_var(char quote, char *line, t_env *env)
+char	*check_env_var(char quote, char *line, t_minishell *infos)
 {
 	int		i;
 	char	*value;
@@ -31,7 +31,7 @@ char	*check_env_var(char quote, char *line, t_env *env)
 	{
 		if (line[i] == '$')
 		{
-			value = find_dollar_value(&line[i], env, &i);
+			value = find_dollar_value(&line[i], infos, &i);
 			new_line = ft_strjoinfree(new_line, value);
 		}
 		else

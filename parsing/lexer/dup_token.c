@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:22:24 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/14 18:41:15 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/22 17:38:53 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*strljoin_token(char *s1, char *s2, int len)
 	return (str);
 }
 
-static char	*manage_quote(char *word, char *line, int *i, t_env *env)
+static char	*manage_quote(char *word, char *line, int *i,  t_minishell *infos)
 {
 	char	*dollar_value;
 	char	c;
@@ -52,7 +52,7 @@ static char	*manage_quote(char *word, char *line, int *i, t_env *env)
 			word = strljoin_token(word, &line[*i], 1);
 		if (line[*i] == '$' && c == '"')
 		{
-			dollar_value = find_dollar_value(&line[(*i)], env, i);
+			dollar_value = find_dollar_value(&line[(*i)], infos, i);
 			word = ft_strjoinfree(word, dollar_value);
 			free(dollar_value);
 		}
@@ -69,7 +69,8 @@ static char	*manage_quote(char *word, char *line, int *i, t_env *env)
 	return (word);
 }
 
-static char	*manage_dollar_quote(char *word, char *line, int *len, t_env *env)
+static char	*manage_dollar_quote(char *word, char *line, int *len,
+	t_minishell *infos)
 {
 	char	*dollar_value;
 	int		i;
@@ -77,7 +78,7 @@ static char	*manage_dollar_quote(char *word, char *line, int *len, t_env *env)
 	i = 1;
 	if (line[0] == '$')
 	{
-		dollar_value = find_dollar_value(line, env, &i);
+		dollar_value = find_dollar_value(line, infos, &i);
 		word = ft_strjoinfree(word, dollar_value);
 		free(dollar_value);
 		if (!word)
@@ -85,12 +86,12 @@ static char	*manage_dollar_quote(char *word, char *line, int *len, t_env *env)
 		i--;
 	}
 	else
-		word = manage_quote(word, line, &i, env);
+		word = manage_quote(word, line, &i, infos);
 	*len += i;
 	return (word);
 }
 
-static char	*token_loop(char *line, int *i, t_token *token, t_env *env)
+static char	*token_loop(char *line, int *i, t_token *token, t_minishell *infos)
 {
 	int		len;
 	int		len_str;
@@ -109,7 +110,7 @@ static char	*token_loop(char *line, int *i, t_token *token, t_env *env)
 			word = strljoin_token(word, &line[len], 1);
 		else
 		{
-			word = manage_dollar_quote(word, &line[len], &len, env);
+			word = manage_dollar_quote(word, &line[len], &len, infos);
 			token->quote = line[len];
 		}
 		len++;
@@ -118,7 +119,7 @@ static char	*token_loop(char *line, int *i, t_token *token, t_env *env)
 	return (word);
 }
 
-char	*dup_token(char *line, int *i, t_env *env, t_token *token)
+char	*dup_token(char *line, int *i, t_minishell *infos, t_token *token)
 {
 	char	*word;
 	int		save_i;
@@ -128,7 +129,7 @@ char	*dup_token(char *line, int *i, t_env *env, t_token *token)
 		word = parse_redirect(line, i);
 	else
 	{
-		word = token_loop(line, i, token, env);
+		word = token_loop(line, i, token, infos);
 		if (line[*i - save_i - 1] == '\0' || line[*i - save_i] == '|'
 			|| line[*i - save_i] == '>' || line[*i - save_i] == '<')
 			(*i)--;

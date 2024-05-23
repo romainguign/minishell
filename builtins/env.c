@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:54:37 by brguicho          #+#    #+#             */
-/*   Updated: 2024/05/22 09:55:16 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/05/23 10:33:44 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_env(t_env *env)
+int	ft_env(t_env *env)
 {
 	t_env *tmp;
 
@@ -22,4 +22,5 @@ void	ft_env(t_env *env)
 		printf("%s=%s\n", tmp->name, tmp->value);
 		tmp = tmp->next;
 	}
+	return (1);
 }

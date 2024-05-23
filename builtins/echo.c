@@ -3,61 +3,56 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 22:36:52 by brguicho          #+#    #+#             */
-/*   Updated: 2024/05/20 14:09:17 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/05/23 11:11:18 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_echo(t_token *token)
+int	ft_echo(char **cmd)
 {
-	t_token *tmp;
-	
-	tmp = token;
-	if (!ft_strcmp(tmp->value, "echo"))
+	int	i;
+
+	i = 1;
+	if(!ft_strcmp(cmd[1], "-n"))
 	{
-		if (tmp->next)
+		
+		if (!cmd[2])
 		{
-			if(!ft_strcmp(token->next->value, "-n"))
+			printf("");
+			return (0);
+		}
+		else
+		{
+			i++;
+			while (cmd[i])
 			{
-				tmp = tmp->next;
-				if (!tmp->next)
-				{
-					printf("");
-					return ;
-				}
+				if (cmd[i + 1] != NULL)
+					printf("%s ", cmd[i]);
 				else
-				{
-					while (tmp)
-					{
-						if (tmp->next != NULL)
-							printf("%s ", tmp->value);
-						else
-							printf("%s", tmp->value);
-						tmp = tmp->next;
-					}
-					return ;
-				}
+					printf("%s", cmd[i]);
+				i++;
 			}
-			else
-			{
-				tmp = tmp->next;
-				while (tmp)
-				{
-					if (tmp->next != NULL)
-					{
-						printf("%s ", tmp->value);
-					}
-					else
-					
-						printf("%s\n", tmp->value);
-					tmp = tmp->next;
-				}
-				return ;
-			}
+			return (0);
 		}
 	}
+	else
+	{
+		while (cmd[i])
+		{
+			if (cmd[i + 1] != NULL)
+			{
+				printf("%s ",cmd[i]);
+			}
+			else
+			
+				printf("%s\n", cmd[i]);
+			i++;
+		}
+		return (0);
+	}
+	return (1);
 }

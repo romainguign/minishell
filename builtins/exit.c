@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:59:57 by brguicho          #+#    #+#             */
-/*   Updated: 2024/05/21 12:34:38 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/05/23 10:47:21 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	print_exit_error(char *str)
 	ft_putstr_fd("\n", 2);
 }
 
-void ft_exit(t_token *token)
+int ft_exit(t_token *token)
 {
 	int size_cmd;
 
@@ -56,4 +56,5 @@ void ft_exit(t_token *token)
 			//exit() avec le dernier exit code process
 		}
 	}
+	return (0);
 }

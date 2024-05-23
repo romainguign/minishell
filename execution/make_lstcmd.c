@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 09:35:33 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/15 15:39:15 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/22 15:01:18 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ static int	fill_cmd(t_cmd *cmd, t_token *token, t_token *pipe)
 			pipe = pipe->next;
 		else
 		{
+			if (cmd->cmd[i])
+				free(cmd->cmd[i]);
 			cmd->cmd[i] = ft_strdup(pipe->value);
 			if (!cmd->cmd[i])
 			{
