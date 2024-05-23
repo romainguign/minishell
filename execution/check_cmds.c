@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 15:47:40 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/23 10:59:09 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/23 14:05:40 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static int is_dir(char *cmd, int i)
 	{
         if (i == 0 && search_directory(cmd))
 		{
-			access_error(cmd, ": Is a Directory\n");
+			access_error(cmd, ": Is a directory\n");
 			exit(126);
 		}
 		else
