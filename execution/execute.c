@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:58:19 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/23 10:55:27 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/23 15:21:40 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,11 @@ int	ft_execute(t_minishell *infos)
 	if (!envp)
 	{
 		ft_putstr_fd(MALLOC_ERROR, 2);
+		return (0);
+	}
+	if (!only_builtin(infos))
+	{
+		ft_free_env(envp);
 		return (0);
 	}
 	start_program(envp, infos);

@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:01:22 by brguicho          #+#    #+#             */
-/*   Updated: 2024/05/23 10:42:16 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/23 14:19:02 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ static void	print_env(char **env_tab)
 	}
 }
 
-int	ft_export(t_env *env, t_token *token)
+int	ft_export(t_env *env, char **cmd)
 {
 	char **env_tab;
 
-	if (!token->next->value)
+	if (!cmd[1])
 	{
 		env_tab = sort_env_tab(env);
 		print_env(env_tab);

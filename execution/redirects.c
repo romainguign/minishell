@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 17:47:06 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/22 17:46:47 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/23 15:36:37 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static int	ft_redirect_type(t_token *token, t_cmd *cmd, t_env *env, t_minishell 
 		}
 	}
 	if (token->token_type == REDIRECT_OUT)
-		redirect_out(token, cmd);
+		return(redirect_out(token, cmd));
 	if (token->token_type == HERE_DOC)
 		return (here_doc(token, cmd, token->next->value, infos));
 	return (1);

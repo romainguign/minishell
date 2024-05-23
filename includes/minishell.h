@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/23 14:10:44 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/23 14:14:04 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_token
 typedef struct s_cmd
 {
 	char				*tmp_file;
+	char				**cmd;
 	int					fd_in;
 	int					fd_out;
 	int					exit;

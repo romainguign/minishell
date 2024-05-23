@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 16:56:18 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/22 11:12:35 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/23 15:33:56 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ static int	accessing(t_token *redir)
 	}
 	if (redir->token_type == REDIRECT_OUT)
 	{
-		if (!access(redir->next->value, F_OK)
-			&& access(redir->next->value, W_OK) == -1)
+		if (access(redir->next->value, W_OK) == -1)
 		{
 			ft_puterrors(redir->next->value);
 			exit (1);
