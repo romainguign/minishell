@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 14:28:25 by brguicho          #+#    #+#             */
-/*   Updated: 2024/05/23 11:02:31 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/23 12:51:55 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	print_cd_errors(char *str)
 	ft_putstr_fd("\n", 2);
 }
 
-int		ft_cd(t_minishell *infos)
+int		ft_cd(t_minishell *infos, char **cmd)
 {
 	t_env	*tmp_env;
 	t_env	*home_env;
@@ -61,8 +61,12 @@ int		ft_cd(t_minishell *infos)
 	path = NULL;
 	path = getcwd(path, 0);
 	tmp_env = infos->env;
-
-	if (!infos->token->next)
+	if (ft_tab_len(cmd) > 2)
+	{
+		ft_putstr_fd("minishell: cd: too many arguments\n", 2);
+		return(1);
+	}
+	if (!cmd[2])
 	{
 		if (!check_env_home(infos->env))
 		{
@@ -85,7 +89,7 @@ int		ft_cd(t_minishell *infos)
 		pwd_env->value = ft_memcpy(pwd_env->value, path, ft_strlen(path));
 		
 	}
-	if (infos->token->next)
+	if (cmd[2])
 	{
 		if (chdir(infos->token->next->value) != 0)
 		{

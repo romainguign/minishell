@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/23 11:11:45 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/23 12:53:45 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,25 +145,25 @@ void			ft_tokenerror(t_token_type type);
 
 /*--------------------------------- builtins --------------------------------*/
 //pwd :
-int			ft_pwd(t_minishell *infos);
+int			ft_pwd(char **cmd);
 
 //cd :
-int			ft_cd(t_minishell *infos);
+int			ft_cd(t_minishell *infos, char **cmd);
 
 //echo :
 int			ft_echo(char **cmd);
 
 //export :
-int			ft_export(t_env *env, t_token *token);
+int			ft_export(t_env *env, char **cmd);
 
 //unset :
-int			ft_unset(t_env *env, t_token *token);
+int			ft_unset(t_env *env, char **cmd);
 
 //env :
 int			ft_env(t_env *env);
 
 //exit :
-int		ft_exit(t_token *token);
+int		ft_exit(char **cmd);
 
 /*--------------------------------- execution -------------------------------*/
 int				ft_execute(t_minishell *infos);

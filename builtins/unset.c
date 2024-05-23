@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 14:22:55 by brguicho          #+#    #+#             */
-/*   Updated: 2024/05/23 10:35:23 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/23 12:43:06 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,25 +47,25 @@ static void	erase_env_node(t_env **env, char *key)
 	}
 }
 
-int	ft_unset(t_env *env, t_token *token)
+int	ft_unset(t_env *env, char **cmd)
 {
-	t_token *tmp_token;
-
-	tmp_token = token;
-	if (!tmp_token->next)
+	int i;
+	
+	i = 1;
+	if (!cmd[2])
 		return (0);
 	else
 	{
-		tmp_token = tmp_token->next;
-		while (tmp_token)
+		i++;
+		while (cmd[i])
 		{
-			if (is_env_key_exist(env, tmp_token->value))
+			if (is_env_key_exist(env, cmd[i]))
 			{
-				erase_env_node(&env, tmp_token->value);
-				tmp_token = tmp_token->next;
+				erase_env_node(&env, cmd[i]);
+				i++;
 			}
 			else
-				tmp_token = tmp_token->next;
+				i++;
 		}
 		return (0);
 	}

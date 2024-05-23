@@ -3,29 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:59:57 by brguicho          #+#    #+#             */
-/*   Updated: 2024/05/23 10:47:21 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/23 12:45:40 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int ft_lstsize_token(t_token *token)
-{
-	t_token *tmp;
-	int		i;
-	
-	tmp = token;
-	i = 0;
-	while (tmp)
-	{
-		i++;
-		tmp = tmp->next;
-	}
-	return (i);
-}
 
 static void	print_exit_error(char *str)
 {
@@ -36,11 +21,11 @@ static void	print_exit_error(char *str)
 	ft_putstr_fd("\n", 2);
 }
 
-int ft_exit(t_token *token)
+int ft_exit(char **cmd)
 {
 	int size_cmd;
 
-	size_cmd = ft_lstsize_token(token);
+	size_cmd = ft_tab_len(cmd);
 	if (size_cmd > 2)
 	{
 		print_exit_error("");
