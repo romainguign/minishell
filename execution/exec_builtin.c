@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:21:38 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/23 15:11:53 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/23 20:31:33 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	exec_builtin(char **cmd, t_minishell *infos)
 	else if (!ft_strcmp(cmd[0], "env"))
 		exit(ft_env(infos->env));
 	else if (!ft_strcmp(cmd[0], "exit"))
-		exit(ft_exit(cmd));
+		exit(ft_exit(cmd, infos));
 	else if (!ft_strcmp(cmd[0], "export"))
 		exit(ft_export(infos->env, cmd));
 	else if (!ft_strcmp(cmd[0], "pwd"))
@@ -45,7 +45,7 @@ static int	execute_only_builtin(t_minishell *infos, char **cmd)
 	if (!ft_strcmp(cmd[0], "cd"))
 		infos->exit_code = ft_cd(infos, cmd);
 	else if (!ft_strcmp(cmd[0], "exit"))
-		infos->exit_code = ft_exit(cmd);
+		infos->exit_code = ft_exit(cmd, infos);
 	else if (!ft_strcmp(cmd[0], "export"))
 		infos->exit_code = ft_export(infos->env, cmd);
 	else if (!ft_strcmp(cmd[0], "unset"))

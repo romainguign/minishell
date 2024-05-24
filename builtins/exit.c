@@ -6,39 +6,112 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:59:57 by brguicho          #+#    #+#             */
-/*   Updated: 2024/05/23 12:45:40 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/05/24 12:59:59 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static int	ft_str_is_not_num(char *str)
+{
+	int i;
+	
+	i = 0;
+	if (ft_strlen(str) == 1)
+	{
+		if (str[0] <= '0' && str[0] >= '9')
+			return (1);
+	}
+	else
+	{
+		if (str[0] == '-' || str[0] == '+')
+			i++;
+		while (str[i])
+		{
+			if (str[0] <= '0' && str[0] >= '9')
+				return (1);
+			i++;
+		}
+	}
+	return (0);
+}
+
 static void	print_exit_error(char *str)
 {
 	ft_putstr_fd("exit: ", 2);
-	ft_putstr_fd(strerror(errno), 2);
-	ft_putstr_fd(": ", 2);
 	ft_putstr_fd(str, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(strerror(errno), 2);
 	ft_putstr_fd("\n", 2);
 }
 
-int ft_exit(char **cmd)
+int ft_exit(char **cmd, t_minishell *infos)
 {
 	int size_cmd;
+	int tmp_exit_code;
+	int nbr;
 
 	size_cmd = ft_tab_len(cmd);
+	tmp_exit_code = 0;
+	nbr = 0;
+	printf("exit\n");
 	if (size_cmd > 2)
 	{
-		print_exit_error("");
+		if (!ft_str_is_not_num(cmd[1]))
+		{
+			nbr = ft_atoll(cmd[1]);
+			if (ft_len_nbr(nbr) > 19)
+			{
+				print_exit_error(cmd[1]);
+				free_all(infos);
+				exit(2);
+			}
+			else
+			{
+				ft_putstr_fd("minishell: exit: too many arguments\n", 2);
+				return (1); 
+			}
+		}
+		else if (ft_str_is_not_num(cmd[1]))
+		{
+			print_exit_error(cmd[1]);
+			free_all(infos);
+			exit(2);
+		}
 	}
 	else
 	{
 		if (size_cmd == 2)
 		{
-			//check if it's number
+			if (ft_str_is_not_num(cmd[1]))
+			{
+				print_exit_error(cmd[1]);
+				free_all(infos);
+				exit(2);
+			}
+			else
+			{
+				nbr = ft_atoll(cmd[1]);
+				if (ft_len_nbr(nbr) > 19)
+				{
+					print_exit_error(cmd[1]);
+					free_all(infos);
+					exit(2);
+				}
+				else
+				{
+					free_all(infos);
+					exit(nbr);
+				}
+			}
 		}
 		if (size_cmd == 1)
 		{
-			//exit() avec le dernier exit code process
+			tmp_exit_code = infos->exit_code;
+			printf("exit code : %d \n", tmp_exit_code);
+			free_all(infos);
+			exit(tmp_exit_code);
+			
 		}
 	}
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/23 14:14:04 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/24 12:59:16 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <dirent.h>
+# include <limits.h>
 
 typedef struct s_env
 {
@@ -98,7 +99,9 @@ int				tab_size(int *tab);
 int				ft_lst_size_env(t_env *env);
 int				is_space(char c);
 int				ft_isalnum(int c);
+int				ft_len_nbr(long int n);
 char			*ft_itoa(int n);
+long long int	ft_atoll(const char *str);
 char			*ft_strdup(char *s);
 void			*ft_memcpy(void *dest, const void *src, size_t n);
 char			*ft_strldup(char *s, int len);
@@ -163,7 +166,7 @@ int			ft_unset(t_env *env, char **cmd);
 int			ft_env(t_env *env);
 
 //exit :
-int		ft_exit(char **cmd);
+int			ft_exit(char **cmd, t_minishell *infos);
 
 /*--------------------------------- execution -------------------------------*/
 int				ft_execute(t_minishell *infos);

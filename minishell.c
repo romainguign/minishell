@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:01:18 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/23 15:02:58 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/23 22:04:59 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ static int	minishell_loop(t_minishell *infos)
 			return (0);
 		infos->line = readline(pwd);
 		free(pwd);
-		if (!ft_strcmp(infos->line, "exit") || infos->line == NULL)
-			break ;
 		if (infos->line && infos->line[0] != '\0')
 		{
 			add_history(infos->line);

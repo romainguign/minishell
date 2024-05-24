@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   numbers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 15:25:19 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/14 17:03:11 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/24 12:59:00 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	ft_len_nbr(long int n)
+int	ft_len_nbr(long int n)
 {
 	int	len;
 
@@ -53,4 +53,32 @@ char	*ft_itoa(int n)
 	}
 	returned_number = ft_strdup(str_nbr);
 	return (returned_number);
+}
+
+long long int	ft_atoll(const char *str)
+{
+	long long	i;
+	long long	sign;
+	long long	somme;
+
+	somme = 0;
+	i = 0;
+	sign = 1;
+	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+	{
+		i++;
+	}
+	if (str[i] == '-')
+	{
+		sign *= -1;
+		i++;
+	}
+	else if (str[i] == '+')
+		i++;
+	while ((str[i] - '0' >= 0 && str[i] - '0' <= 9))
+	{
+		somme = somme * 10 + str[i] - '0';
+		i++;
+	}
+	return (somme * sign);
 }
