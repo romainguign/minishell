@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 15:47:40 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/23 14:13:39 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/27 13:50:15 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ static int	check_exec(char *cmd)
 	return (1);
 }
 
-static int	access_cmd(char **path, char **cmd, int j)
+static int	access_cmd(char **path, char **cmd, int j, t_minishell *infos)
 {
 	char	*command_path;
 	
@@ -122,13 +122,14 @@ static int	access_cmd(char **path, char **cmd, int j)
 	if (!path[j])
 	{
 		ft_free_env(path);
+		free_close(infos);
 		access_error(cmd[0], ": command not found\n");
 		exit (127);
 	}
 	return (0);
 }
 
-static int	search_cmd(char **path, char **cmd)
+static int	search_cmd(char **path, char **cmd, t_minishell *infos)
 {
 	int		i;
 	int		j;
@@ -147,7 +148,7 @@ static int	search_cmd(char **path, char **cmd)
 		return (1);
 	while (cmd[i])
 		i++;
-	access_cmd(path, cmd, i);
+	access_cmd(path, cmd, i, infos);
 	if (!access(*cmd, F_OK) && access(*cmd, X_OK) == -1)
 	{
 		access_error(cmd[0], ": Permission denied\n");
@@ -183,7 +184,7 @@ static char	**path_to_tab(t_env *env)
 	return (path);
 }
 
-int	check_cmds(t_cmd *cmds, t_env *env)
+int	check_cmds(t_cmd *cmds, t_env *env, t_minishell *infos)
 {
 	char	**path;
 	t_cmd	*tmp_cmd;
@@ -197,7 +198,7 @@ int	check_cmds(t_cmd *cmds, t_env *env)
 	}
 	if (tmp_cmd->cmd[0])
 	{
-		search_cmd(path, &tmp_cmd->cmd[0]);
+		search_cmd(path, &tmp_cmd->cmd[0], infos);
 		if (!tmp_cmd->cmd[0])
 		{
 			ft_putstr_fd(MALLOC_ERROR, 2);

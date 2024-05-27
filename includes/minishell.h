@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/24 12:59:16 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/05/27 13:55:08 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ size_t			ft_strlcat(char *dst, const char *src, size_t size);
 //free_all :
 void			free_tab(void **tab);
 void			free_all(t_minishell *infos);
+void	free_close(t_minishell *infos);
 
 /*--------------------------------- parsing ---------------------------------*/
 //env :
@@ -170,11 +171,12 @@ int			ft_exit(char **cmd, t_minishell *infos);
 
 /*--------------------------------- execution -------------------------------*/
 int				ft_execute(t_minishell *infos);
+int				only_builtin(t_minishell *infos);
 void			exec_builtin(char **cmd, t_minishell *infos);
 int				make_lstcmd(t_minishell *infos);
-int				check_cmds(t_cmd *cmds, t_env *env);
+int				check_cmds(t_cmd *cmds, t_env *env, t_minishell *infos);
 int				check_access(t_token *redir);
-int				ft_redirects(t_cmd *cmd, t_env *env, t_minishell *infos);
+int				ft_redirects(t_cmd *cmd, t_minishell *infos);
 int				children_process(int (*pipes)[2], int i, t_cmd *cmd,
 					t_minishell *infos);
 void			ft_cmdsclear(t_cmd **lst, void (*del)(void*));

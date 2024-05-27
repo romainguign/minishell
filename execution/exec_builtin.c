@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:21:38 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/23 20:31:33 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/05/27 13:29:45 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,6 @@ void	exec_builtin(char **cmd, t_minishell *infos)
 
 static int	execute_only_builtin(t_minishell *infos, char **cmd)
 {
-	// int i = 0;
-	// while (cmd[i])
-	// {
-	// 	printf("cmd : %s\n", cmd[i]);
-	// 	i++;
-	// }
-	// printf("%s %s\n", cmd[0], cmd[1]);
 	if (!ft_strcmp(cmd[0], "cd"))
 		infos->exit_code = ft_cd(infos, cmd);
 	else if (!ft_strcmp(cmd[0], "exit"))

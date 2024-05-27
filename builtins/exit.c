@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:59:57 by brguicho          #+#    #+#             */
-/*   Updated: 2024/05/24 12:59:59 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/05/27 13:25:56 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ int ft_exit(char **cmd, t_minishell *infos)
 		if (size_cmd == 1)
 		{
 			tmp_exit_code = infos->exit_code;
-			printf("exit code : %d \n", tmp_exit_code);
 			free_all(infos);
 			exit(tmp_exit_code);
 			

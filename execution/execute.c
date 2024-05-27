@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:58:19 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/23 15:21:40 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/27 13:52:17 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	create_pids(int (*pipes)[2], char **envp, t_minishell *infos, int i)
 				exit(EXIT_FAILURE);
 			}
 			check_access(tmp->redir);
-			check_cmds(tmp, infos->env);
+			check_cmds(tmp, infos->env, infos);
 			ft_execution(tmp->cmd, envp, infos);
 			close_fds(infos->cmd);
 		}
