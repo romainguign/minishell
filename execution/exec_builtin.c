@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:21:38 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/27 13:29:45 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/27 17:25:54 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,26 @@
 
 void	exec_builtin(char **cmd, t_minishell *infos)
 {
+	int	exit_code;
+	
 	if (!ft_strcmp(cmd[0], "cd"))
-		exit(ft_cd(infos, cmd));
+		exit_code = ft_cd(infos, cmd);
 	else if (!ft_strcmp(cmd[0], "echo"))
-		exit(ft_echo(cmd));
+		exit_code = ft_echo(cmd);
 	else if (!ft_strcmp(cmd[0], "env"))
-		exit(ft_env(infos->env));
+		exit_code = ft_env(infos->env);
 	else if (!ft_strcmp(cmd[0], "exit"))
-		exit(ft_exit(cmd, infos));
+		exit_code = ft_exit(cmd, infos);
 	else if (!ft_strcmp(cmd[0], "export"))
-		exit(ft_export(infos->env, cmd));
+		exit_code = ft_export(infos->env, cmd);
 	else if (!ft_strcmp(cmd[0], "pwd"))
-		exit(ft_pwd(cmd));
+		exit_code = ft_pwd(cmd);
 	else if (!ft_strcmp(cmd[0], "unset"))
-		exit(ft_unset(infos->env, cmd));
+		exit_code = ft_unset(infos->env, cmd);
 	else
 		return ;
-	exit(EXIT_FAILURE);
+	free_close(infos);
+	exit(exit_code);
 }
 
 static int	execute_only_builtin(t_minishell *infos, char **cmd)
