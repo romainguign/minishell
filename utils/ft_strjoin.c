@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 13:59:13 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/14 16:23:09 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/25 20:32:35 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*ft_strjoin_env(char *s1, char *s2)
 		s2 = ft_calloc(1, sizeof(char));
 	if (!s1 || !s2)
 		return (0);
-	str_len = ft_strlen(s1) + ft_strlen(s2) + 2;
+	str_len = ft_strlen(s1) + ft_strlen(s2) + 3;
 	str = ft_calloc(sizeof(char), (str_len + 1));
 	if (str == 0)
 		return (0);
@@ -60,9 +60,10 @@ char	*ft_strjoin_env(char *s1, char *s2)
 		str[i] = s1[i];
 		i++;
 	}
-	str[i] = '=';
-	i++;
+	str[i++] = '=';
+	str[i] = '"';
 	ft_strlcat(str, s2, str_len);
+	str[str_len - 1] = '"';
 	return (str);
 }
 

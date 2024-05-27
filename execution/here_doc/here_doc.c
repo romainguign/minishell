@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:39:54 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/22 17:44:52 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/25 20:34:15 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ static void	eof_warning(char *s)
 	ft_putstr_fd("')\n", 2);
 }
 
-static char	*here_doc_loop(char *limiter, char *doc, t_token *token, t_minishell *infos)
+static char	*here_doc_loop(char *limiter, char *doc,
+							t_token *token, t_minishell *infos)
 {
 	char	*line;
 

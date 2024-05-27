@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 14:28:25 by brguicho          #+#    #+#             */
-/*   Updated: 2024/05/23 15:10:27 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/26 08:21:19 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,25 +42,23 @@ static t_env	*get_env_node(t_env *env, char *node)
 
 static void	print_cd_errors(char *str)
 {
+	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd("cd: ", 2);
-	ft_putstr_fd(strerror(errno), 2);
-	ft_putstr_fd(": ", 2);
 	ft_putstr_fd(str, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(strerror(errno), 2);
 	ft_putstr_fd("\n", 2);
 }
 
 int		ft_cd(t_minishell *infos, char **cmd)
 {
-	t_env	*tmp_env;
 	t_env	*home_env;
 	t_env	*pwd_env;
 	t_env 	*old_pwd;
 	char	*path;
 
-	//erreur too many arg a gerer
 	path = NULL;
 	path = getcwd(path, 0);
-	tmp_env = infos->env;
 	if (ft_tab_len(cmd) > 2)
 	{
 		ft_putstr_fd("minishell: cd: too many arguments\n", 2);

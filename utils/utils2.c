@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:48:53 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/07 15:18:35 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/25 20:38:25 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,18 @@ int	ft_strncmp(const char *first, const char *second, size_t length)
 	return (0);
 }
 
-int	tab_size(int *tab)
+void	*ft_realloc(void *ptr, size_t newsize)
 {
-	int	size;
+	char	*newptr;
+	size_t	cursize;
 
-	size = 0;
-	while (tab[size])
-		size++;
-	return (size);
+	if (ptr == 0)
+		return (malloc(newsize));
+	cursize = sizeof(ptr);
+	if (newsize <= cursize)
+		return (ptr);
+	newptr = ft_calloc(newsize, sizeof(ptr));
+	ft_memcpy(ptr, newptr, cursize);
+	free(ptr);
+	return (newptr);
 }

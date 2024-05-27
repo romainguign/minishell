@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/24 12:59:16 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/05/25 20:37:55 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ int				ft_strncmp(const char *first, const char *second,
 					size_t length);
 int				ft_strlen(const char *str);
 int				ft_tab_len(char **tab);
-int				tab_size(int *tab);
 int				ft_lst_size_env(t_env *env);
 int				is_space(char c);
 int				ft_isalnum(int c);

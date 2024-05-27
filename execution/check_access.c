@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_access.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 16:56:18 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/23 15:33:56 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/25 20:35:29 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,4 @@ int	check_access(t_token *redir)
 		token = token->next;
 	}
 	return (1);
-	
 }

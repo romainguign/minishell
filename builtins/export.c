@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:01:22 by brguicho          #+#    #+#             */
-/*   Updated: 2024/05/23 14:19:02 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/27 11:19:14 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,16 @@ int	ft_export(t_env *env, char **cmd)
 {
 	char **env_tab;
 
-	if (!cmd[1])
+	if (ft_tab_len(cmd) == 1)
 	{
 		env_tab = sort_env_tab(env);
 		print_env(env_tab);
+		free_tab(env_tab);
 		return (0);
+	}
+	else if (ft_tab_len(cmd) > 1)
+	{
+		check_type_argmument();
 	}
 	return (1);
 }

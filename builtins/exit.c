@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:59:57 by brguicho          #+#    #+#             */
-/*   Updated: 2024/05/24 12:59:59 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/05/25 20:20:11 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	ft_str_is_not_num(char *str)
 	i = 0;
 	if (ft_strlen(str) == 1)
 	{
-		if (str[0] <= '0' && str[0] >= '9')
+		if (str[0] < '0' && str[0] > '9')
 			return (1);
 	}
 	else
@@ -28,7 +28,7 @@ static int	ft_str_is_not_num(char *str)
 			i++;
 		while (str[i])
 		{
-			if (str[0] <= '0' && str[0] >= '9')
+			if (str[0] < '0' && str[0] > '9')
 				return (1);
 			i++;
 		}
@@ -38,9 +38,11 @@ static int	ft_str_is_not_num(char *str)
 
 static void	print_exit_error(char *str)
 {
+	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd("exit: ", 2);
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd(": ", 2);
+	
 	ft_putstr_fd(strerror(errno), 2);
 	ft_putstr_fd("\n", 2);
 }
