@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmds.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 15:47:40 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/23 14:13:39 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/27 14:47:49 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,11 +131,9 @@ static int	access_cmd(char **path, char **cmd, int j)
 static int	search_cmd(char **path, char **cmd)
 {
 	int		i;
-	int		j;
 	int		file;
 
 	i = 0;
-	j = 0;
 	if (!is_builtin(cmd[0]))
 		return (1);
 	if (*cmd[0] == '\0')

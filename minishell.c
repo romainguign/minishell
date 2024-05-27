@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:01:18 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/23 22:04:59 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/05/27 13:52:24 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ static int	minishell_loop(t_minishell *infos)
 		if (!pwd)
 			return (0);
 		infos->line = readline(pwd);
+		if (!infos->line)
+            return (0);
 		free(pwd);
 		if (infos->line && infos->line[0] != '\0')
 		{

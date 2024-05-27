@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_identifier.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 14:47:54 by roguigna          #+#    #+#             */
-/*   Updated: 2024/04/27 19:15:33 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/27 13:47:42 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,7 @@ static void	unexpected_token(char *line)
 char	*parse_redirect(char *line, int	*i)
 {
 	char	*word;
-	int		len;
 
-	len = 0;
 	word = ft_calloc(3, sizeof(char));
 	if (!word)
 		return (0);

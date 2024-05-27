@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/25 20:37:55 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/05/27 14:55:39 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ void			exec_builtin(char **cmd, t_minishell *infos);
 int				make_lstcmd(t_minishell *infos);
 int				check_cmds(t_cmd *cmds, t_env *env);
 int				check_access(t_token *redir);
-int				ft_redirects(t_cmd *cmd, t_env *env, t_minishell *infos);
+int				ft_redirects(t_cmd *cmd, t_minishell *infos);
 int				children_process(int (*pipes)[2], int i, t_cmd *cmd,
 					t_minishell *infos);
 void			ft_cmdsclear(t_cmd **lst, void (*del)(void*));
@@ -182,6 +182,7 @@ void			wait_and_close(t_minishell *infos, pid_t *pids,
 					int (*pipes)[2]);
 void			close_std(void);
 void			close_fds(t_cmd *cmd);
+int				only_builtin(t_minishell *infos);
 
 //here_doc :
 int				here_doc(t_token *token, t_cmd *cmd, char *limiter, t_minishell *infos);

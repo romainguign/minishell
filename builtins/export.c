@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:01:22 by brguicho          #+#    #+#             */
-/*   Updated: 2024/05/27 11:19:14 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/05/27 15:21:51 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,9 @@ static char	**sort_env_tab(t_env *env)
 	char **env_tab;
 	int i;
 	char *tmp;
-	int size;
 	int j;
 	
 	env_tab = lst_to_tab(env);
-	size = ft_tab_len(env_tab);
 	i = 0;
 	while (env_tab[i])
 	{
@@ -64,12 +62,12 @@ int	ft_export(t_env *env, char **cmd)
 	{
 		env_tab = sort_env_tab(env);
 		print_env(env_tab);
-		free_tab(env_tab);
+		free_tab((void **)env_tab);
 		return (0);
 	}
 	else if (ft_tab_len(cmd) > 1)
 	{
-		check_type_argmument();
+		
 	}
 	return (1);
 }

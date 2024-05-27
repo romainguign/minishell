@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 09:35:33 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/25 20:39:29 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/05/27 14:48:08 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,8 @@ static int	ft_cmdsize(t_token *token, int *len_redir)
 static int	fill_cmd(t_cmd *cmd, t_token *token, t_token *pipe)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	j = 0;
 	while (pipe && pipe != token->next && pipe->token_type != PIPE)
 	{
 		if (pipe->token_type != WORD)

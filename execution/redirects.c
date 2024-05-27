@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 17:47:06 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/25 20:35:09 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/05/27 14:50:20 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ static int	redirect_out(t_token *token, t_cmd *cmd)
 	return (1);
 }
 
-static int	ft_redirect_type(t_token *token, t_cmd *cmd,
-								t_env *env, t_minishell *infos)
+static int	ft_redirect_type(t_token *token, t_cmd *cmd, t_minishell *infos)
 {
 	if (token->token_type == REDIRECT_IN)
 	{
@@ -67,7 +66,7 @@ static int	ft_redirect_type(t_token *token, t_cmd *cmd,
 	return (1);
 }
 
-int	ft_redirects(t_cmd *cmd, t_env *env, t_minishell *infos)
+int	ft_redirects(t_cmd *cmd, t_minishell *infos)
 {
 	t_token	*token;
 
@@ -76,7 +75,7 @@ int	ft_redirects(t_cmd *cmd, t_env *env, t_minishell *infos)
 	{
 		if (token->token_type != WORD)
 		{
-			if (ft_redirect_type(token, cmd, env, infos) == 0)
+			if (ft_redirect_type(token, cmd, infos) == 0)
 			{
 				free_all(infos);
 				exit(1);
