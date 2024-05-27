@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:58:19 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/27 13:52:17 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/27 16:49:20 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,22 +88,20 @@ void	start_program(char **envp, t_minishell *infos)
 
 int	ft_execute(t_minishell *infos)
 {
-	char	**envp;
-
 	if (!make_lstcmd(infos))
 		return (0);
-	envp = lst_to_tab(infos->env);
-	if (!envp)
+	infos->env_tab = lst_to_tab(infos->env);
+	if (!infos->env_tab)
 	{
 		ft_putstr_fd(MALLOC_ERROR, 2);
 		return (0);
 	}
 	if (!only_builtin(infos))
 	{
-		ft_free_env(envp);
+		ft_free_env(infos->env_tab);
 		return (0);
 	}
-	start_program(envp, infos);
-	ft_free_env(envp);
+	start_program(infos->env_tab, infos);
+	ft_free_env(infos->env_tab);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 15:47:40 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/27 13:50:15 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/27 15:29:25 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,9 +121,9 @@ static int	access_cmd(char **path, char **cmd, int j, t_minishell *infos)
 	}
 	if (!path[j])
 	{
+		access_error(cmd[0], ": command not found\n");
 		ft_free_env(path);
 		free_close(infos);
-		access_error(cmd[0], ": command not found\n");
 		exit (127);
 	}
 	return (0);

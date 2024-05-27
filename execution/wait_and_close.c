@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 14:52:39 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/27 13:56:11 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/27 14:07:19 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,4 @@ void	wait_and_close(t_minishell *infos, pid_t *pids, int (*pipes)[2])
 	close_pipes(pipes, infos->cmd);
 	close_fds(infos->cmd);
 	wait_end(infos, pids);
-}
-
-void	free_close(t_minishell *infos)
-{
-	// free_all(infos);	
 }

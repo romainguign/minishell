@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/27 13:55:08 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/27 16:45:22 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct s_minishell
 	t_env	*env;
 	t_token	*token;
 	t_cmd	*cmd;
+	char	**env_tab;
 }	t_minishell;
 
 extern int g_signal_receive;

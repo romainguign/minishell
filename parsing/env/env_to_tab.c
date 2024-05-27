@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 09:43:27 by brguicho          #+#    #+#             */
-/*   Updated: 2024/05/27 13:34:52 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/27 16:44:11 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,14 @@ char	**lst_to_tab(t_env *env)
 	tab_env = ft_calloc(ft_lst_size_env(env) + 1, sizeof(char *));
 	if (!tab_env)
 		return (NULL);
-	while (tmp->next)
+	while (tmp)
 	{
 		tab_env[i] = ft_strjoin_env(tmp->name, tmp->value);
+		if (!tab_env[i])
+		{
+			ft_free_env(tab_env);
+			return (0);
+		}
 		i++;
 		tmp = tmp->next;
 	}
