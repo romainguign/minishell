@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:58:19 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/27 16:49:20 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/28 17:50:00 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,11 @@ void	create_pids(int (*pipes)[2], char **envp, t_minishell *infos, int i)
 		i++;
 		tmp = tmp->next;
 	}
-	wait_and_close(infos, pids, pipes);
+	wait_and_close(infos, pids, infos->pipes);
 }
 
 void	start_program(char **envp, t_minishell *infos)
 {
-	int		pipes[512][2];
 	int		i;
 	t_cmd	*tmp;
 
@@ -73,9 +72,9 @@ void	start_program(char **envp, t_minishell *infos)
 	tmp = infos->cmd;
 	while (tmp && i < 512)
 	{
-		if (pipe(pipes[i]) == -1)
+		if (pipe(infos->pipes[i]) == -1)
 		{
-			close_pipes(pipes, infos->cmd);
+			close_pipes(infos->pipes, infos->cmd);
 			perror("minishell");
 			return ;
 		}
@@ -83,7 +82,7 @@ void	start_program(char **envp, t_minishell *infos)
 		i++;
 	}
 	i = 0;
-	create_pids(pipes, envp, infos, i);
+	create_pids(infos->pipes, envp, infos, i);
 }
 
 int	ft_execute(t_minishell *infos)

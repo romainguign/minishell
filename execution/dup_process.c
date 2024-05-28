@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 17:40:15 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/27 13:32:51 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/28 13:08:05 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	children_process(int (*pipes)[2], int i, t_cmd *cmd, t_minishell *infos)
 	ft_redirects(cmd,  infos);
 	if (cmd->fd_in == -1 || cmd->fd_out == -1)
 	{
+		ft_putstr_fd("fail 3\n", 2);
 		close_pipes(pipes, infos->cmd);
 		free_all(infos);
 		close_std();

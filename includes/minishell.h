@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/27 16:45:22 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/28 13:20:02 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,12 @@ typedef struct s_cmd
 typedef struct s_minishell
 {
 	char	*line;
+	char	**env_tab;
+	int		pipes[512][2];
 	int		exit_code;
 	t_env	*env;
 	t_token	*token;
 	t_cmd	*cmd;
-	char	**env_tab;
 }	t_minishell;
 
 extern int g_signal_receive;

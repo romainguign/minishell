@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 17:47:06 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/27 13:31:03 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/28 14:17:12 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	ft_redirect_type(t_token *token, t_cmd *cmd, t_minishell *infos)
 		}
 		if (cmd->fd_in > 0)
 			close(cmd->fd_in);
-		cmd->fd_in = open(token->next->value, O_APPEND | O_RDONLY, 0644);
+		cmd->fd_in = open(token->next->value, O_RDONLY, 0644);
 		if (cmd->fd_in == -1)
 		{
 			ft_puterrors(token->next->value);
@@ -77,7 +77,7 @@ int	ft_redirects(t_cmd *cmd, t_minishell *infos)
 		{
 			if (ft_redirect_type(token, cmd, infos) == 0)
 			{
-				free_all(infos);
+				free_close(infos);
 				exit(1);
 			}
 			token = token->next;

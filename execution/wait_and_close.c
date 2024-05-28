@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 14:52:39 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/27 14:07:19 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/28 15:05:00 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,10 @@ void	wait_end(t_minishell *infos, pid_t *pids)
 
 	i = 0;
 	tmp = infos->cmd;
+	status = 0;
 	while (tmp)
 	{
+		// printf("pids : %d\n", pids[i]);	
 		if (waitpid(pids[i], &status, 0) == -1)
 		{
 			perror("minishell: waitpid");
