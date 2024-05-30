@@ -6,7 +6,7 @@
 #    By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/12 15:00:46 by roguigna          #+#    #+#              #
-#    Updated: 2024/05/30 13:36:07 by roguigna         ###   ########.fr        #
+#    Updated: 2024/05/30 18:43:32 by roguigna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,39 +39,40 @@ WHITE = \033[0;97m
 OBJ_DIR			= object
 
 SRC_FILES		= minishell.c \
+				  utils/len.c  \
 				  utils/utils.c \
 				  utils/utils2.c \
 				  utils/numbers.c \
 				  utils/ft_split.c \
-				  utils/isascii.c \
-				  utils/free_all.c \
-				  utils/ft_strjoin.c \
-				  utils/len.c \
-				  parsing/env/pars_env.c \
-				  parsing/env/free_env.c \
-				  parsing/env/find_env_name.c \
-				  parsing/env/env_to_tab.c\
-				  parsing/lexer/tokenizer.c \
-				  parsing/lexer/dup_token.c \
-				  parsing/lexer/free_token.c \
-				  parsing/lexer/check_token.c \
+				  utils/isascii.c   \
+				  utils/free_all.c   \
+				  utils/ft_strjoin.c  \
+				  utils/ft_trimspaces.c\
+				  parsing/env/pars_env.c   \
+				  parsing/env/free_env.c    \
+				  parsing/env/env_to_tab.c   \
+				  parsing/lexer/dup_token.c   \
+				  parsing/lexer/tokenizer.c    \
+				  parsing/lexer/free_token.c    \
+				  parsing/env/find_env_name.c    \
+				  parsing/lexer/check_token.c     \
 				  parsing/lexer/token_identifier.c \
-				  builtins/pwd.c \
-				  builtins/cd.c \
-				  builtins/export.c \
+				  builtins/cd.c    \
+				  builtins/pwd.c    \
+				  builtins/env.c     \
+				  builtins/echo.c     \
+				  builtins/exit.c      \
+				  builtins/unset.c      \
+				  builtins/export.c      \
 				  builtins/export_utils.c \
-				  builtins/env.c \
-				  builtins/echo.c \
-				  builtins/exit.c \
-				  builtins/unset.c \
 				  signals/signal_handler.c \
-				  errors/puterrors.c \
-				  execution/execute.c \
+				  errors/puterrors.c  \
+				  execution/execute.c  \
 				  execution/free_cmds.c \
 				  execution/check_cmds.c \
 				  execution/make_lstcmd.c \
 				  execution/exec_builtin.c \
-				  execution/check_access.c \
+				  execution/check_access.c  \
 				  execution/redirects.c \
 				  execution/dup_process.c \
 				  execution/wait_and_close.c \
