@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:01:22 by brguicho          #+#    #+#             */
-/*   Updated: 2024/05/29 12:46:47 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/05/30 09:31:52 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static char	**sort_env_tab(t_env *env)
 	char *tmp;
 	int j;
 	
-	env_tab = lst_to_tab(env);
+	env_tab = lst_to_tab_export(env);
 	i = 0;
 	while (env_tab[i])
 	{

@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/28 23:13:51 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/05/30 09:32:05 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ int				ft_strncmp(const char *first, const char *second,
 int				ft_strlen(const char *str);
 int				ft_tab_len(char **tab);
 int				ft_lst_size_env(t_env *env);
+char			**lst_to_tab_export(t_env *env);
 int				is_space(char c);
 int				ft_isalnum(int c);
 int				ft_len_nbr(long int n);
@@ -107,6 +108,7 @@ char			*ft_strldup(char *s, int len);
 char			*ft_strjoin(char *s1, char *s2);
 char			*ft_strjoinfree(char *s1, char *s2);
 char			*ft_strjoin_env(char *s1, char *s2);
+char			*ft_strjoin_export(char *s1, char *s2);
 char			**ft_split(char const *s, char c);
 char			*get_pwd(t_env *env);
 size_t			ft_strlcat(char *dst, const char *src, size_t size);

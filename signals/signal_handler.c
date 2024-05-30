@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 09:22:39 by brguicho          #+#    #+#             */
-/*   Updated: 2024/05/29 14:04:46 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/05/30 09:54:18 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,16 @@ static void	sig_handler(int signal)
 			g_signal_receive = 0;
 			return ;
 		}
+	}
+	else if (g_signal_receive == 2)
+	{
+		if (signal == SIGINT)
+		{
+			g_signal_receive = 0;
+			exit(1);
+			return;
+		}
+		return ;
 	}
 	
 	return ;
