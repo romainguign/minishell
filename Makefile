@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+         #
+#    By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/12 15:00:46 by roguigna          #+#    #+#              #
-#    Updated: 2024/05/23 10:47:50 by roguigna         ###   ########.fr        #
+#    Updated: 2024/05/29 12:44:18 by brguicho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,6 +58,7 @@ SRC_FILES		= minishell.c \
 				  builtins/pwd.c \
 				  builtins/cd.c \
 				  builtins/export.c \
+				  builtins/export_utils.c \
 				  builtins/env.c \
 				  builtins/echo.c \
 				  builtins/exit.c \

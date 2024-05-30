@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:39:54 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/25 20:34:15 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/05/29 14:12:26 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ static char	*here_doc_loop(char *limiter, char *doc,
 
 	while (doc)
 	{
+		g_signal_receive = 1;
+		signal_handler(1);
 		line = readline(">");
 		if (!ft_strcmp(line, limiter) || line == NULL)
 			break ;

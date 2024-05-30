@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/27 14:55:39 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/05/28 23:13:51 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,7 @@ int			ft_echo(char **cmd);
 
 //export :
 int			ft_export(t_env *env, char **cmd);
+int			is_wrong_identifier(char c);
 
 //unset :
 int			ft_unset(t_env *env, char **cmd);
