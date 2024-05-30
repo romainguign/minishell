@@ -6,3 +6,6 @@ test.c
 .vscode
 TODO
 out
+minishell_tester
+perms
+tester

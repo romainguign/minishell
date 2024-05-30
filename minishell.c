@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:01:18 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/27 13:52:24 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/05/30 13:36:14 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,6 @@ static int	exec_line(t_minishell *infos)
 	result = tokenizer(infos);
 	if (!result || result == -1)
 		return (0);
-	// ft_pwd(infos);
-	// ft_cd(infos);
-	// ft_export(infos->env, infos->token);
-	// ft_unset(infos->env, infos->token);
-	//ft_env(infos->env);
 	ft_execute(infos);
 	ft_tokenclear(&infos->token, free);
 	if (infos->cmd)
@@ -46,6 +41,8 @@ static int	minishell_loop(t_minishell *infos)
 		if (!infos->line)
             return (0);
 		free(pwd);
+		if (!infos->line)
+			return (0);
 		if (infos->line && infos->line[0] != '\0')
 		{
 			add_history(infos->line);
@@ -59,7 +56,9 @@ static int	minishell_loop(t_minishell *infos)
 int	main(int argc, char **argv, char **envp)
 {
 	t_minishell	*infos;
+	int			exit_code;
 	(void)argv;
+	
 	g_signal_receive = 0;
 	if (argc > 1)
 		return (1);
@@ -76,8 +75,9 @@ int	main(int argc, char **argv, char **envp)
 	}
 	signal_handler(0);
 	minishell_loop(infos);
+	exit_code = infos->exit_code;
 	free_all(infos);
 	ft_putstr_fd("exit\n", 1);
 	close_std();
-	return (infos->exit_code);
+	return (exit_code);
 }

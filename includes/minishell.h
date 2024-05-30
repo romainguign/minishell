@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/30 09:32:05 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/05/30 13:37:06 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ typedef struct s_cmd
 typedef struct s_minishell
 {
 	char	*line;
+	char	**env_tab;
+	int		pipes[512][2];
 	int		exit_code;
 	t_env	*env;
 	t_token	*token;
@@ -116,6 +118,7 @@ size_t			ft_strlcat(char *dst, const char *src, size_t size);
 //free_all :
 void			free_tab(void **tab);
 void			free_all(t_minishell *infos);
+void	free_close(t_minishell *infos);
 
 /*--------------------------------- parsing ---------------------------------*/
 //env :
@@ -130,6 +133,7 @@ char			**lst_to_tab(t_env *env);
 
 //tokenizer :
 int				tokenizer(t_minishell *infos);
+int				check_token(t_minishell *infos);
 char			*dup_token(char *line, int *i, t_minishell *infos, t_token *token);
 char			*strljoin_token(char *s1, char *s2, int len);
 char			*find_dollar_value(char *line, t_minishell *infos, int *i);
@@ -172,9 +176,10 @@ int			ft_exit(char **cmd, t_minishell *infos);
 
 /*--------------------------------- execution -------------------------------*/
 int				ft_execute(t_minishell *infos);
+int				only_builtin(t_minishell *infos);
 void			exec_builtin(char **cmd, t_minishell *infos);
 int				make_lstcmd(t_minishell *infos);
-int				check_cmds(t_cmd *cmds, t_env *env);
+int				check_cmds(t_cmd *cmds, t_env *env, t_minishell *infos);
 int				check_access(t_token *redir);
 int				ft_redirects(t_cmd *cmd, t_minishell *infos);
 int				children_process(int (*pipes)[2], int i, t_cmd *cmd,

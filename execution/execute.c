@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:58:19 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/23 15:21:40 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/29 14:55:15 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	ft_execution(char **cmd, char **envp, t_minishell *infos)
 	exec_builtin(cmd, infos);
 	if (cmd[0])
 	{
-		signal_handler(1);
 		execve(cmd[0], cmd, envp);
 		// ft_putstr_fd("execve : ", 2);
 		ft_puterrors(cmd[0]);
@@ -37,35 +36,35 @@ void	create_pids(int (*pipes)[2], char **envp, t_minishell *infos, int i)
 	while (tmp)
 	{
 		pids[i] = fork();
-		g_signal_receive = 1;
 		if (pids[i] == -1)
 		{
 			close_pipes(pipes, infos->cmd);
-			free_all(infos);
+			free_close(infos);
 			perror("minishell: fork");
 			exit(EXIT_FAILURE);
 		}
 		if (pids[i] == 0)
 		{
+			signal_handler(1);
+			g_signal_receive = 1; 
 			if (!children_process(pipes, i, tmp, infos))
 			{
-				ft_free_env(envp);
+				free_close(infos);
 				exit(EXIT_FAILURE);
 			}
 			check_access(tmp->redir);
-			check_cmds(tmp, infos->env);
+			check_cmds(tmp, infos->env, infos);
 			ft_execution(tmp->cmd, envp, infos);
 			close_fds(infos->cmd);
 		}
 		i++;
 		tmp = tmp->next;
 	}
-	wait_and_close(infos, pids, pipes);
+	wait_and_close(infos, pids, infos->pipes);
 }
 
 void	start_program(char **envp, t_minishell *infos)
 {
-	int		pipes[512][2];
 	int		i;
 	t_cmd	*tmp;
 
@@ -73,9 +72,9 @@ void	start_program(char **envp, t_minishell *infos)
 	tmp = infos->cmd;
 	while (tmp && i < 512)
 	{
-		if (pipe(pipes[i]) == -1)
+		if (pipe(infos->pipes[i]) == -1)
 		{
-			close_pipes(pipes, infos->cmd);
+			close_pipes(infos->pipes, infos->cmd);
 			perror("minishell");
 			return ;
 		}
@@ -83,27 +82,25 @@ void	start_program(char **envp, t_minishell *infos)
 		i++;
 	}
 	i = 0;
-	create_pids(pipes, envp, infos, i);
+	create_pids(infos->pipes, envp, infos, i);
 }
 
 int	ft_execute(t_minishell *infos)
 {
-	char	**envp;
-
 	if (!make_lstcmd(infos))
 		return (0);
-	envp = lst_to_tab(infos->env);
-	if (!envp)
+	infos->env_tab = lst_to_tab(infos->env);
+	if (!infos->env_tab)
 	{
 		ft_putstr_fd(MALLOC_ERROR, 2);
 		return (0);
 	}
 	if (!only_builtin(infos))
 	{
-		ft_free_env(envp);
+		ft_free_env(infos->env_tab);
 		return (0);
 	}
-	start_program(envp, infos);
-	ft_free_env(envp);
+	start_program(infos->env_tab, infos);
+	ft_free_env(infos->env_tab);
 	return (1);
 }

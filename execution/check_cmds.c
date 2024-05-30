@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmds.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 15:47:40 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/27 14:47:49 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/05/30 13:36:24 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int	is_builtin(char *cmd)
 	return (1);
 }
 
-static int is_dir(char *cmd, int i)
+static int is_dir(char *cmd, int i, t_minishell *infos)
 {
     struct stat st;
 
@@ -77,6 +77,7 @@ static int is_dir(char *cmd, int i)
         if (i == 0 && search_directory(cmd))
 		{
 			access_error(cmd, ": Is a directory\n");
+			free_close(infos);
 			exit(126);
 		}
 		else
@@ -85,22 +86,25 @@ static int is_dir(char *cmd, int i)
 	return (1);
 }
 
-static int	check_exec(char *cmd)
+static int	check_exec(char *cmd, t_minishell *infos)
 {
 	if (access(cmd, F_OK))
 	{
 		access_error(cmd, ": No such file or directory\n");
+		free_close(infos);
 		exit(127);
 	}
 	if (access(cmd, X_OK))
 	{
+		ft_putstr_fd("fail 2\n", 2);
 		access_error(cmd, ": Permission denied\n");
+		free_close(infos);
 		exit(126);
 	}
 	return (1);
 }
 
-static int	access_cmd(char **path, char **cmd, int j)
+static int	access_cmd(char **path, char **cmd, int j, t_minishell *infos)
 {
 	char	*command_path;
 	
@@ -109,7 +113,7 @@ static int	access_cmd(char **path, char **cmd, int j)
 		command_path = ft_concatenate_dir(path[j], *cmd);
 		if (!command_path)
 			return (1);
-		if (!access(command_path, F_OK) && is_dir(command_path, 1))
+		if (!access(command_path, F_OK) && is_dir(command_path, 1, infos))
 		{
 			free(*cmd);
 			*cmd = ft_strdup(command_path);
@@ -121,14 +125,15 @@ static int	access_cmd(char **path, char **cmd, int j)
 	}
 	if (!path[j])
 	{
-		ft_free_env(path);
 		access_error(cmd[0], ": command not found\n");
+		ft_free_env(path);
+		free_close(infos);
 		exit (127);
 	}
 	return (0);
 }
 
-static int	search_cmd(char **path, char **cmd)
+static int	search_cmd(char **path, char **cmd, t_minishell *infos)
 {
 	int		i;
 	int		file;
@@ -139,16 +144,18 @@ static int	search_cmd(char **path, char **cmd)
 	if (*cmd[0] == '\0')
 		return (0);
 	if (cmd[0][0] == '.' && cmd[0][1] == '/')
-		check_exec(cmd[0]);
-	file = is_dir(cmd[0], 0);
+		check_exec(cmd[0], infos);
+	file = is_dir(cmd[0], 0, infos);
 	if (!access(*cmd, X_OK) && file == 1)
 		return (1);
 	while (cmd[i])
 		i++;
-	access_cmd(path, cmd, i);
+	access_cmd(path, cmd, i, infos);
 	if (!access(*cmd, F_OK) && access(*cmd, X_OK) == -1)
 	{
+		ft_putstr_fd("fail 1\n", 2);
 		access_error(cmd[0], ": Permission denied\n");
+		free_close(infos);
 		exit (126);
 	}
 	return (1);
@@ -181,7 +188,7 @@ static char	**path_to_tab(t_env *env)
 	return (path);
 }
 
-int	check_cmds(t_cmd *cmds, t_env *env)
+int	check_cmds(t_cmd *cmds, t_env *env, t_minishell *infos)
 {
 	char	**path;
 	t_cmd	*tmp_cmd;
@@ -195,7 +202,7 @@ int	check_cmds(t_cmd *cmds, t_env *env)
 	}
 	if (tmp_cmd->cmd[0])
 	{
-		search_cmd(path, &tmp_cmd->cmd[0]);
+		search_cmd(path, &tmp_cmd->cmd[0], infos);
 		if (!tmp_cmd->cmd[0])
 		{
 			ft_putstr_fd(MALLOC_ERROR, 2);

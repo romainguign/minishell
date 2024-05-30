@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+         #
+#    By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/12 15:00:46 by roguigna          #+#    #+#              #
-#    Updated: 2024/05/30 10:36:37 by brguicho         ###   ########.fr        #
+#    Updated: 2024/05/30 13:36:07 by roguigna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,8 +53,9 @@ SRC_FILES		= minishell.c \
 				  parsing/env/env_to_tab.c\
 				  parsing/lexer/tokenizer.c \
 				  parsing/lexer/dup_token.c \
-				  parsing/lexer/token_identifier.c \
 				  parsing/lexer/free_token.c \
+				  parsing/lexer/check_token.c \
+				  parsing/lexer/token_identifier.c \
 				  builtins/pwd.c \
 				  builtins/cd.c \
 				  builtins/export.c \

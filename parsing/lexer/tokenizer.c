@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:29:25 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/22 17:42:31 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/29 15:42:10 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ static t_token	*ft_newtoken(t_minishell *infos, int *i)
 	return (token);
 }
 
-static int	ft_tokenadd_back(t_token **token, t_token *new)
+static int	ft_tokenadd_back(t_token **token, t_token *new, char *line, int i)
 {
 	t_token	*e_last;
 
 	if (!new)
 		return (0);
-	if (new->value[0] == '\0')
+	if (new->value[0] == '\0' && line[i] == '$')
 	{
 		free(new->value);
 		free(new);
@@ -58,6 +58,7 @@ static int	ft_tokenadd_back(t_token **token, t_token *new)
 int	tokenizer(t_minishell *infos)
 {
 	int		i;
+	int		j;
 	int		len_line;
 
 	i = 0;
@@ -67,8 +68,9 @@ int	tokenizer(t_minishell *infos)
 		if (infos->line[i] != ' ' && (infos->line[i] >= 13
 				|| infos->line[i] <= 9))
 		{
+			j = i;
 			if (!ft_tokenadd_back(&infos->token,
-					ft_newtoken(infos, &i)))
+					ft_newtoken(infos, &i), infos->line, j))
 			{
 				ft_tokenclear(&infos->token, free);
 				return (0);
