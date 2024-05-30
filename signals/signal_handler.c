@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 09:22:39 by brguicho          #+#    #+#             */
-/*   Updated: 2024/05/22 13:25:59 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/05/29 14:30:46 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,13 @@ static void	sig_handler(int signal)
 			return ;
 		}
 	}
-	
+	return ;
+}
+
+void	handle_sigint(int signal)
+{
+	(void)signal;
+	g_signal_receive = 1;
 	return ;
 }
 

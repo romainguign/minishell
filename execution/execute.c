@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:58:19 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/28 17:50:00 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/29 14:55:15 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	ft_execution(char **cmd, char **envp, t_minishell *infos)
 	exec_builtin(cmd, infos);
 	if (cmd[0])
 	{
-		signal_handler(1);
 		execve(cmd[0], cmd, envp);
 		// ft_putstr_fd("execve : ", 2);
 		ft_puterrors(cmd[0]);
@@ -37,19 +36,20 @@ void	create_pids(int (*pipes)[2], char **envp, t_minishell *infos, int i)
 	while (tmp)
 	{
 		pids[i] = fork();
-		g_signal_receive = 1;
 		if (pids[i] == -1)
 		{
 			close_pipes(pipes, infos->cmd);
-			free_all(infos);
+			free_close(infos);
 			perror("minishell: fork");
 			exit(EXIT_FAILURE);
 		}
 		if (pids[i] == 0)
 		{
+			signal_handler(1);
+			g_signal_receive = 1; 
 			if (!children_process(pipes, i, tmp, infos))
 			{
-				ft_free_env(envp);
+				free_close(infos);
 				exit(EXIT_FAILURE);
 			}
 			check_access(tmp->redir);

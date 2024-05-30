@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:01:18 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/28 14:53:47 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/30 13:03:17 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	exec_line(t_minishell *infos)
 	int	result;
 
 	result = tokenizer(infos);
-	if (!result || result == -1)
+	if (!result || result == -1 || check_token(infos))
 		return (0);
 	ft_execute(infos);
 	ft_tokenclear(&infos->token, free);

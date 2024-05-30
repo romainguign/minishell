@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 15:47:40 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/28 13:07:01 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/29 14:53:31 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int	is_builtin(char *cmd)
 	return (1);
 }
 
-static int is_dir(char *cmd, int i)
+static int is_dir(char *cmd, int i, t_minishell *infos)
 {
     struct stat st;
 
@@ -77,6 +77,7 @@ static int is_dir(char *cmd, int i)
         if (i == 0 && search_directory(cmd))
 		{
 			access_error(cmd, ": Is a directory\n");
+			free_close(infos);
 			exit(126);
 		}
 		else
@@ -90,6 +91,7 @@ static int	check_exec(char *cmd, t_minishell *infos)
 	if (access(cmd, F_OK))
 	{
 		access_error(cmd, ": No such file or directory\n");
+		free_close(infos);
 		exit(127);
 	}
 	if (access(cmd, X_OK))
@@ -111,7 +113,7 @@ static int	access_cmd(char **path, char **cmd, int j, t_minishell *infos)
 		command_path = ft_concatenate_dir(path[j], *cmd);
 		if (!command_path)
 			return (1);
-		if (!access(command_path, F_OK) && is_dir(command_path, 1))
+		if (!access(command_path, F_OK) && is_dir(command_path, 1, infos))
 		{
 			free(*cmd);
 			*cmd = ft_strdup(command_path);
@@ -145,7 +147,7 @@ static int	search_cmd(char **path, char **cmd, t_minishell *infos)
 		return (0);
 	if (cmd[0][0] == '.' && cmd[0][1] == '/')
 		check_exec(cmd[0], infos);
-	file = is_dir(cmd[0], 0);
+	file = is_dir(cmd[0], 0, infos);
 	if (!access(*cmd, X_OK) && file == 1)
 		return (1);
 	while (cmd[i])

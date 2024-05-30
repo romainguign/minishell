@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/28 13:20:02 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/30 13:03:01 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ char			**lst_to_tab(t_env *env);
 
 //tokenizer :
 int				tokenizer(t_minishell *infos);
+int				check_token(t_minishell *infos);
 char			*dup_token(char *line, int *i, t_minishell *infos, t_token *token);
 char			*strljoin_token(char *s1, char *s2, int len);
 char			*find_dollar_value(char *line, t_minishell *infos, int *i);

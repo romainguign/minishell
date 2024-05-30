@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:39:54 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/22 17:44:52 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/29 14:49:21 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,11 @@ static char	*here_doc_loop(char *limiter, char *doc, t_token *token, t_minishell
 
 	while (doc)
 	{
+		// if (g_signal_receive == 1)
+		// {
+		// 	//free
+		// 	exit (code);
+		// }
 		line = readline(">");
 		if (!ft_strcmp(line, limiter) || line == NULL)
 			break ;
