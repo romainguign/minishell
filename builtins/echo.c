@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 22:36:52 by brguicho          #+#    #+#             */
-/*   Updated: 2024/05/28 02:19:31 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/05/30 13:40:06 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_echo(char **cmd)
 	int	i;
 
 	i = 1;
-	if(!ft_strcmp(cmd[1], "-n"))
+	if(!ft_strncmp(cmd[1], "-n", 2))
 	{
 		if (!cmd[2])
 		{
