@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 15:47:40 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/30 13:36:24 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/05/30 18:56:41 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ static int	check_exec(char *cmd, t_minishell *infos)
 	}
 	if (access(cmd, X_OK))
 	{
-		ft_putstr_fd("fail 2\n", 2);
 		access_error(cmd, ": Permission denied\n");
 		free_close(infos);
 		exit(126);
@@ -153,7 +152,6 @@ static int	search_cmd(char **path, char **cmd, t_minishell *infos)
 	access_cmd(path, cmd, i, infos);
 	if (!access(*cmd, F_OK) && access(*cmd, X_OK) == -1)
 	{
-		ft_putstr_fd("fail 1\n", 2);
 		access_error(cmd[0], ": Permission denied\n");
 		free_close(infos);
 		exit (126);
