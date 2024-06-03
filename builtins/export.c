@@ -6,42 +6,42 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:01:22 by brguicho          #+#    #+#             */
-/*   Updated: 2024/05/30 09:31:52 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/03 06:59:47 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// int	is_wrong_identifier(char c)
-// {
-// 	if ((c >= '#' && c <= '/') || (c >= ':' && c <= '@')
-// 		|| (c >= '[' && c <= '^') || (c >= '{' && c <= '~'))
-// 		return (1);
-// 	return (0);
-// }
+int	is_wrong_identifier(char c)
+{
+	if ((c >= '#' && c <= '@') || (c >= '[' && c <= '^')
+		|| (c >= '{' && c <= '~'))
+		return (1);
+	return (0);
+}
 
-// static void	print_error_identifier(char *cmd)
-// {
-// 	int i;
+static void	print_error_identifier(char *cmd)
+{
+	int i;
 	
-// 	i = 0;
-// 	while (cmd[i])
-// 	{
-// 		if (is_wrong_identifier(cmd[i]))
-// 		{
-// 			ft_putstr_fd("minishell: ", 2);
-// 			ft_putstr_fd("export: ", 2);
-// 			ft_putstr_fd("<< ", 2);
-// 			ft_putstr_fd(cmd, 2);
-// 			ft_putstr_fd(" >> ", 2);
-// 			ft_putstr_fd(": ", 2);
-// 			ft_putstr_fd(strerror(errno), 2);
-// 			ft_putstr_fd("\n", 2);
-// 			break;
-// 		}
-// 		i++;
-// 	}
-// }
+	i = 0;
+	while (cmd[i])
+	{
+		if (is_wrong_identifier(cmd[i]))
+		{
+			ft_putstr_fd("minishell: ", 2);
+			ft_putstr_fd("export: ", 2);
+			ft_putstr_fd("<< ", 2);
+			ft_putstr_fd(cmd, 2);
+			ft_putstr_fd(" >> ", 2);
+			ft_putstr_fd(": ", 2);
+			ft_putstr_fd("not a valid identifier", 2);
+			ft_putstr_fd("\n", 2);
+			break;
+		}
+		i++;
+	}
+}
 
 static char	**sort_env_tab(t_env *env)
 {
@@ -88,9 +88,9 @@ static void	print_env(char **env_tab)
 int	ft_export(t_env *env, char **cmd)
 {
 	char **env_tab;
-	// int i;
+	int i;
 
-	// i = 1;
+	i = 1;
 	if (ft_tab_len(cmd) == 1)
 	{
 		env_tab = sort_env_tab(env);
@@ -98,21 +98,21 @@ int	ft_export(t_env *env, char **cmd)
 		free_tab((void **)env_tab);
 		return (0);
 	}
-	// else if (ft_tab_len(cmd) > 1)
-	// {
-	// 	while (cmd[i])
-	// 	{
-	// 		if (is_input_correct(cmd[i]))
-	// 		{
-				
-	// 		}
-	// 		else
-	// 		{
-	// 			print_error_identifier(cmd[i]);
-	// 			return(1);
-	// 		}
-	// 		i++             
-	// 	}
-	// }
+	else if (ft_tab_len(cmd) > 1)
+	{
+		while (cmd[i])
+		{
+			if (is_input_correct(cmd[i]))
+			{
+				return (0);
+			}
+			else
+			{
+				print_error_identifier(cmd[i]);
+				return(1);
+			}
+			i++;
+		}
+	}
 	return (1);
 }

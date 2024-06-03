@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:59:57 by brguicho          #+#    #+#             */
-/*   Updated: 2024/05/30 13:36:19 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/01 08:43:03 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ static int	ft_str_is_not_num(char *str)
 			i++;
 		while (str[i])
 		{
-			if (str[0] < '0' && str[0] > '9')
+			if (str[i] >= '0' && str[i] <= '9')
+				i++;
+			else
 				return (1);
 			i++;
 		}
@@ -42,8 +44,7 @@ static void	print_exit_error(char *str)
 	ft_putstr_fd("exit: ", 2);
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd(": ", 2);
-	
-	ft_putstr_fd(strerror(errno), 2);
+	ft_putstr_fd("numeric argument required", 2);
 	ft_putstr_fd("\n", 2);
 }
 
