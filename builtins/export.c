@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:01:22 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/03 06:59:47 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/03 10:57:15 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ int	ft_export(t_env *env, char **cmd)
 		{
 			if (is_input_correct(cmd[i]))
 			{
+				check_type_and_add(cmd[i], env);
 				return (0);
 			}
 			else

@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 23:10:25 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/03 07:26:53 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/03 10:59:00 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,20 +37,24 @@ int	define_type_argument(char *cmd)
 	return (0);
 }
 
-// void check_type(char *cmd)
-// {
-// 	if (define_type_argument(cmd) == 0)
-// 	{
+void check_type_and_add(char *cmd, t_env *env)
+{
+	if (define_type_argument(cmd) == 0)
+	{
+		if (!is_env_key_exist(env, cmd))
+			new_env_element_key(cmd, env);
+		return ;
+	}
+	else if (define_type_argument(cmd) == 1)
+	{
+		new_element_env(cmd, env);
+		return ;
+	}
+	// else if (define_type_argument(cmd) == 2)
+	// {
 		
-// 	}
-// 	else if (define_type_argument(cmd) == 1)
-// 	{
-// 	}
-// 	else if (define_type_argument(cmd) == 2)
-// 	{
-		
-// 	}
-// }
+	// }
+}
 
 int	is_input_correct(char *str)
 {
@@ -73,4 +77,26 @@ int	is_input_correct(char *str)
 		i++;
 	}
 	return(1);
+}
+
+void	new_env_element_key(char *cmd, t_env *env)
+{
+	t_env	*new_element;
+	
+	new_element = ft_calloc(1, sizeof(t_env));
+	if (!new_element)
+	{
+		ft_putstr_fd(MALLOC_ERROR, 2);
+		ft_envclear(&env, free);
+		return ;
+	}
+	new_element->name = ft_strdup(cmd);
+	new_element->value = NULL;
+	if (!new_element->name)
+	{
+		ft_envclear(&env, free);
+		return ;
+	}
+	new_element->next = NULL;
+	ft_envadd_back(&env, new_element);
 }

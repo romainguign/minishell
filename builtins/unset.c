@@ -6,13 +6,13 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 14:22:55 by brguicho          #+#    #+#             */
-/*   Updated: 2024/05/23 12:43:06 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/03 10:50:29 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	is_env_key_exist(t_env *env, char *key)
+int	is_env_key_exist(t_env *env, char *key)
 {
 	t_env *tmp_env;
 	

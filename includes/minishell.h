@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/31 19:24:14 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/03 10:53:46 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,9 +166,13 @@ int			ft_echo(char **cmd);
 int			ft_export(t_env *env, char **cmd);
 int			is_wrong_identifier(char c);
 int			is_input_correct(char *str);
+void		new_env_element_key(char *cmd, t_env *env);
+void		new_element_env(char *cmd, t_env *env);
+void 		check_type_and_add(char *cmd, t_env *env);
 
 //unset :
 int			ft_unset(t_env *env, char **cmd);
+int			is_env_key_exist(t_env *env, char *key);
 
 //env :
 int			ft_env(t_env *env);
