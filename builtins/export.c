@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:01:22 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/03 10:57:15 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/04 00:38:09 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int	is_wrong_identifier(char c)
 
 static void	print_error_identifier(char *cmd)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	while (cmd[i])
 	{
@@ -37,7 +37,7 @@ static void	print_error_identifier(char *cmd)
 			ft_putstr_fd(": ", 2);
 			ft_putstr_fd("not a valid identifier", 2);
 			ft_putstr_fd("\n", 2);
-			break;
+			break ;
 		}
 		i++;
 	}
@@ -45,11 +45,11 @@ static void	print_error_identifier(char *cmd)
 
 static char	**sort_env_tab(t_env *env)
 {
-	char **env_tab;
-	int i;
-	char *tmp;
-	int j;
-	
+	char	**env_tab;
+	int		i;
+	char	*tmp;
+	int		j;
+
 	env_tab = lst_to_tab_export(env);
 	i = 0;
 	while (env_tab[i])
@@ -60,7 +60,7 @@ static char	**sort_env_tab(t_env *env)
 			if (ft_strcmp(env_tab[i], env_tab[j]) > 0)
 			{
 				tmp = env_tab[i];
-				env_tab[i] = env_tab[j];	
+				env_tab[i] = env_tab[j];
 				env_tab[j] = tmp;
 			}
 			j++;
@@ -72,7 +72,7 @@ static char	**sort_env_tab(t_env *env)
 
 static void	print_env(char **env_tab)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (env_tab[i])
@@ -87,8 +87,8 @@ static void	print_env(char **env_tab)
 
 int	ft_export(t_env *env, char **cmd)
 {
-	char **env_tab;
-	int i;
+	char	**env_tab;
+	int		i;
 
 	i = 1;
 	if (ft_tab_len(cmd) == 1)
@@ -100,20 +100,16 @@ int	ft_export(t_env *env, char **cmd)
 	}
 	else if (ft_tab_len(cmd) > 1)
 	{
-		while (cmd[i])
+		while (cmd[i++])
 		{
 			if (is_input_correct(cmd[i]))
-			{
 				check_type_and_add(cmd[i], env);
-				return (0);
-			}
 			else
 			{
 				print_error_identifier(cmd[i]);
-				return(1);
+				return (1);
 			}
-			i++;
 		}
 	}
-	return (1);
+	return (0);
 }

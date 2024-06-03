@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 23:10:25 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/03 10:59:00 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/04 00:33:05 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static	int	is_wrong_identifier2(char c)
 
 int	define_type_argument(char *cmd)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	while (cmd[i])
 	{
@@ -37,29 +37,39 @@ int	define_type_argument(char *cmd)
 	return (0);
 }
 
-void check_type_and_add(char *cmd, t_env *env)
+void	check_type_and_add(char *cmd, t_env *env)
 {
+	char	*key;
+
+	key = ft_strldup(cmd, get_len_key(cmd));
+	if (!key)
+		return ;
 	if (define_type_argument(cmd) == 0)
 	{
 		if (!is_env_key_exist(env, cmd))
 			new_env_element_key(cmd, env);
-		return ;
 	}
 	else if (define_type_argument(cmd) == 1)
 	{
-		new_element_env(cmd, env);
-		return ;
+		if (!is_env_key_exist(env, key))
+			ft_envadd_back(&env, ft_newenv(cmd));
+		else
+			update_value(&env, cmd);
 	}
-	// else if (define_type_argument(cmd) == 2)
-	// {
-		
-	// }
+	else if (define_type_argument(cmd) == 2)
+	{
+		if (!is_env_key_exist(env, key))
+			ft_envadd_back(&env, ft_newenv(cmd));
+		else
+			join_value(&env, cmd);
+	}
+	free(key);
 }
 
 int	is_input_correct(char *str)
 {
-	int i;
-	
+	int	i;
+
 	i = 1;
 	if (is_wrong_identifier(str[0]))
 		return (0);
@@ -76,13 +86,13 @@ int	is_input_correct(char *str)
 		}
 		i++;
 	}
-	return(1);
+	return (1);
 }
 
 void	new_env_element_key(char *cmd, t_env *env)
 {
 	t_env	*new_element;
-	
+
 	new_element = ft_calloc(1, sizeof(t_env));
 	if (!new_element)
 	{

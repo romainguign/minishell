@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/03 10:53:46 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/03 22:47:05 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,7 @@ int			ft_pwd(char **cmd);
 
 //cd :
 int			ft_cd(t_minishell *infos, char **cmd);
+t_env		*get_env_node(t_env *env, char *node);
 
 //echo :
 int			ft_echo(char **cmd);
@@ -167,8 +168,9 @@ int			ft_export(t_env *env, char **cmd);
 int			is_wrong_identifier(char c);
 int			is_input_correct(char *str);
 void		new_env_element_key(char *cmd, t_env *env);
-void		new_element_env(char *cmd, t_env *env);
+void		update_value(t_env **env, char *cmd);
 void 		check_type_and_add(char *cmd, t_env *env);
+int			get_len_key(char *cmd);
 
 //unset :
 int			ft_unset(t_env *env, char **cmd);
