@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/03 22:47:05 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/04 00:41:11 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,7 @@ void		new_env_element_key(char *cmd, t_env *env);
 void		update_value(t_env **env, char *cmd);
 void 		check_type_and_add(char *cmd, t_env *env);
 int			get_len_key(char *cmd);
+void		join_value(t_env **env, char *cmd);
 
 //unset :
 int			ft_unset(t_env *env, char **cmd);
