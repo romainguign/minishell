@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 14:28:25 by brguicho          #+#    #+#             */
-/*   Updated: 2024/05/26 08:21:19 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/03 19:42:19 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	check_env_home(t_env *env)
 	return (0);
 }
 
-static t_env	*get_env_node(t_env *env, char *node)
+t_env	*get_env_node(t_env *env, char *node)
 {
 	t_env	*tmp;
 

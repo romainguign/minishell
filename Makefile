@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+         #
+#    By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/12 15:00:46 by roguigna          #+#    #+#              #
-#    Updated: 2024/05/30 18:43:32 by roguigna         ###   ########.fr        #
+#    Updated: 2024/06/04 11:03:37 by brguicho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,6 +65,8 @@ SRC_FILES		= minishell.c \
 				  builtins/unset.c      \
 				  builtins/export.c      \
 				  builtins/export_utils.c \
+				  builtins/export_utils2.c \
+				  builtins/export_utils3.c \
 				  signals/signal_handler.c \
 				  errors/puterrors.c  \
 				  execution/execute.c  \

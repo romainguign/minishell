@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/30 18:47:46 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/04 11:02:38 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,7 @@ int			ft_pwd(char **cmd);
 
 //cd :
 int			ft_cd(t_minishell *infos, char **cmd);
+t_env		*get_env_node(t_env *env, char *node);
 
 //echo :
 int			ft_echo(char **cmd);
@@ -165,9 +166,17 @@ int			ft_echo(char **cmd);
 //export :
 int			ft_export(t_env *env, char **cmd);
 int			is_wrong_identifier(char c);
+int			is_input_correct(char *str);
+void		new_env_element_key(char *cmd, t_env *env);
+void		update_value(t_env **env, char *cmd);
+void 		check_type_and_add(char *cmd, t_env *env);
+int			get_len_key(char *cmd);
+void		join_value(t_env **env, char *cmd);
+t_env		*ft_newenv_export(char *envp);
 
 //unset :
 int			ft_unset(t_env *env, char **cmd);
+int			is_env_key_exist(t_env *env, char *key);
 
 //env :
 int			ft_env(t_env *env);
