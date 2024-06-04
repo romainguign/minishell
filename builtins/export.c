@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:01:22 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/04 10:40:30 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/04 11:39:15 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,10 @@ int	ft_export(t_env *env, char **cmd)
 {
 	char	**env_tab;
 	int		i;
+	int		exit_code;
 
 	i = 1;
+	exit_code = 0;
 	if (ft_tab_len(cmd) == 1)
 	{
 		env_tab = sort_env_tab(env);
@@ -111,9 +113,10 @@ int	ft_export(t_env *env, char **cmd)
 			else
 			{
 				print_error_identifier(cmd[i]);
+				exit_code = 1;
 			}
 			i++;
 		}
 	}
-	return (0);
+	return (exit_code);
 }
