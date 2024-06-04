@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/04 13:10:10 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/04 17:06:51 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ int				get_env(char **envp, t_minishell *infos);
 void			ft_free_env(char **env);
 void			ft_envclear(t_env **lst, void (*del)(void*));
 char			*bracket_env_name(char *line, int *len);
-char			*no_bracket_env_name(char *lstaticine, int *len);
+char			*no_bracket_env_name(char *line, int *len, char quote);
 t_env			*ft_newenv(char *envp);
 int				ft_envadd_back(t_env **env, t_env *new);
 char			**lst_to_tab(t_env *env);
@@ -136,11 +136,11 @@ int				tokenizer(t_minishell *infos);
 int				check_token(t_minishell *infos);
 char			*dup_token(char *line, int *i, t_minishell *infos, t_token *token);
 char			*strljoin_token(char *s1, char *s2, int len);
-char			*find_dollar_value(char *line, t_minishell *infos, int *i);
+char			*find_dollar_value(char *line, t_minishell *infos, int *i, char quote);
 char			*ft_strtrim_spaces(char *str);
 char			*parse_redirect(char *line, int	*i, t_minishell *infos);
 void			ft_tokenclear(t_token **lst, void (*del)(void*));
-t_token_type	get_token_type(char *value);
+t_token_type	get_token_type(char *value, t_token *token);
 
 //parser :
 

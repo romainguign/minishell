@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:29:25 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/04 14:09:48 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/04 17:14:45 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static t_token	*ft_newtoken(t_minishell *infos, int *i)
 		free (token);
 		return (0);
 	}
-	token->token_type = get_token_type(token->value);
+	token->token_type = get_token_type(token->value, token);
 	token->next = NULL;
 	token->prev = NULL;
 	return (token);
@@ -37,7 +37,7 @@ static int	ft_tokenadd_back(t_token **token, t_token *new, char *line, int i)
 
 	if (!new)
 		return (0);
-	if (new->value[0] == '\0' && line[i] == '$')
+	if (new->value[0] == '\0' && !(*token) && line[i] == '$')
 	{
 		free(new->value);
 		free(new);

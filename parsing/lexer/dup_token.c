@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:22:24 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/04 14:10:07 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/04 16:37:19 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static char	*manage_quote(char *word, char *line, int *i,  t_minishell *infos)
 			word = strljoin_token(word, &line[*i], 1);
 		if (line[*i] == '$' && c == '"')
 		{
-			dollar_value = find_dollar_value(&line[(*i)], infos, i);
+			dollar_value = find_dollar_value(&line[(*i)], infos, i, c);
 			word = ft_strjoinfree(word, dollar_value);
 			free(dollar_value);
 		}
@@ -79,7 +79,7 @@ static char	*manage_dollar_quote(char *word, char *line, int *len,
 	i = 1;
 	if (line[0] == '$')
 	{
-		dollar_value = find_dollar_value(line, infos, &i);
+		dollar_value = find_dollar_value(line, infos, &i, 0);
 		trimmed = ft_strtrim_spaces(dollar_value);
 		free(dollar_value);
 		word = ft_strjoinfree(word, trimmed);

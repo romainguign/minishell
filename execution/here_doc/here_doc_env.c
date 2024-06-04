@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 14:46:39 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/22 17:43:18 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/04 16:36:07 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*check_env_var(char quote, char *line, t_minishell *infos)
 	{
 		if (line[i] == '$')
 		{
-			value = find_dollar_value(&line[i], infos, &i);
+			value = find_dollar_value(&line[i], infos, &i, quote);
 			new_line = ft_strjoinfree(new_line, value);
 		}
 		else

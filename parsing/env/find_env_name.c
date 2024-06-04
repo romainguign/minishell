@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:50:01 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/22 17:47:40 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/04 16:41:10 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	*bracket_env_name(char *line, int *len)
 	return (name);
 }
 
-char	*no_bracket_env_name(char *line, int *len)
+char	*no_bracket_env_name(char *line, int *len, char quote)
 {
 	int		j;
 	char	*name;
@@ -74,9 +74,10 @@ char	*no_bracket_env_name(char *line, int *len)
 	name = NULL;
 	while (line[j] && (ft_isalnum(line[j]) || line[j] == '_'))
 		j++;
-	if (line[j] == '?')
+	if (line[j] == '?' && j == 1)
 		name = ft_strdup("?");
-	if (!name && j == 1)
+	if (!name && j == 1 && (is_space(line[j])
+		|| (line[j] == quote && (quote == '"' || quote == '\''))))
 		name = ft_strdup("$");
 	if (!name)
 		name = ft_strldup(&line[1], j - 1);
@@ -89,7 +90,7 @@ char	*no_bracket_env_name(char *line, int *len)
 	return (name);
 }
 
-char	*find_dollar_value(char *line, t_minishell *infos, int *i)
+char	*find_dollar_value(char *line, t_minishell *infos, int *i, char quote)
 {
 	char	*name;
 	t_env	*tmp;
@@ -97,7 +98,7 @@ char	*find_dollar_value(char *line, t_minishell *infos, int *i)
 	if (line[1] == '{')
 		name = bracket_env_name(line, i);
 	else
-		name = no_bracket_env_name(line, i);
+		name = no_bracket_env_name(line, i, quote);
 	if (!name)
 		return (0);
 	if (name[0] == '?')
