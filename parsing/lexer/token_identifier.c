@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_identifier.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 14:47:54 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/27 13:47:42 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/04 13:28:56 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_token_type	get_token_type(char *value)
 		return (WORD);
 }
 
-static void	unexpected_token(char *line)
+static void	unexpected_token(char *line, t_minishell *infos)
 {
 	int	i;
 
@@ -48,9 +48,10 @@ static void	unexpected_token(char *line)
 		write(2, &line[2], i - 2);
 		write(2, "'\n", 2);
 	}
+	infos->exit_code = 2;
 }
 
-char	*parse_redirect(char *line, int	*i)
+char	*parse_redirect(char *line, int	*i, t_minishell *infos)
 {
 	char	*word;
 
@@ -69,7 +70,8 @@ char	*parse_redirect(char *line, int	*i)
 	else
 	{
 		free (word);
-		unexpected_token(line);
+		unexpected_token(line, infos);
+		infos->exit_code = 2;
 		return (0);
 	}
 	return (word);

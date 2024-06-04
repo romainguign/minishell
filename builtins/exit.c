@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:59:57 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/04 11:12:43 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/04 12:44:31 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int ft_exit(char **cmd, t_minishell *infos)
 			{
 				print_exit_error(cmd[1]);
 				free_all(infos);
+				free_tab((void **)cmd);
 				exit(2);
 			}
 			else
@@ -79,6 +80,7 @@ int ft_exit(char **cmd, t_minishell *infos)
 		{
 			print_exit_error(cmd[1]);
 			free_all(infos);
+			free_tab((void **)cmd);
 			exit(2);
 		}
 	}
@@ -89,6 +91,7 @@ int ft_exit(char **cmd, t_minishell *infos)
 			if (ft_str_is_not_num(cmd[1]))
 			{
 				print_exit_error(cmd[1]);
+				free_tab((void **)cmd);
 				free_all(infos);
 				exit(2);
 			}
@@ -99,11 +102,13 @@ int ft_exit(char **cmd, t_minishell *infos)
 				{
 					print_exit_error(cmd[1]);
 					free_all(infos);
+					free_tab((void **)cmd);
 					exit(2);
 				}
 				else
 				{
 					free_all(infos);
+					free_tab((void **)cmd);
 					exit(nbr);
 				}
 			}
@@ -112,6 +117,7 @@ int ft_exit(char **cmd, t_minishell *infos)
 		{
 			tmp_exit_code = infos->exit_code;
 			free_all(infos);
+			free_tab((void **)cmd);
 			exit(tmp_exit_code);
 			
 		}

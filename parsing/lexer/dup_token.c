@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:22:24 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/30 19:00:02 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/04 14:10:07 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static char	*manage_quote(char *word, char *line, int *i,  t_minishell *infos)
 	if (line[*i] != c)
 	{
 		free (word);
-		syntax_errors(c);
+		syntax_errors(c, infos);
 		return (0);
 	}
 	return (word);
@@ -129,7 +129,11 @@ char	*dup_token(char *line, int *i, t_minishell *infos, t_token *token)
 
 	save_i = *i;
 	if (line[0] == '<' || line[0] == '>' || line[0] == '|')
-		word = parse_redirect(line, i);
+	{
+		word = parse_redirect(line, i, infos);
+		if (!word)
+			return (0);
+	}
 	else
 	{
 		word = token_loop(line, i, token, infos);

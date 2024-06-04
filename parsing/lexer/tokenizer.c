@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:29:25 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/29 15:42:10 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/04 14:09:48 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,7 @@ int	tokenizer(t_minishell *infos)
 	len_line = ft_strlen(infos->line);
 	while (i < len_line)
 	{
-		if (infos->line[i] != ' ' && (infos->line[i] >= 13
-				|| infos->line[i] <= 9))
+		if (!is_space(infos->line[i]))
 		{
 			j = i;
 			if (!ft_tokenadd_back(&infos->token,

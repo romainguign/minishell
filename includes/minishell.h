@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/04 11:02:38 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/04 13:10:10 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ size_t			ft_strlcat(char *dst, const char *src, size_t size);
 //free_all :
 void			free_tab(void **tab);
 void			free_all(t_minishell *infos);
-void	free_close(t_minishell *infos);
+void			free_close(t_minishell *infos);
 
 /*--------------------------------- parsing ---------------------------------*/
 //env :
@@ -138,7 +138,7 @@ char			*dup_token(char *line, int *i, t_minishell *infos, t_token *token);
 char			*strljoin_token(char *s1, char *s2, int len);
 char			*find_dollar_value(char *line, t_minishell *infos, int *i);
 char			*ft_strtrim_spaces(char *str);
-char			*parse_redirect(char *line, int	*i);
+char			*parse_redirect(char *line, int	*i, t_minishell *infos);
 void			ft_tokenclear(t_token **lst, void (*del)(void*));
 t_token_type	get_token_type(char *value);
 
@@ -149,8 +149,8 @@ void			signal_handler(int pid);
 
 /*--------------------------------- errors ----------------------------------*/
 void			ft_puterrors(char *s);
-void			syntax_errors(char c);
-void			ft_tokenerror(t_token_type type);
+void			syntax_errors(char c, t_minishell *infos);
+void			ft_tokenerror(t_token_type type, t_minishell *infos);
 
 /*--------------------------------- builtins --------------------------------*/
 //pwd :

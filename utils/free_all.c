@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:41:06 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/28 13:19:10 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/04 12:58:54 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,11 @@ void	free_all(t_minishell *infos)
 		ft_cmdsclear(&infos->cmd, free);
 	if (infos->line)
 		free(infos->line);
+	if (infos->env_tab)
+	{
+		// ft_free_env(infos->env_tab);
+		// infos->env_tab = NULL;
+	}
 	free(infos);
 }
 
