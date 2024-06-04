@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_to_tab.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 09:43:27 by brguicho          #+#    #+#             */
-/*   Updated: 2024/05/30 15:45:28 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/04 10:33:46 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	**lst_to_tab_export(t_env *env)
 	tab_env = ft_calloc(ft_lst_size_env(env) + 1, sizeof(char *));
 	if (!tab_env)
 		return (NULL);
-	while (tmp->next)
+	while (tmp)
 	{
 		tab_env[i] = ft_strjoin_export(tmp->name, tmp->value);
 		i++;

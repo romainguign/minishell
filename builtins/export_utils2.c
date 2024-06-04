@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 09:48:43 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/04 00:28:41 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/04 11:07:26 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@ int	get_len_key(char *cmd)
 	int i;
 	
 	i = 0;
-	while (cmd[i] != '=')
+	while (cmd[i] && cmd[i] != '=')
 	{
+		if (cmd[i] == '+')
+			return (i);
 		i++;
 	}
 	return (i);
@@ -45,17 +47,12 @@ void	update_value(t_env **env, char *cmd)
 	t_env	*target;
 	int		i;
 	
-	i = 0;
+	i = get_len_key(cmd) + 1;
 	key = ft_strldup(cmd, get_len_key(cmd));
 	if (!key)
 		return ;
 	target = get_env_node((*env), key);
 	target->value = ft_realloc((void *)target->value, get_len_value(cmd));
-	while (cmd[i] != '=')
-	{
-		i++;
-	}
-	i++;
 	target->value = ft_memcpy(target->value, &cmd[i], get_len_value(cmd));
 	free(key);
 }
@@ -68,7 +65,7 @@ void	join_value(t_env **env, char *cmd)
 	int len_join;
 	int	len_value;
 	
-	i = get_len_key(cmd) + 1;
+	i = get_len_key(cmd) + 2;
 	len_join = 0;
 	key = ft_strldup(cmd, get_len_key(cmd));
 	if (!key)
@@ -81,8 +78,8 @@ void	join_value(t_env **env, char *cmd)
 		len_join++;
 		i++;
 	}
-	i = get_len_key(cmd) + 1;
-	target->value = ft_realloc((void *)target->value, len_value + len_join);
-	target->value = ft_memcpy(target->value, &cmd[i], get_len_value(cmd));
+	i = get_len_key(cmd) + 2;
+	if (cmd[i] != '\0')
+		target->value = ft_strjoinfree(target->value, &cmd[i]);
 	free(key);
 }

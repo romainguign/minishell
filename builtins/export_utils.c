@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 23:10:25 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/04 00:33:05 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/04 11:03:13 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	check_type_and_add(char *cmd, t_env *env)
 	else if (define_type_argument(cmd) == 2)
 	{
 		if (!is_env_key_exist(env, key))
-			ft_envadd_back(&env, ft_newenv(cmd));
+			ft_envadd_back(&env, ft_newenv_export(cmd));
 		else
 			join_value(&env, cmd);
 	}

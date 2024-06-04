@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:01:22 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/04 00:38:09 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/04 10:40:30 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,10 @@ static void	print_env(char **env_tab)
 		if (env_tab[i][0] == '_' && env_tab[i][1] == '=')
 			i++;
 		else
+		{
 			printf("declare -x %s\n", env_tab[i]);
-		i++;
+			i++;
+		}
 	}
 }
 
@@ -100,15 +102,17 @@ int	ft_export(t_env *env, char **cmd)
 	}
 	else if (ft_tab_len(cmd) > 1)
 	{
-		while (cmd[i++])
+		while (cmd[i])
 		{
 			if (is_input_correct(cmd[i]))
+			{
 				check_type_and_add(cmd[i], env);
+			}
 			else
 			{
 				print_error_identifier(cmd[i]);
-				return (1);
 			}
+			i++;
 		}
 	}
 	return (0);
