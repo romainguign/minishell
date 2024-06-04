@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 13:59:13 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/30 13:49:42 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/04 14:39:19 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ char	*ft_strjoin_export(char *s1, char *s2)
 	if (!s1)
 		s1 = ft_calloc(1, sizeof(char));
 	if (!s2)
-		s2 = ft_calloc(1, sizeof(char));
+		return (ft_strdup(s1));
 	if (!s1 || !s2)
 		return (0);
 	str_len = ft_strlen(s1) + ft_strlen(s2) + 3;
