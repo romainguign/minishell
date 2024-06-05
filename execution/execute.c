@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:58:19 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/29 14:55:15 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/05 10:25:02 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	ft_execution(char **cmd, char **envp, t_minishell *infos)
 	ft_free_env(envp);
 	free_all(infos);
 	close_std();
+	signal_status(1);
 	exit(EXIT_FAILURE);
 }
 
@@ -35,6 +36,7 @@ void	create_pids(int (*pipes)[2], char **envp, t_minishell *infos, int i)
 	tmp = infos->cmd;
 	while (tmp)
 	{
+		signal_fork();
 		pids[i] = fork();
 		if (pids[i] == -1)
 		{
@@ -45,8 +47,6 @@ void	create_pids(int (*pipes)[2], char **envp, t_minishell *infos, int i)
 		}
 		if (pids[i] == 0)
 		{
-			signal_handler(1);
-			g_signal_receive = 1; 
 			if (!children_process(pipes, i, tmp, infos))
 			{
 				free_close(infos);

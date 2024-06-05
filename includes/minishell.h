@@ -3,18 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/04 17:06:51 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/05 11:18:42 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
-//to prevent syntax error on sigaction ps: do not move it 
-# define _XOPEN_SOURCE 700  
 
 # include <stdio.h>
 # include <readline/readline.h>
@@ -29,6 +26,7 @@
 # include <sys/stat.h>
 # include <dirent.h>
 # include <limits.h>
+# include <termios.h>
 
 typedef struct s_env
 {
@@ -76,8 +74,6 @@ typedef struct s_minishell
 	t_token	*token;
 	t_cmd	*cmd;
 }	t_minishell;
-
-extern int g_signal_receive;
 
 /*----------------------------- Errors messages -----------------------------*/
 # define MALLOC_ERROR		"minishell: malloc: failed allocation memory\n"
@@ -145,7 +141,8 @@ t_token_type	get_token_type(char *value, t_token *token);
 //parser :
 
 /*--------------------------------- signals ---------------------------------*/
-void			signal_handler(int pid);
+void 			signal_status(int state);
+void			signal_fork();
 
 /*--------------------------------- errors ----------------------------------*/
 void			ft_puterrors(char *s);
@@ -154,35 +151,35 @@ void			ft_tokenerror(t_token_type type, t_minishell *infos);
 
 /*--------------------------------- builtins --------------------------------*/
 //pwd :
-int			ft_pwd(char **cmd);
+int				ft_pwd(char **cmd);
 
 //cd :
-int			ft_cd(t_minishell *infos, char **cmd);
-t_env		*get_env_node(t_env *env, char *node);
+int				ft_cd(t_minishell *infos, char **cmd);
+t_env			*get_env_node(t_env *env, char *node);
 
 //echo :
-int			ft_echo(char **cmd);
+int				ft_echo(char **cmd);
 
 //export :
-int			ft_export(t_env *env, char **cmd);
-int			is_wrong_identifier(char c);
-int			is_input_correct(char *str);
-void		new_env_element_key(char *cmd, t_env *env);
-void		update_value(t_env **env, char *cmd);
-void 		check_type_and_add(char *cmd, t_env *env);
-int			get_len_key(char *cmd);
-void		join_value(t_env **env, char *cmd);
-t_env		*ft_newenv_export(char *envp);
+int				ft_export(t_env *env, char **cmd);
+int				is_wrong_identifier(char c);
+int				is_input_correct(char *str);
+void			new_env_element_key(char *cmd, t_env *env);
+void			update_value(t_env **env, char *cmd);
+void 			check_type_and_add(char *cmd, t_env *env);
+int				get_len_key(char *cmd);
+void			join_value(t_env **env, char *cmd);
+t_env			*ft_newenv_export(char *envp);
 
 //unset :
-int			ft_unset(t_env *env, char **cmd);
-int			is_env_key_exist(t_env *env, char *key);
+int				ft_unset(t_env *env, char **cmd);
+int				is_env_key_exist(t_env *env, char *key);
 
 //env :
-int			ft_env(t_env *env);
+int				ft_env(t_env *env);
 
 //exit :
-int			ft_exit(char **cmd, t_minishell *infos);
+int				ft_exit(char **cmd, t_minishell *infos);
 
 /*--------------------------------- execution -------------------------------*/
 int				ft_execute(t_minishell *infos);

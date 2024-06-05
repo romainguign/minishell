@@ -3,76 +3,63 @@
 /*                                                        :::      ::::::::   */
 /*   signal_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 09:22:39 by brguicho          #+#    #+#             */
-/*   Updated: 2024/05/30 13:37:29 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/05 10:45:41 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	sig_handler(int signal)
+static void	sig_ignore(int sig)
 {
-	if (g_signal_receive == 0)
+	(void) sig;
+}
+static void	sig_handler_fork(int sig)
+{
+	if (sig == SIGINT)
 	{
-		if (signal == SIGINT)
-		{
-			printf("\n");
-			rl_on_new_line();
-			rl_replace_line("", 0);
-			rl_redisplay();
-		}
-	}
-	else if (g_signal_receive == 1)
-	{
-		if (signal == SIGINT)
-		{
-			printf("\n");
-			g_signal_receive = 0;
-			return ;
-		}
-		if (signal == SIGQUIT)
-		{
-			g_signal_receive = 0;
-			return ;
-		}
-	}
-	else if (g_signal_receive == 2)
-	{
-		if (signal == SIGINT)
-		{
-			g_signal_receive = 0;
-			exit(1);
-			return;
-		}
+		printf("\n");
 		return ;
 	}
-	
-	return ;
+	if (sig == SIGQUIT)
+	{
+		ft_putstr_fd("Quit (core dumped)\n", 2);
+		return ;
+	}
 }
 
-void	signal_handler(int pid)
+static void	sig_handler(int sig)
 {
-	struct sigaction	signal;
-	struct sigaction	signalign;
-    sigemptyset(&signal.sa_mask);
-	sigemptyset(&signalign.sa_mask);
-	signal.sa_flags = SA_RESTART;
-	signalign.sa_flags = 0;
-	signal.sa_handler = &sig_handler;
-	if (pid == 0)
-		signalign.sa_handler = SIG_IGN;
-	else if (pid == 1)
-		signalign.sa_handler = &sig_handler;
-	if (sigaction(SIGINT, &signal, NULL) < 0)
+	if (sig == SIGINT)
 	{
-		perror("Error: Signal error");
-		return ;
+		printf("\n");
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
 	}
-	if (sigaction(SIGQUIT, &signalign, NULL) < 0)
+}
+
+
+
+void signal_status(int state)
+{
+	if (state)
 	{
-		perror("Error: Signal error");
-		return ;
+		signal(SIGINT, &sig_handler);
+		signal(SIGQUIT, SIG_IGN);
 	}
+	else
+	{
+		signal(SIGINT, &sig_ignore);
+		signal(SIGQUIT, &sig_ignore);
+	}
+}
+
+void signal_fork()
+{
+	
+		signal(SIGINT, &sig_handler_fork);
+		signal(SIGQUIT, &sig_handler_fork);
 }
