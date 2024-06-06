@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wait_and_close.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 14:52:39 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/29 14:55:39 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/05 10:44:08 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,6 @@ static void	check_status(int status, t_minishell *infos)
 		infos->exit_code = WSTOPSIG(status);
 	if (WIFCONTINUED(status))
 		infos->exit_code = 0;
-	if (WIFSIGNALED(status))
-	{
-		if (WTERMSIG(status) == SIGQUIT)
-			ft_putstr_fd("Quit (core dumped)\n", 2);
-	}
 }
 
 void	wait_end(t_minishell *infos, pid_t *pids)
@@ -54,7 +49,6 @@ void	wait_end(t_minishell *infos, pid_t *pids)
 		tmp = tmp->next;
 		i++;
 	}
-	g_signal_receive = 0;
 }
 
 void	close_pipes(int (*pipes)[2], t_cmd *cmd)

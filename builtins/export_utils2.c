@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 09:48:43 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/04 11:07:26 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/05 12:35:06 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void	join_value(t_env **env, char *cmd)
 	t_env	*target;
 	int i;
 	int len_join;
-	int	len_value;
 	
 	i = get_len_key(cmd) + 2;
 	len_join = 0;
@@ -71,7 +70,6 @@ void	join_value(t_env **env, char *cmd)
 	if (!key)
 		return ;
 	target = get_env_node((*env), key);
-	len_value = ft_strlen(target->value);
 	i += ft_strlen(target->value);
 	while (cmd[i])
 	{
