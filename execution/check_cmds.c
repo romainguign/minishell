@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 15:47:40 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/30 18:56:41 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/05 17:08:12 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,22 @@ static char	*ft_concatenate_dir(char *s1, char *s2)
 
 static	void access_error(char *cmd, char *error)
 {
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(cmd, 2);
-	ft_putstr_fd(error, 2);
+	char	*error_msg;
+
+	error_msg = ft_strjoin("minishell: ", cmd);
+	if (!error_msg)
+	{
+		ft_putstr_fd(MALLOC_ERROR, 2);
+		return ;
+	}
+	error_msg = ft_strjoinfree(error_msg, error);
+	if (!error_msg)
+	{
+		ft_putstr_fd(MALLOC_ERROR, 2);
+		return ;
+	}
+	ft_putstr_fd(error_msg, 2);
+	free (error_msg);
 }
 
 static int	search_directory(char *cmd)

@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/04 17:06:51 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/06 16:06:54 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct s_token
 	char				*value;
 	char				quote;
 	struct s_token		*next;
-	struct s_token		*prev;
+	// struct s_token		*prev;
 	t_token_type		token_type;
 }	t_token;
 
@@ -100,6 +100,7 @@ int				ft_tab_len(char **tab);
 int				ft_lst_size_env(t_env *env);
 char			**lst_to_tab_export(t_env *env);
 int				is_space(char c);
+int				no_space(char *value);
 int				ft_isalnum(int c);
 int				ft_len_nbr(long int n);
 char			*ft_itoa(int n);
@@ -112,6 +113,7 @@ char			*ft_strjoinfree(char *s1, char *s2);
 char			*ft_strjoin_env(char *s1, char *s2);
 char			*ft_strjoin_export(char *s1, char *s2);
 char			**ft_split(char const *s, char c);
+char			**ft_split_token(char *str, char *charset);
 char			*get_pwd(t_env *env);
 size_t			ft_strlcat(char *dst, const char *src, size_t size);
 
@@ -133,12 +135,13 @@ char			**lst_to_tab(t_env *env);
 
 //tokenizer :
 int				tokenizer(t_minishell *infos);
+int				env_tokenizer(t_minishell *infos);
 int				check_token(t_minishell *infos);
 char			*dup_token(char *line, int *i, t_minishell *infos, t_token *token);
 char			*strljoin_token(char *s1, char *s2, int len);
 char			*find_dollar_value(char *line, t_minishell *infos, int *i, char quote);
 char			*ft_strtrim_spaces(char *str);
-char			*parse_redirect(char *line, int	*i, t_minishell *infos);
+char			*parse_redirect(char *line, int	*i);
 void			ft_tokenclear(t_token **lst, void (*del)(void*));
 t_token_type	get_token_type(char *value, t_token *token);
 

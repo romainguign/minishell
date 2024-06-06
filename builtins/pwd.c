@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 14:46:29 by brguicho          #+#    #+#             */
-/*   Updated: 2024/05/23 12:40:59 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/06 09:55:43 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ int	ft_pwd(char **cmd)
 	path = NULL;
 	if (!ft_strcmp(cmd[0], "pwd"))
 	{
-		path = getcwd(path, 0);
+		path = getcwd(path, 0); // si errno == ENOENT alors pas de fail malloc et donc pas arreter minishell
 		printf("%s\n", path);
+		free(path);
 	}
 	return (0);
 }

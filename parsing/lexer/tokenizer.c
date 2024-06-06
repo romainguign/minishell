@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:29:25 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/04 17:14:45 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/06 14:14:17 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ static t_token	*ft_newtoken(t_minishell *infos, int *i)
 		return (0);
 	}
 	token->token_type = get_token_type(token->value, token);
-	token->next = NULL;
-	token->prev = NULL;
 	return (token);
 }
 

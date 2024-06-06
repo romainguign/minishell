@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:15:13 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/04 13:02:10 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/05 17:14:24 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,16 @@
 
 void	ft_puterrors(char *s)
 {
-	ft_putstr_fd("minishell: ", 2);
-	perror(s);
+	char	*error_msg;
+
+	error_msg = ft_strjoin("minishell: ", s);
+	if (!error_msg)
+	{
+		ft_putstr_fd(MALLOC_ERROR, 2);
+		return ;
+	}
+	perror(error_msg);
+	free (error_msg);
 }
 
 void	ft_tokenerror(t_token_type type, t_minishell *infos)

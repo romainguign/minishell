@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:01:18 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/04 18:29:47 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/06 15:44:36 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,17 @@ static int	exec_line(t_minishell *infos)
 	int	result;
 
 	result = tokenizer(infos);
-	if (!result || result == -1 || !check_token(infos))
+	if (!result || result == -1 )
+		return (0);
+	if (!env_tokenizer(infos))
+		return (0);
+	// t_token *tmp2 = infos->token;
+	// while (tmp2)
+	// {
+	// 	printf("tk_value : %s\n", tmp2->value);
+	// 	tmp2 = tmp2->next;
+	// }
+	if (!check_token(infos))
 		return (0);
 	ft_execute(infos);
 	ft_tokenclear(&infos->token, free);
@@ -28,10 +38,22 @@ static int	exec_line(t_minishell *infos)
 	return (1);
 }
 
+char	*no_autocomplete(const char *text, int state)
+{
+	(void)text;
+	(void)state;
+	return (NULL);
+}
+
 static int	minishell_loop(t_minishell *infos)
 {
 	char	*pwd;
 
+	if (!isatty(STDIN_FILENO))
+	{
+		rl_completion_entry_function = &no_autocomplete;
+		rl_attempted_completion_over = 1;
+	}
 	while (1)
 	{
 		pwd = get_pwd(infos->env);

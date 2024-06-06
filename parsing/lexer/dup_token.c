@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:22:24 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/04 16:37:19 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/06 14:18:11 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ char	*dup_token(char *line, int *i, t_minishell *infos, t_token *token)
 	save_i = *i;
 	if (line[0] == '<' || line[0] == '>' || line[0] == '|')
 	{
-		word = parse_redirect(line, i, infos);
+		word = parse_redirect(line, i);
 		if (!word)
 			return (0);
 	}

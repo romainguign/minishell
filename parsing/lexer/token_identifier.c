@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 14:47:54 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/04 17:07:42 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/06 16:55:13 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,53 +28,43 @@ t_token_type	get_token_type(char *value, t_token *token)
 		return (WORD);
 }
 
-static void	unexpected_token(char *line, t_minishell *infos)
-{
-	int	i;
+// static void	unexpected_token(char *line, t_minishell *infos)
+// {
+// 	int	i;
 
-	i = 1;
-	if (line[0] != line[1])
-	{
-		ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
-		while (line[i] && (line[i] == '<' || line[i] == '|' || line[i] == '>'))
-			i++;
-		write(2, &line[1], i - 1);
-		write(2, "'\n", 2);
-	}
-	else
-	{
-		i++;
-		ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
-		while (line[i] && (line[i] == '<' || line[i] == '|' || line[i] == '>'))
-			i++;
-		write(2, &line[2], i - 2);
-		write(2, "'\n", 2);
-	}
-	infos->exit_code = 2;
-}
+// 	i = 1;
+// 	if (line[0] != line[1])
+// 	{
+// 		ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
+// 		while (line[i] && (line[i] == '<' || line[i] == '|' || line[i] == '>'))
+// 			i++;
+// 		write(2, &line[1], i - 1);
+// 		write(2, "'\n", 2);
+// 	}
+// 	else
+// 	{
+// 		i++;
+// 		ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
+// 		while (line[i] && (line[i] == '<' || line[i] == '|' || line[i] == '>'))
+// 			i++;
+// 		write(2, &line[2], i - 2);
+// 		write(2, "'\n", 2);
+// 	}
+// 	infos->exit_code = 2;
+// }
 
-char	*parse_redirect(char *line, int	*i, t_minishell *infos)
+char	*parse_redirect(char *line, int	*i)
 {
 	char	*word;
 
 	word = ft_calloc(3, sizeof(char));
 	if (!word)
 		return (0);
-	if ((line[1] != '>') && (line[1] != '<') && (line[1] != '|'))
-		word[0] = line[0];
-	else if (line[0] != '|' && line[1] == line[0] && line[2] != '|'
-		&& line[2] != '>' && line[2] != '<')
+	word[0] = line[0];
+	if (line[0] == line[1] && (line[1] == '<' || line[1] == '>'))
 	{
-		word[0] = line[0];
 		word[1] = line[1];
 		(*i)++;
-	}
-	else
-	{
-		free (word);
-		unexpected_token(line, infos);
-		infos->exit_code = 2;
-		return (0);
 	}
 	return (word);
 }

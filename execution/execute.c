@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:58:19 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/29 14:55:15 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/06 11:10:46 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	ft_execution(char **cmd, char **envp, t_minishell *infos)
 	if (cmd[0])
 	{
 		execve(cmd[0], cmd, envp);
-		// ft_putstr_fd("execve : ", 2);
 		ft_puterrors(cmd[0]);
 	}
 	ft_free_env(envp);
