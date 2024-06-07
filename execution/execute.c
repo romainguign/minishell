@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:58:19 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/07 10:04:19 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/07 19:46:12 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,9 @@ void	start_program(char **envp, t_minishell *infos)
 
 int	ft_execute(t_minishell *infos)
 {
+	long long int	builtin;
+	int	tmp_exit_code;
+	
 	if (!make_lstcmd(infos))
 		return (0);
 	infos->env_tab = lst_to_tab(infos->env);
@@ -94,12 +97,19 @@ int	ft_execute(t_minishell *infos)
 		ft_putstr_fd(MALLOC_ERROR, 2);
 		return (0);
 	}
-	if (!only_builtin(infos))
-	{
-		ft_free_env(infos->env_tab);
-		return (0);
-	}
+	builtin = only_builtin(infos);
 	start_program(infos->env_tab, infos);
 	ft_free_env(infos->env_tab);
+	if (builtin != -2)
+	{
+		if (infos->exit_code == -1)
+		{
+			infos->exit_code = 1;
+			return (1);
+		}
+		tmp_exit_code = infos->exit_code;
+		free_all(infos);
+		exit(tmp_exit_code);
+	}
 	return (1);
 }

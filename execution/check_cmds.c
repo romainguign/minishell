@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 15:47:40 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/05 17:08:12 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/07 10:34:41 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,15 +160,7 @@ static int	search_cmd(char **path, char **cmd, t_minishell *infos)
 	file = is_dir(cmd[0], 0, infos);
 	if (!access(*cmd, X_OK) && file == 1)
 		return (1);
-	while (cmd[i])
-		i++;
 	access_cmd(path, cmd, i, infos);
-	if (!access(*cmd, F_OK) && access(*cmd, X_OK) == -1)
-	{
-		access_error(cmd[0], ": Permission denied\n");
-		free_close(infos);
-		exit (126);
-	}
 	return (1);
 }
 

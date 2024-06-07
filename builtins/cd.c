@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 14:28:25 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/03 19:42:19 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/07 19:03:07 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	print_cd_errors(char *str)
 	ft_putstr_fd("\n", 2);
 }
 
-int		ft_cd(t_minishell *infos, char **cmd)
+int		ft_cd(t_minishell *infos, char **cmd, int fork)
 {
 	t_env	*home_env;
 	t_env	*pwd_env;
@@ -61,20 +61,23 @@ int		ft_cd(t_minishell *infos, char **cmd)
 	path = getcwd(path, 0);
 	if (ft_tab_len(cmd) > 2)
 	{
-		ft_putstr_fd("minishell: cd: too many arguments\n", 2);
+		if (fork == 0)
+			ft_putstr_fd("minishell: cd: too many arguments\n", 2);
 		return(1);
 	}
 	if (!cmd[1])
 	{
 		if (!check_env_home(infos->env))
 		{
-			ft_putstr_fd(CD_ENV_HOME_ERROR, 2);
+			if (fork == 0)
+				ft_putstr_fd(CD_ENV_HOME_ERROR, 2);
 			return (1);
 		}
 		home_env = get_env_node(infos->env, "HOME");
 		if (chdir(home_env->value) != 0)
 		{
-			print_cd_errors(home_env->value);
+			if (fork == 0)
+				print_cd_errors(home_env->value);
 			return (1);
 		}
 		pwd_env = get_env_node(infos->env, "PWD");
@@ -91,7 +94,8 @@ int		ft_cd(t_minishell *infos, char **cmd)
 	{
 		if (chdir(infos->token->next->value) != 0)
 		{
-			print_cd_errors(infos->token->next->value);
+			if (fork == 0)
+				print_cd_errors(infos->token->next->value);
 			return (1);
 		}
 		pwd_env = get_env_node(infos->env, "PWD");

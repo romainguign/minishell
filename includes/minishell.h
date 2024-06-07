@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/07 10:03:57 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/07 19:42:40 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,13 @@ typedef struct s_cmd
 
 typedef struct s_minishell
 {
-	char	*line;
-	char	**env_tab;
-	int		pipes[512][2];
-	int		exit_code;
-	t_env	*env;
-	t_token	*token;
-	t_cmd	*cmd;
+	char				*line;
+	char				**env_tab;
+	int					pipes[512][2];
+	long long int		exit_code;
+	t_env				*env;
+	t_token				*token;
+	t_cmd				*cmd;
 }	t_minishell;
 
 /*----------------------------- Errors messages -----------------------------*/
@@ -97,6 +97,7 @@ int				ft_lst_size_env(t_env *env);
 char			**lst_to_tab_export(t_env *env);
 int				is_space(char c);
 int				no_space(char *value);
+int				is_num(char c);
 int				ft_isalnum(int c);
 int				ft_len_nbr(long int n);
 char			*ft_itoa(int n);
@@ -157,14 +158,14 @@ void			ft_tokenerror(t_token_type type, t_minishell *infos);
 int				ft_pwd(char **cmd);
 
 //cd :
-int				ft_cd(t_minishell *infos, char **cmd);
+int		ft_cd(t_minishell *infos, char **cmd, int fork);
 t_env			*get_env_node(t_env *env, char *node);
 
 //echo :
 int				ft_echo(char **cmd);
 
 //export :
-int				ft_export(t_env *env, char **cmd);
+int				ft_export(t_env *env, char **cmd, int fork);
 int				is_wrong_identifier(char c);
 int				is_input_correct(char *str);
 void			new_env_element_key(char *cmd, t_env *env);
@@ -182,11 +183,11 @@ int				is_env_key_exist(t_env *env, char *key);
 int				ft_env(t_env *env);
 
 //exit :
-int				ft_exit(char **cmd, t_minishell *infos);
+long long int				ft_exit(char **cmd, t_minishell *infos, int fork);
 
 /*--------------------------------- execution -------------------------------*/
 int				ft_execute(t_minishell *infos);
-int				only_builtin(t_minishell *infos);
+long long int	only_builtin(t_minishell *infos);
 void			exec_builtin(char **cmd, t_minishell *infos);
 int				make_lstcmd(t_minishell *infos);
 int				check_cmds(t_cmd *cmds, t_env *env, t_minishell *infos);
@@ -200,7 +201,6 @@ void			wait_and_close(t_minishell *infos, pid_t *pids,
 					int (*pipes)[2]);
 void			close_std(void);
 void			close_fds(t_cmd *cmd);
-int				only_builtin(t_minishell *infos);
 
 //here_doc :
 int				here_doc(t_token *token, t_cmd *cmd, char *limiter, t_minishell *infos);

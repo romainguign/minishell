@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:01:22 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/04 11:39:15 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/07 18:57:05 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static void	print_env(char **env_tab)
 	}
 }
 
-int	ft_export(t_env *env, char **cmd)
+int	ft_export(t_env *env, char **cmd, int fork)
 {
 	char	**env_tab;
 	int		i;
@@ -95,21 +95,19 @@ int	ft_export(t_env *env, char **cmd)
 
 	i = 1;
 	exit_code = 0;
-	if (ft_tab_len(cmd) == 1)
+	if (ft_tab_len(cmd) == 1 && fork == 0)
 	{
 		env_tab = sort_env_tab(env);
 		print_env(env_tab);
 		free_tab((void **)env_tab);
 		return (0);
 	}
-	else if (ft_tab_len(cmd) > 1)
+	else if (ft_tab_len(cmd) > 1 && fork == 1)
 	{
 		while (cmd[i])
 		{
 			if (is_input_correct(cmd[i]))
-			{
 				check_type_and_add(cmd[i], env);
-			}
 			else
 			{
 				print_error_identifier(cmd[i]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 09:48:43 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/05 12:35:06 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/07 18:50:26 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,13 @@ void	update_value(t_env **env, char *cmd)
 	if (!key)
 		return ;
 	target = get_env_node((*env), key);
-	target->value = ft_realloc((void *)target->value, get_len_value(cmd));
+	free(target->value);
+	target->value = ft_calloc(sizeof(char), get_len_value((cmd)) + 1);
+	if (!target->value)
+	{
+		ft_putstr_fd(MALLOC_ERROR, 2);
+		return ;
+	}
 	target->value = ft_memcpy(target->value, &cmd[i], get_len_value(cmd));
 	free(key);
 }
@@ -70,14 +76,8 @@ void	join_value(t_env **env, char *cmd)
 	if (!key)
 		return ;
 	target = get_env_node((*env), key);
-	i += ft_strlen(target->value);
-	while (cmd[i])
-	{
-		len_join++;
-		i++;
-	}
-	i = get_len_key(cmd) + 2;
-	if (cmd[i] != '\0')
-		target->value = ft_strjoinfree(target->value, &cmd[i]);
+	target->value = ft_strjoinfree(target->value, &cmd[i]);
+	if (!target->value)
+		return ;
 	free(key);
 }

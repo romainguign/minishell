@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 09:35:33 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/04 13:34:19 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/07 17:34:28 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ static t_cmd	*ft_newcmd(t_token *token, t_token *pipe)
 		return (0);
 	cmd->fd_in = 0;
 	cmd->fd_out = 1;
+	cmd->next = NULL;
 	if (!fill_cmd(cmd, token, pipe))
 		return (0);
 	return (cmd);
