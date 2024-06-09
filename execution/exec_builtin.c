@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:21:38 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/07 19:48:14 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/09 15:13:26 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	exec_builtin(char **cmd, t_minishell *infos)
 {
 	long long int	exit_code;
-	
+
 	if (!ft_strcmp(cmd[0], "cd"))
 		exit_code = ft_cd(infos, cmd, 0);
 	else if (!ft_strcmp(cmd[0], "echo"))

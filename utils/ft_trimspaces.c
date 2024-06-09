@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_trimspaces.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 17:49:03 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/30 18:59:45 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/09 15:03:47 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	ft_strlen_space(char *str)
 	i = 0;
 	space = 0;
 	len = 0;
-	while(str[i])
+	while (str[i])
 	{
 		space = is_space(str[i]);
 		if (space == 0 || (i > 0 && space == 1 && !is_space(str[i - 1])))

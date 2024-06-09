@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 09:48:43 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/07 18:50:26 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/09 15:32:51 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	get_len_key(char *cmd)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	while (cmd[i] && cmd[i] != '=')
 	{
@@ -26,11 +26,11 @@ int	get_len_key(char *cmd)
 	return (i);
 }
 
-static int get_len_value(char *cmd)
+static int	get_len_value(char *cmd)
 {
 	int	i;
-	int j;
-	
+	int	j;
+
 	i = 0;
 	j = get_len_key(cmd) + 1;
 	while (cmd[j])
@@ -46,7 +46,7 @@ void	update_value(t_env **env, char *cmd)
 	char	*key;
 	t_env	*target;
 	int		i;
-	
+
 	i = get_len_key(cmd) + 1;
 	key = ft_strldup(cmd, get_len_key(cmd));
 	if (!key)
@@ -67,9 +67,9 @@ void	join_value(t_env **env, char *cmd)
 {
 	char	*key;
 	t_env	*target;
-	int i;
-	int len_join;
-	
+	int		i;
+	int		len_join;
+
 	i = get_len_key(cmd) + 2;
 	len_join = 0;
 	key = ft_strldup(cmd, get_len_key(cmd));

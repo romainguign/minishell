@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 09:43:27 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/04 10:33:46 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/09 14:34:37 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	**lst_to_tab_export(t_env *env)
 	{
 		tab_env[i] = ft_strjoin_export(tmp->name, tmp->value);
 		i++;
-			tmp = tmp->next;
-		}
+		tmp = tmp->next;
+	}
 	return (tab_env);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dup_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:22:24 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/06 14:18:11 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/09 14:40:10 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*strljoin_token(char *s1, char *s2, int len)
 	return (str);
 }
 
-static char	*manage_quote(char *word, char *line, int *i,  t_minishell *infos)
+static char	*manage_quote(char *word, char *line, int *i, t_minishell *infos)
 {
 	char	*dollar_value;
 	char	c;
@@ -109,7 +109,8 @@ static char	*token_loop(char *line, int *i, t_token *token, t_minishell *infos)
 			&& line[len] != '|' && line[len] != '>'))
 	{
 		if (line[len] != '"' && line[len] != '\'' && (line[len] != '$'
-			|| (line[len] == '$' && (line[len + 1] == ' ' || !line[len + 1]))))
+				|| (line[len] == '$' && (line[len + 1] == ' '
+						|| !line[len + 1]))))
 			word = strljoin_token(word, &line[len], 1);
 		else
 		{

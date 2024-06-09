@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:58:19 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/07 19:46:12 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/09 15:10:10 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,8 @@ void	start_program(char **envp, t_minishell *infos)
 int	ft_execute(t_minishell *infos)
 {
 	long long int	builtin;
-	int	tmp_exit_code;
-	
+	int				tmp_exit_code;
+
 	if (!make_lstcmd(infos))
 		return (0);
 	infos->env_tab = lst_to_tab(infos->env);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dup_process.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 17:40:15 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/30 18:56:45 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/09 15:13:14 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	dup_fds(int (*pipes)[2], t_cmd *cmd, t_minishell *infos)
 
 int	children_process(int (*pipes)[2], int i, t_cmd *cmd, t_minishell *infos)
 {
-	ft_redirects(cmd,  infos);
+	ft_redirects(cmd, infos);
 	if (cmd->fd_in == -1 || cmd->fd_out == -1)
 	{
 		close_pipes(pipes, infos->cmd);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/07 19:42:40 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/09 15:54:05 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,9 +134,11 @@ char			**lst_to_tab(t_env *env);
 int				tokenizer(t_minishell *infos);
 int				env_tokenizer(t_minishell *infos);
 int				check_token(t_minishell *infos);
-char			*dup_token(char *line, int *i, t_minishell *infos, t_token *token);
+char			*dup_token(char *line, int *i, t_minishell *infos,
+					t_token *token);
 char			*strljoin_token(char *s1, char *s2, int len);
-char			*find_dollar_value(char *line, t_minishell *infos, int *i, char quote);
+char			*find_dollar_value(char *line, t_minishell *infos,
+					int *i, char quote);
 char			*ft_strtrim_spaces(char *str);
 char			*parse_redirect(char *line, int	*i);
 void			ft_tokenclear(t_token **lst, void (*del)(void*));
@@ -145,8 +147,8 @@ t_token_type	get_token_type(char *value, t_token *token);
 //parser :
 
 /*--------------------------------- signals ---------------------------------*/
-void 			signal_status(int state);
-void			signal_fork();
+void			signal_status(int state);
+void			signal_fork(void);
 
 /*--------------------------------- errors ----------------------------------*/
 void			ft_puterrors(char *s);
@@ -158,7 +160,7 @@ void			ft_tokenerror(t_token_type type, t_minishell *infos);
 int				ft_pwd(char **cmd);
 
 //cd :
-int		ft_cd(t_minishell *infos, char **cmd, int fork);
+int				ft_cd(t_minishell *infos, char **cmd, int fork);
 t_env			*get_env_node(t_env *env, char *node);
 
 //echo :
@@ -170,7 +172,7 @@ int				is_wrong_identifier(char c);
 int				is_input_correct(char *str);
 void			new_env_element_key(char *cmd, t_env *env);
 void			update_value(t_env **env, char *cmd);
-void 			check_type_and_add(char *cmd, t_env *env);
+void			check_type_and_add(char *cmd, t_env *env);
 int				get_len_key(char *cmd);
 void			join_value(t_env **env, char *cmd);
 t_env			*ft_newenv_export(char *envp);
@@ -183,7 +185,7 @@ int				is_env_key_exist(t_env *env, char *key);
 int				ft_env(t_env *env);
 
 //exit :
-long long int				ft_exit(char **cmd, t_minishell *infos, int fork);
+long long int	ft_exit(char **cmd, t_minishell *infos, int fork);
 
 /*--------------------------------- execution -------------------------------*/
 int				ft_execute(t_minishell *infos);
@@ -203,7 +205,8 @@ void			close_std(void);
 void			close_fds(t_cmd *cmd);
 
 //here_doc :
-int				here_doc(t_token *token, t_cmd *cmd, char *limiter, t_minishell *infos);
+int				here_doc(t_token *token, t_cmd *cmd, char *limiter,
+					t_minishell *infos);
 int				init_tmp_file(t_cmd *cmd, t_token *token);
 char			*check_env_var(char quote, char *line, t_minishell *infos);
 void			ft_create_tmp_file(int infile, char *doc, char *limiter,

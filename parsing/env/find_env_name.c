@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_env_name.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:50:01 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/04 16:41:10 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/09 14:27:50 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static char	*error_code(int *len, t_minishell *infos)
 {
-	char *name;
-	
+	char	*name;
+
 	name = NULL;
 	name = ft_itoa(infos->exit_code);
 	*len += 1;
@@ -29,7 +29,7 @@ static char	*error_code(int *len, t_minishell *infos)
 
 static char	*cpy_value(char *value)
 {
-	char *word;
+	char	*word;
 
 	word = ft_strdup(value);
 	if (!word)
@@ -77,7 +77,7 @@ char	*no_bracket_env_name(char *line, int *len, char quote)
 	if (line[j] == '?' && j == 1)
 		name = ft_strdup("?");
 	if (!name && j == 1 && (is_space(line[j])
-		|| (line[j] == quote && (quote == '"' || quote == '\''))))
+			|| (line[j] == quote && (quote == '"' || quote == '\''))))
 		name = ft_strdup("$");
 	if (!name)
 		name = ft_strldup(&line[1], j - 1);

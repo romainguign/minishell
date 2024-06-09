@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 23:10:25 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/04 11:03:13 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/07 22:05:29 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,11 @@ int	is_input_correct(char *str)
 		if (str[i] == '+')
 		{
 			if (str[i + 1] != '=')
+				return (0);
+		}
+		if (str[i] == '-')
+		{
+			if (str[i + 1] == '=')
 				return (0);
 		}
 		if (is_wrong_identifier2(str[i]))

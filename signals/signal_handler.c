@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 09:22:39 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/05 10:45:41 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/09 15:51:29 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void	sig_ignore(int sig)
 {
 	(void) sig;
 }
+
 static void	sig_handler_fork(int sig)
 {
 	if (sig == SIGINT)
@@ -41,9 +42,7 @@ static void	sig_handler(int sig)
 	}
 }
 
-
-
-void signal_status(int state)
+void	signal_status(int state)
 {
 	if (state)
 	{
@@ -57,9 +56,8 @@ void signal_status(int state)
 	}
 }
 
-void signal_fork()
+void	signal_fork(void)
 {
-	
-		signal(SIGINT, &sig_handler_fork);
-		signal(SIGQUIT, &sig_handler_fork);
+	signal(SIGINT, &sig_handler_fork);
+	signal(SIGQUIT, &sig_handler_fork);
 }

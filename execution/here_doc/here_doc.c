@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:39:54 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/04 14:52:22 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/09 14:26:02 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ static void	eof_warning(char *s)
 	ft_putstr_fd("')\n", 2);
 }
 
-static char	*here_doc_loop(char *limiter, char *doc, t_token *token, t_minishell *infos)
+static char	*here_doc_loop(char *limiter, char *doc,
+								t_token *token, t_minishell *infos)
 {
 	char	*line;
 

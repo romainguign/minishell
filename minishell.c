@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:01:18 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/07 10:04:05 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/09 15:54:38 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	exec_line(t_minishell *infos)
 	int	result;
 
 	result = tokenizer(infos);
-	if (!result || result == -1 )
+	if (!result || result == -1)
 		return (0);
 	if (!env_tokenizer(infos))
 		return (0);
@@ -77,7 +77,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_minishell	*infos;
 	int			exit_code;
-	
+
 	(void)argv;
 	signal_status(1);
 	if (argc > 1)

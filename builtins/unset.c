@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   unset.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/09 15:48:02 by brguicho          #+#    #+#             */
+/*   Updated: 2024/06/09 15:49:46 by brguicho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	is_env_key_exist(t_env *env, char *key)
@@ -18,26 +30,28 @@ static void	erase_env_node(t_env **env, char *key)
 {
 	t_env	*tmp;
 	t_env	*prev;
+	t_env	*node_to_remove;
 
 	tmp = *env;
 	prev = NULL;
+	node_to_remove = NULL;
 	while (tmp)
 	{
 		if (tmp->next && !ft_strcmp(tmp->next->name, key))
 		{
-			t_env *node_to_remove = tmp->next;
+			node_to_remove = tmp->next;
 			tmp->next = tmp->next->next;
 			free(node_to_remove->name);
 			free(node_to_remove->value);
 			free(node_to_remove);
-			return;
+			return ;
 		}
 		prev = tmp;
 		tmp = tmp->next;
 	}
 	if (*env && !ft_strcmp((*env)->name, key))
 	{
-		t_env *node_to_remove = *env;
+		node_to_remove = *env;
 		*env = (*env)->next;
 		free(node_to_remove->name);
 		free(node_to_remove->value);

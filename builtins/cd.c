@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 14:28:25 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/07 19:03:07 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/09 15:17:03 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,11 @@ static void	print_cd_errors(char *str)
 	ft_putstr_fd("\n", 2);
 }
 
-int		ft_cd(t_minishell *infos, char **cmd, int fork)
+int	ft_cd(t_minishell *infos, char **cmd, int fork)
 {
 	t_env	*home_env;
 	t_env	*pwd_env;
-	t_env 	*old_pwd;
+	t_env	*old_pwd;
 	char	*path;
 
 	path = NULL;
@@ -63,7 +63,7 @@ int		ft_cd(t_minishell *infos, char **cmd, int fork)
 	{
 		if (fork == 0)
 			ft_putstr_fd("minishell: cd: too many arguments\n", 2);
-		return(1);
+		return (1);
 	}
 	if (!cmd[1])
 	{
@@ -88,7 +88,6 @@ int		ft_cd(t_minishell *infos, char **cmd, int fork)
 		path = getcwd(path, 0);
 		pwd_env->value = ft_realloc((void *)pwd_env->value, ft_strlen(path));
 		pwd_env->value = ft_memcpy(pwd_env->value, path, ft_strlen(path));
-		
 	}
 	if (cmd[1])
 	{

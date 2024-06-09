@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:01:22 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/07 18:57:05 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/07 22:01:58 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,8 +110,8 @@ int	ft_export(t_env *env, char **cmd, int fork)
 				check_type_and_add(cmd[i], env);
 			else
 			{
-				print_error_identifier(cmd[i]);
 				exit_code = 1;
+				print_error_identifier(cmd[i]);
 			}
 			i++;
 		}

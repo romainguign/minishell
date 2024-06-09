@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmds.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 15:47:40 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/07 10:34:41 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/09 15:12:50 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static char	*ft_concatenate_dir(char *s1, char *s2)
 	return (str);
 }
 
-static	void access_error(char *cmd, char *error)
+static void	access_error(char *cmd, char *error)
 {
 	char	*error_msg;
 
@@ -72,22 +72,23 @@ static int	search_directory(char *cmd)
 
 static int	is_builtin(char *cmd)
 {
-	if (!ft_strcmp(cmd, "cd") || !ft_strcmp(cmd, "echo") || !ft_strcmp(cmd, "env")
+	if (!ft_strcmp(cmd, "cd") || !ft_strcmp(cmd, "echo")
+		|| !ft_strcmp(cmd, "env")
 		|| !ft_strcmp(cmd, "exit") || !ft_strcmp(cmd, "export")
 		|| !ft_strcmp(cmd, "unset") || !ft_strcmp(cmd, "pwd"))
 		return (0);
 	return (1);
 }
 
-static int is_dir(char *cmd, int i, t_minishell *infos)
+static int	is_dir(char *cmd, int i, t_minishell *infos)
 {
-    struct stat st;
+	struct stat	st;
 
 	if (stat(cmd, &st) != 0)
 		return (1);
-    if (S_ISDIR(st.st_mode))
+	if (S_ISDIR(st.st_mode))
 	{
-        if (i == 0 && search_directory(cmd))
+		if (i == 0 && search_directory(cmd))
 		{
 			access_error(cmd, ": Is a directory\n");
 			free_close(infos);
@@ -95,7 +96,7 @@ static int is_dir(char *cmd, int i, t_minishell *infos)
 		}
 		else
 			return (0);
-    }
+	}
 	return (1);
 }
 
@@ -119,7 +120,7 @@ static int	check_exec(char *cmd, t_minishell *infos)
 static int	access_cmd(char **path, char **cmd, int j, t_minishell *infos)
 {
 	char	*command_path;
-	
+
 	while (path[j])
 	{
 		command_path = ft_concatenate_dir(path[j], *cmd);

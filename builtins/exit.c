@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:59:57 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/07 19:51:58 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/09 15:20:04 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static int	ft_str_is_not_num(char *str)
 {
-	int i;
-	int j;
-	
+	int	i;
+	int	j;
+
 	i = 0;
 	j = 0;
 	while (is_space(str[i]))
@@ -77,8 +77,8 @@ static int	check_overflow(char *nbr, char sign)
 
 static int	check_max(char *nbr)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 	char	sign;
 
 	i = 0;
@@ -96,9 +96,9 @@ static int	check_max(char *nbr)
 	return (1);
 }
 
-long long int ft_exit(char **cmd, t_minishell *infos, int fork)
+long long int	ft_exit(char **cmd, t_minishell *infos, int fork)
 {
-	int nbr;
+	int	nbr;
 	int	tmp_exit_code;
 
 	tmp_exit_code = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   puterrors.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:15:13 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/05 17:14:24 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/09 15:15:36 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ void	ft_tokenerror(t_token_type type, t_minishell *infos)
 	if (type == PIPE)
 		syntax_errors('|', infos);
 	else
-		ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n", 2);
+		ft_putstr_fd("minishell: syntax error near \
+						unexpected token `newline'\n", 2);
 	infos->exit_code = 2;
 }
 

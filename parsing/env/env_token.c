@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   env_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 13:37:37 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/06 16:53:36 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/09 14:34:12 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-static t_token *new_tkn(char *value)
+static t_token	*new_tkn(char *value)
 {
 	t_token	*new_token;
 
@@ -26,7 +25,7 @@ static t_token *new_tkn(char *value)
 		free(new_token);
 		return (0);
 	}
-	new_token->token_type =  get_token_type(new_token->value, new_token);
+	new_token->token_type = get_token_type(new_token->value, new_token);
 	return (new_token);
 }
 
@@ -50,7 +49,7 @@ static int	ft_tokadd_back(t_token **token, t_token *new)
 
 static t_token	*add_list_token(char **splited_token)
 {
-	int	i;
+	int		i;
 	t_token	*new;
 
 	i = 0;
@@ -66,9 +65,9 @@ static t_token	*add_list_token(char **splited_token)
 
 static t_token	*new_list_token(t_minishell *infos, char *value)
 {
-	t_token *new;
-
+	t_token	*new;
 	char	**splited_token;
+
 	splited_token = ft_split_token(value, " \t\n");
 	if (!splited_token)
 	{
@@ -87,10 +86,11 @@ static t_token	*new_list_token(t_minishell *infos, char *value)
 	return (new);
 }
 
-int	insert_new_token_list(t_minishell *infos, t_token *tmp, t_token *next, t_token *last)
+int	insert_new_token_list(t_minishell *infos, t_token *tmp,
+							t_token *next, t_token *last)
 {
 	t_token	*new;
-	
+
 	new = new_list_token(infos, tmp->value);
 	if (!new)
 		return (0);
@@ -108,9 +108,9 @@ int	insert_new_token_list(t_minishell *infos, t_token *tmp, t_token *next, t_tok
 
 int	env_tokenizer(t_minishell *infos)
 {
-	t_token *tmp;
-	t_token *next;
-	t_token *last;
+	t_token	*tmp;
+	t_token	*next;
+	t_token	*last;
 
 	tmp = infos->token;
 	while (tmp)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_token.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:43:19 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/04 13:52:05 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/09 14:42:07 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 int	check_token(t_minishell *infos)
 {
-	t_token *tmp;
+	t_token	*tmp;
 
 	tmp = infos->token;
 	if (tmp->token_type == PIPE)
 	{
 		ft_tokenerror(tmp->token_type, infos);
 		ft_tokenclear(&infos->token, free);
-		return (0);	
+		return (0);
 	}
 	while (tmp->next)
 	{
@@ -31,7 +31,9 @@ int	check_token(t_minishell *infos)
 			ft_tokenclear(&infos->token, free);
 			return (0);
 		}
-		if ((tmp->token_type == REDIRECT_IN || tmp->token_type == REDIRECT_OUT) && tmp->next->token_type != WORD)
+		if ((tmp->token_type == REDIRECT_IN
+				|| tmp->token_type == REDIRECT_OUT)
+			&& tmp->next->token_type != WORD)
 		{
 			ft_tokenerror(tmp->next->token_type, infos);
 			ft_tokenclear(&infos->token, free);
@@ -43,7 +45,7 @@ int	check_token(t_minishell *infos)
 	{
 		ft_tokenerror(tmp->token_type, infos);
 		ft_tokenclear(&infos->token, free);
-		return (0);	
+		return (0);
 	}
 	return (1);
 }
