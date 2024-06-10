@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:58:19 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/09 15:10:10 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/10 10:36:59 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	ft_execute(t_minishell *infos)
 	builtin = only_builtin(infos);
 	start_program(infos->env_tab, infos);
 	ft_free_env(infos->env_tab);
-	if (builtin != -2)
+	if (builtin != -2 && !ft_strcmp(infos->cmd->cmd[0], "exit"))
 	{
 		if (infos->exit_code == -1)
 		{
