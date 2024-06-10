@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_token.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 13:46:59 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/09 15:01:04 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/10 20:22:04 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,11 @@ char	**ft_split_token(char *str, char *charset)
 		}
 		size_word = ft_get_size_word(str, charset);
 		strs[index] = malloc(sizeof(char) * (size_word + 1));
+		if (!strs[index])
+		{
+			ft_putstr_fd(MALLOC_ERROR, 2);
+			return (0);
+		}
 		ft_strlcpy(strs[index], str, size_word + 1);
 	}
 	strs[index] = 0;

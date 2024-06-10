@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:39:54 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/10 15:10:30 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/10 19:33:49 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ static char	*here_doc_loop(char *limiter, char *doc,
 {
 	char	*line;
 
-	signal_heredoc();
 	free_here_doc(infos, doc);
 	while (doc)
 	{
@@ -90,6 +89,7 @@ int	here_doc(t_token *token, t_cmd *cmd, char *limiter, t_minishell *infos)
 		ft_putstr_fd(MALLOC_ERROR, 2);
 		return (0);
 	}
+	signal_heredoc();
 	doc = here_doc_loop(limiter, doc, token, infos);
 	if (!doc)
 		return (0);

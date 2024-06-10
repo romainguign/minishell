@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:58:19 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/10 18:15:11 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/10 19:17:49 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,19 @@ void	ft_execution(char **cmd, char **envp, t_minishell *infos)
 	exit(EXIT_FAILURE);
 }
 
+void	fork_process(t_minishell *infos, t_cmd *cmd, int i, char **envp)
+{
+	if (!children_process(infos->pipes, i, cmd, infos))
+	{
+		free_close(infos);
+		exit(EXIT_FAILURE);
+	}
+	check_access(cmd->redir);
+	check_cmds(cmd, infos->env, infos);
+	ft_execution(cmd->cmd, envp, infos);
+	close_fds(infos->cmd);
+}
+
 void	create_pids(int (*pipes)[2], char **envp, t_minishell *infos, int i)
 {
 	t_cmd	*tmp;
@@ -39,23 +52,13 @@ void	create_pids(int (*pipes)[2], char **envp, t_minishell *infos, int i)
 		pids[i] = fork();
 		if (pids[i] == -1)
 		{
-			close_pipes(pipes, infos->cmd);
+			close_pipes(pipes);
 			free_close(infos);
 			perror("minishell: fork");
 			exit(EXIT_FAILURE);
 		}
 		if (pids[i] == 0)
-		{
-			if (!children_process(pipes, i, tmp, infos))
-			{
-				free_close(infos);
-				exit(EXIT_FAILURE);
-			}
-			check_access(tmp->redir);
-			check_cmds(tmp, infos->env, infos);
-			ft_execution(tmp->cmd, envp, infos);
-			close_fds(infos->cmd);
-		}
+			fork_process(infos, tmp, i, envp);
 		i++;
 		tmp = tmp->next;
 	}
@@ -73,7 +76,7 @@ void	start_program(char **envp, t_minishell *infos)
 	{
 		if (pipe(infos->pipes[i]) == -1)
 		{
-			close_pipes(infos->pipes, infos->cmd);
+			close_pipes(infos->pipes);
 			perror("minishell");
 			return ;
 		}
@@ -82,7 +85,7 @@ void	start_program(char **envp, t_minishell *infos)
 	}
 	if (i == 509)
 	{
-		close_pipes(infos->pipes, infos->cmd);
+		close_pipes(infos->pipes);
 		ft_putstr_fd("minishell: Too many command\n", 2);
 		return ;
 	}
@@ -99,10 +102,7 @@ int	ft_execute(t_minishell *infos)
 		return (0);
 	infos->env_tab = lst_to_tab(infos->env);
 	if (!infos->env_tab)
-	{
-		ft_putstr_fd(MALLOC_ERROR, 2);
 		return (0);
-	}
 	builtin = only_builtin(infos);
 	start_program(infos->env_tab, infos);
 	ft_free_env(infos->env_tab);

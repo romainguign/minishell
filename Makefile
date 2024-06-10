@@ -6,7 +6,7 @@
 #    By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/12 15:00:46 by roguigna          #+#    #+#              #
-#    Updated: 2024/06/06 14:18:48 by roguigna         ###   ########.fr        #
+#    Updated: 2024/06/10 19:55:00 by roguigna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,11 +49,12 @@ SRC_FILES		= minishell.c \
 				  utils/ft_strjoin.c  \
 				  utils/ft_trimspaces.c\
 				  utils/ft_split_token.c\
-				  parsing/env/pars_env.c   \
-				  parsing/env/free_env.c    \
-				  parsing/env/env_token.c	 \
-				  parsing/env/env_to_tab.c   \
-				  parsing/lexer/dup_token.c   \
+				  parsing/env/pars_env.c \
+				  parsing/env/free_env.c  \
+				  parsing/env/env_token.c  \
+				  parsing/env/env_to_tab.c  \
+				  parsing/lexer/dup_token.c  \
+				  parsing/env/new_token_list.c\
 				  parsing/lexer/tokenizer.c    \
 				  parsing/lexer/free_token.c    \
 				  parsing/env/find_env_name.c    \
@@ -70,11 +71,13 @@ SRC_FILES		= minishell.c \
 				  builtins/export_utils2.c \
 				  builtins/export_utils3.c \
 				  signals/signal_handler.c \
+				  signals/signal_handler_heredoc.c \
 				  errors/puterrors.c  \
 				  execution/execute.c  \
 				  execution/free_cmds.c \
 				  execution/check_cmds.c \
 				  execution/make_lstcmd.c \
+				  execution/access_cmds.c  \
 				  execution/exec_builtin.c \
 				  execution/check_access.c  \
 				  execution/redirects.c \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_trimspaces.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/30 17:49:03 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/09 15:03:47 by brguicho         ###   ########.fr       */
+/*   Created: 2024/06/10 20:17:30 by roguigna          #+#    #+#             */
+/*   Updated: 2024/06/10 20:20:27 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,24 +31,15 @@ static int	ft_strlen_space(char *str)
 	return (len);
 }
 
-char	*ft_strtrim_spaces(char *str)
+static void	*trim_cpy(char *str, char *trimmed)
 {
-	char	*trimmed;
 	int		i;
 	int		j;
 	int		space;
 
 	i = 0;
 	j = 0;
-	if (!str)
-		return (0);
 	space = 0;
-	trimmed = ft_calloc(ft_strlen_space(str) + 1, sizeof(char));
-	if (!trimmed)
-	{
-		ft_putstr_fd(MALLOC_ERROR, 2);
-		return (0);
-	}
 	while (str[i])
 	{
 		space = is_space(str[i]);
@@ -61,5 +52,20 @@ char	*ft_strtrim_spaces(char *str)
 		}
 		i++;
 	}
+}
+
+char	*ft_strtrim_spaces(char *str)
+{
+	char	*trimmed;
+
+	if (!str)
+		return (0);
+	trimmed = ft_calloc(ft_strlen_space(str) + 1, sizeof(char));
+	if (!trimmed)
+	{
+		ft_putstr_fd(MALLOC_ERROR, 2);
+		return (0);
+	}
+	trim_cpy(str, trimmed);
 	return (trimmed);
 }
