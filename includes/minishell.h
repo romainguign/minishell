@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/10 18:26:51 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/10 20:04:30 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@
 # include <dirent.h>
 # include <limits.h>
 # include <termios.h>
-
-extern int g_exit_code;
 
 typedef struct s_env
 {
@@ -51,7 +49,6 @@ typedef struct s_token
 	char				*value;
 	char				quote;
 	struct s_token		*next;
-	// struct s_token		*prev;
 	t_token_type		token_type;
 }	t_token;
 
@@ -146,6 +143,7 @@ char			*ft_strtrim_spaces(char *str);
 char			*parse_redirect(char *line, int	*i);
 void			ft_tokenclear(t_token **lst, void (*del)(void*));
 t_token_type	get_token_type(char *value, t_token *token);
+t_token			*new_list_token(t_minishell *infos, char *value);
 
 //parser :
 
@@ -154,11 +152,11 @@ void			signal_status(int state);
 void			signal_fork(void);
 void			signal_heredoc(void);
 
-
 /*--------------------------------- errors ----------------------------------*/
 void			ft_puterrors(char *s);
 void			syntax_errors(char c, t_minishell *infos);
 void			ft_tokenerror(t_token_type type, t_minishell *infos);
+char			*error_code_ascii(int *len, t_minishell *infos);
 
 /*--------------------------------- builtins --------------------------------*/
 //pwd :
@@ -198,12 +196,15 @@ long long int	only_builtin(t_minishell *infos);
 void			exec_builtin(char **cmd, t_minishell *infos);
 int				make_lstcmd(t_minishell *infos);
 int				check_cmds(t_cmd *cmds, t_env *env, t_minishell *infos);
+int				access_cmd(char **path, char **cmd, int j, t_minishell *infos);
+void			access_error(char *cmd, char *error);
+int				is_dir(char *cmd, int i, t_minishell *infos);
 int				check_access(t_token *redir);
 int				ft_redirects(t_cmd *cmd, t_minishell *infos);
 int				children_process(int (*pipes)[2], int i, t_cmd *cmd,
 					t_minishell *infos);
 void			ft_cmdsclear(t_cmd **lst, void (*del)(void*));
-void			close_pipes(int (*pipes)[2], t_cmd *cmd);
+void			close_pipes(int (*pipes)[2]);
 void			wait_and_close(t_minishell *infos, pid_t *pids,
 					int (*pipes)[2]);
 void			close_std(void);

@@ -6,26 +6,11 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:50:01 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/10 18:50:15 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/10 20:08:32 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static char	*error_code(int *len, t_minishell *infos)
-{
-	char	*name;
-
-	name = NULL;
-	name = ft_itoa(infos->exit_code);
-	*len += 1;
-	if (!name)
-	{
-		ft_putstr_fd(MALLOC_ERROR, 2);
-		return (0);
-	}
-	return (name);
-}
 
 static char	*cpy_value(char *value)
 {
@@ -76,12 +61,12 @@ char	*no_bracket_env_name(char *line, int *len, char quote)
 		j++;
 	if (line[j] == '?' && j == 1)
 		name = ft_strdup("?");
-	if (!name && quote != '\'' && quote != '"' && j == 1 && line[1] != '"' && line[1] != '\'')
+	if (!name && quote != '\'' && quote != '"' && j == 1
+		&& line[1] != '"' && line[1] != '\'')
 		name = ft_strdup("$");
-	if (!name && j == 1 && (is_space(line[j])
-			|| (line[j] == quote && (quote == '"' || quote == '\''))))
-		name = ft_strdup("$");
-	if (!is_env_syntax(line[1]) && !name && quote == '"')
+	if ((!name && j == 1 && (is_space(line[j])
+				|| (line[j] == quote && (quote == '"' || quote == '\''))))
+		|| (!is_env_syntax(line[1]) && !name && quote == '"'))
 		name = ft_strdup("$");
 	if (!name)
 		name = ft_strldup(&line[1], j - 1);
@@ -92,6 +77,17 @@ char	*no_bracket_env_name(char *line, int *len, char quote)
 	}
 	*len += j - 1;
 	return (name);
+}
+
+void	find_env_w_name(t_env **tmp, char *name)
+{
+	while ((*tmp))
+	{
+		if (!ft_strcmp(name, (*tmp)->name))
+			break ;
+		(*tmp) = (*tmp)->next;
+	}
+	free(name);
 }
 
 char	*find_dollar_value(char *line, t_minishell *infos, int *i, char quote)
@@ -108,18 +104,12 @@ char	*find_dollar_value(char *line, t_minishell *infos, int *i, char quote)
 	if (name[0] == '?')
 	{
 		free(name);
-		return (error_code(i, infos));
+		return (error_code_ascii(i, infos));
 	}
 	if (name[0] == '$')
 		return (name);
 	tmp = infos->env;
-	while (tmp)
-	{
-		if (!ft_strcmp(name, tmp->name))
-			break ;
-		tmp = tmp->next;
-	}
-	free(name);
+	find_env_w_name(&tmp, name);
 	if (!tmp)
 		return (0);
 	return (cpy_value(tmp->value));

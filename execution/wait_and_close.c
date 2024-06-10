@@ -6,18 +6,11 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 14:52:39 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/10 18:13:44 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/10 19:20:27 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	close_std(void)
-{
-	close(0);
-	close(1);
-	close(2);
-}
 
 static void	check_status(int status, t_minishell *infos)
 {
@@ -51,13 +44,11 @@ void	wait_end(t_minishell *infos, pid_t *pids)
 	}
 }
 
-void	close_pipes(int (*pipes)[2], t_cmd *cmd)
+void	close_pipes(int (*pipes)[2])
 {
 	int		i;
-	// t_cmd	*tmp;
 
 	i = 0;
-	// tmp = cmd;
 	while (i < 509)
 	{
 		if (pipes[i][0])
@@ -65,7 +56,6 @@ void	close_pipes(int (*pipes)[2], t_cmd *cmd)
 		if (pipes[i][1])
 			close(pipes[i][1]);
 		i++;
-		// tmp = tmp->next;
 	}
 }
 
@@ -89,7 +79,7 @@ void	close_fds(t_cmd *cmd)
 
 void	wait_and_close(t_minishell *infos, pid_t *pids, int (*pipes)[2])
 {
-	close_pipes(pipes, infos->cmd);
+	close_pipes(pipes);
 	close_fds(infos->cmd);
 	wait_end(infos, pids);
 }

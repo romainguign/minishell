@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   puterrors.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:15:13 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/09 15:15:36 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/10 20:04:52 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,19 @@ void	syntax_errors(char c, t_minishell *infos)
 	write(2, &c, 1);
 	write(2, "\'\n", 2);
 	infos->exit_code = 2;
+}
+
+char	*error_code_ascii(int *len, t_minishell *infos)
+{
+	char	*name;
+
+	name = NULL;
+	name = ft_itoa(infos->exit_code);
+	*len += 1;
+	if (!name)
+	{
+		ft_putstr_fd(MALLOC_ERROR, 2);
+		return (0);
+	}
+	return (name);
 }

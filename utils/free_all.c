@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   free_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:41:06 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/09 15:04:07 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/10 20:20:42 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	close_std(void)
+{
+	close(0);
+	close(1);
+	close(2);
+}
 
 void	free_tab(void **tab)
 {
@@ -35,11 +42,6 @@ void	free_all(t_minishell *infos)
 		ft_cmdsclear(&infos->cmd, free);
 	if (infos->line)
 		free(infos->line);
-	if (infos->env_tab)
-	{
-		// ft_free_env(infos->env_tab);
-		// infos->env_tab = NULL;
-	}
 	free(infos);
 }
 
@@ -50,7 +52,7 @@ void	free_close(t_minishell *infos)
 		ft_free_env(infos->env_tab);
 		infos->env_tab = NULL;
 	}
-	close_pipes(infos->pipes, infos->cmd);
+	close_pipes(infos->pipes);
 	close_fds(infos->cmd);
 	free_all(infos);
 }
