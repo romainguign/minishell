@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:01:18 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/09 15:54:38 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/10 11:13:08 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	g_exit_code;
 
 static int	exec_line(t_minishell *infos)
 {
@@ -80,6 +82,7 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argv;
 	signal_status(1);
+	g_exit_code = 1;
 	if (argc > 1)
 		return (1);
 	infos = ft_calloc(1, sizeof(t_minishell));

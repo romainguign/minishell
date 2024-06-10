@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:39:54 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/09 14:26:02 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/10 13:25:22 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ static char	*here_doc_loop(char *limiter, char *doc,
 {
 	char	*line;
 
+	signal_heredoc();
 	while (doc)
 	{
 		line = readline(">");
@@ -64,6 +65,7 @@ static char	*here_doc_loop(char *limiter, char *doc,
 			doc = ft_strjoin_doc(doc, line);
 			free(line);
 		}
+		free_here_doc(infos, doc);
 	}
 	if (!line)
 		eof_warning(limiter);

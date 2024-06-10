@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/09 15:54:05 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/10 13:24:48 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # include <dirent.h>
 # include <limits.h>
 # include <termios.h>
+
+extern int g_exit_code;
 
 typedef struct s_env
 {
@@ -149,6 +151,8 @@ t_token_type	get_token_type(char *value, t_token *token);
 /*--------------------------------- signals ---------------------------------*/
 void			signal_status(int state);
 void			signal_fork(void);
+void			signal_heredoc(void);
+
 
 /*--------------------------------- errors ----------------------------------*/
 void			ft_puterrors(char *s);
@@ -211,5 +215,6 @@ int				init_tmp_file(t_cmd *cmd, t_token *token);
 char			*check_env_var(char quote, char *line, t_minishell *infos);
 void			ft_create_tmp_file(int infile, char *doc, char *limiter,
 					int len_limiter);
+void			free_here_doc(t_minishell *infos, char *doc);
 
 #endif
