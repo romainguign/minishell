@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wait_and_close.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 14:52:39 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/05 10:44:08 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/10 18:13:44 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,18 +54,18 @@ void	wait_end(t_minishell *infos, pid_t *pids)
 void	close_pipes(int (*pipes)[2], t_cmd *cmd)
 {
 	int		i;
-	t_cmd	*tmp;
+	// t_cmd	*tmp;
 
 	i = 0;
-	tmp = cmd;
-	while (tmp && i < 510)
+	// tmp = cmd;
+	while (i < 509)
 	{
 		if (pipes[i][0])
 			close(pipes[i][0]);
 		if (pipes[i][1])
 			close(pipes[i][1]);
 		i++;
-		tmp = tmp->next;
+		// tmp = tmp->next;
 	}
 }
 
@@ -76,7 +76,7 @@ void	close_fds(t_cmd *cmd)
 
 	i = 0;
 	tmp = cmd;
-	while (tmp && i < 510)
+	while (tmp && i < 509)
 	{
 		if (tmp->fd_in > 0)
 			close(tmp->fd_in);

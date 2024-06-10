@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:58:19 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/10 10:36:59 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/10 18:15:11 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	start_program(char **envp, t_minishell *infos)
 
 	i = 0;
 	tmp = infos->cmd;
-	while (tmp && i < 512)
+	while (tmp && i < 509)
 	{
 		if (pipe(infos->pipes[i]) == -1)
 		{
@@ -79,6 +79,12 @@ void	start_program(char **envp, t_minishell *infos)
 		}
 		tmp = tmp->next;
 		i++;
+	}
+	if (i == 509)
+	{
+		close_pipes(infos->pipes, infos->cmd);
+		ft_putstr_fd("minishell: Too many command\n", 2);
+		return ;
 	}
 	i = 0;
 	create_pids(infos->pipes, envp, infos, i);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmds.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 15:47:40 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/09 15:12:50 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/10 15:49:46 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,18 +100,20 @@ static int	is_dir(char *cmd, int i, t_minishell *infos)
 	return (1);
 }
 
-static int	check_exec(char *cmd, t_minishell *infos)
+static int	check_exec(char *cmd, t_minishell *infos, char **path)
 {
 	if (access(cmd, F_OK))
 	{
 		access_error(cmd, ": No such file or directory\n");
 		free_close(infos);
+		ft_free_env(path);
 		exit(127);
 	}
 	if (access(cmd, X_OK))
 	{
 		access_error(cmd, ": Permission denied\n");
 		free_close(infos);
+		ft_free_env(path);
 		exit(126);
 	}
 	return (1);
@@ -157,7 +159,7 @@ static int	search_cmd(char **path, char **cmd, t_minishell *infos)
 	if (*cmd[0] == '\0')
 		return (0);
 	if (cmd[0][0] == '.' && cmd[0][1] == '/')
-		check_exec(cmd[0], infos);
+		check_exec(cmd[0], infos, path);
 	file = is_dir(cmd[0], 0, infos);
 	if (!access(*cmd, X_OK) && file == 1)
 		return (1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 15:48:02 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/09 15:49:46 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/10 15:58:59 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	erase_env_node(t_env **env, char *key)
 	}
 }
 
-int	ft_unset(t_env *env, char **cmd)
+int	ft_unset(t_env **env, char **cmd)
 {
 	int	i;
 
@@ -68,8 +68,8 @@ int	ft_unset(t_env *env, char **cmd)
 		return (0);
 	while (cmd[i])
 	{
-		if (is_env_key_exist(env, cmd[i]))
-			erase_env_node(&env, cmd[i]);
+		if (is_env_key_exist(*env, cmd[i]))
+			erase_env_node(env, cmd[i]);
 		i++;
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 15:16:24 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/07 15:56:15 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/10 18:26:16 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,14 @@ int	ft_isalnum(int c)
 	if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z')
 		|| (c >= 'a' && c <= 'z'))
 		return (8);
+	return (0);
+}
+
+int	is_env_syntax(char c)
+{
+	if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z')
+		|| (c >= 'a' && c <= 'z') || c == '_')
+		return (1);
 	return (0);
 }
 

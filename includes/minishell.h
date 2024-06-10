@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/10 13:24:48 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/10 18:26:51 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ int				is_space(char c);
 int				no_space(char *value);
 int				is_num(char c);
 int				ft_isalnum(int c);
+int				is_env_syntax(char c);
 int				ft_len_nbr(long int n);
 char			*ft_itoa(int n);
 long long int	ft_atoll(const char *str);
@@ -182,7 +183,7 @@ void			join_value(t_env **env, char *cmd);
 t_env			*ft_newenv_export(char *envp);
 
 //unset :
-int				ft_unset(t_env *env, char **cmd);
+int				ft_unset(t_env **env, char **cmd);
 int				is_env_key_exist(t_env *env, char *key);
 
 //env :

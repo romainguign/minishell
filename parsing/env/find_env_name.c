@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_env_name.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:50:01 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/09 14:27:50 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/10 18:50:15 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,12 @@ char	*no_bracket_env_name(char *line, int *len, char quote)
 		j++;
 	if (line[j] == '?' && j == 1)
 		name = ft_strdup("?");
+	if (!name && quote != '\'' && quote != '"' && j == 1 && line[1] != '"' && line[1] != '\'')
+		name = ft_strdup("$");
 	if (!name && j == 1 && (is_space(line[j])
 			|| (line[j] == quote && (quote == '"' || quote == '\''))))
+		name = ft_strdup("$");
+	if (!is_env_syntax(line[1]) && !name && quote == '"')
 		name = ft_strdup("$");
 	if (!name)
 		name = ft_strldup(&line[1], j - 1);

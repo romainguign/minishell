@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:39:54 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/10 13:25:22 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/10 15:10:30 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ static char	*here_doc_loop(char *limiter, char *doc,
 	char	*line;
 
 	signal_heredoc();
+	free_here_doc(infos, doc);
 	while (doc)
 	{
 		line = readline(">");

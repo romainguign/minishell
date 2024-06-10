@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:21:38 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/09 15:13:26 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/10 16:00:06 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	exec_builtin(char **cmd, t_minishell *infos)
 	else if (!ft_strcmp(cmd[0], "pwd"))
 		exit_code = ft_pwd(cmd);
 	else if (!ft_strcmp(cmd[0], "unset"))
-		exit_code = ft_unset(infos->env, cmd);
+		exit_code = ft_unset(&infos->env, cmd);
 	else
 		return ;
 	free_close(infos);
@@ -45,7 +45,7 @@ static int	execute_only_builtin(t_minishell *infos, char **cmd)
 	else if (!ft_strcmp(cmd[0], "export"))
 		infos->exit_code = ft_export(infos->env, cmd, 1);
 	else if (!ft_strcmp(cmd[0], "unset"))
-		infos->exit_code = ft_unset(infos->env, cmd);
+		infos->exit_code = ft_unset(&infos->env, cmd);
 	else
 		return (0);
 	return (infos->exit_code);
