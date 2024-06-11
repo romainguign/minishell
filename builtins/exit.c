@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:59:57 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/09 15:20:04 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/11 10:38:10 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,7 @@ static int	check_max(char *nbr)
 long long int	ft_exit(char **cmd, t_minishell *infos, int fork)
 {
 	int	nbr;
-	int	tmp_exit_code;
 
-	tmp_exit_code = 0;
 	if (!cmd[1])
 		return (infos->exit_code);
 	if (ft_str_is_not_num(cmd[1]) || !check_max(cmd[1]))

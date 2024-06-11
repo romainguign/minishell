@@ -6,13 +6,13 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 14:28:25 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/11 10:11:21 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/11 10:42:05 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	check_env_home(t_env *env)
+int	check_env_home(t_env *env)
 {
 	t_env	*tmp;
 
@@ -40,7 +40,7 @@ t_env	*get_env_node(t_env *env, char *node)
 	return (tmp);
 }
 
-static void	print_cd_errors(char *str)
+void	print_cd_errors(char *str)
 {
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd("cd: ", 2);
@@ -67,12 +67,12 @@ int	ft_cd(t_minishell *infos, char **cmd, int fork)
 	}
 	if (!cmd[1])
 	{
-		if (cd_no_args(infos, cmd, fork, path))
+		if (cd_no_args(infos, fork, path))
 			return (1);
 	}
 	if (cmd[1])
 	{
-		if (cd_one_args(infos, cmd, fork, path))
+		if (cd_one_args(infos, fork, path))
 			return (1);
 	}
 	free(path);

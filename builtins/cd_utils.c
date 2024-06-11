@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 09:55:51 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/11 10:12:34 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/11 10:41:47 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	update_env(t_minishell *infos, char *path)
 	return (0);
 }
 
-int	cd_no_args(t_minishell *infos, char **cmd, int fork, char *path)
+int	cd_no_args(t_minishell *infos, int fork, char *path)
 {
 	t_env	*home_env;
 
@@ -56,7 +56,7 @@ int	cd_no_args(t_minishell *infos, char **cmd, int fork, char *path)
 	return (0);
 }
 
-int	cd_one_args(t_minishell *infos, char **cmd, int fork, char *path)
+int	cd_one_args(t_minishell *infos, int fork, char *path)
 {
 	if (chdir(infos->token->next->value) != 0)
 	{

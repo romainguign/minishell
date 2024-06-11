@@ -6,27 +6,44 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 22:36:52 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/11 10:32:10 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/11 11:24:58 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static int	check_n(char **cmd)
+{
+	int	i;
+	int	j;
+
+	i = 1;
+	while (cmd[i] && cmd[i][0])
+	{
+		j = 1;
+		while (cmd[i][j])
+		{
+			if (cmd[i][j] != 'n')
+				return (i);
+			j++;
+		}
+		i++;
+	}
+	return (i);
+}
+
 static int	echo_no_newline(char **cmd)
 {
 	int	i;
 
-	i = 1;
-	while (!ft_strncmp(cmd[i], "-n", 2))
-		i++;
-	if (!cmd[2])
+	i = check_n(cmd);
+	if (!cmd[i])
 	{
 		printf("%s", "");
 		return (0);
 	}
 	else
 	{
-		i++;
 		while (cmd[i])
 		{
 			if (cmd[i + 1] != NULL)

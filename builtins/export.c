@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:01:22 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/11 10:19:38 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/11 10:42:40 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	is_wrong_identifier(char c)
 	return (0);
 }
 
-static void	print_error_identifier(char *cmd)
+void	print_error_identifier(char *cmd)
 {
 	int	i;
 
@@ -51,6 +51,8 @@ static char	**sort_env_tab(t_env *env)
 	int		j;
 
 	env_tab = lst_to_tab_export(env);
+	if (!env_tab)
+		return (NULL);
 	i = 0;
 	while (env_tab[i])
 	{
@@ -98,6 +100,8 @@ int	ft_export(t_env *env, char **cmd, int fork)
 	if (ft_tab_len(cmd) == 1)
 	{
 		env_tab = sort_env_tab(env);
+		if (!env_tab)
+			return (1);
 		if (fork == 0)
 			print_env(env_tab);
 		free_tab((void **)env_tab);
