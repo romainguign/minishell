@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 15:47:40 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/10 19:25:01 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:09:00 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int	search_cmd(char **path, char **cmd, t_minishell *infos)
 		return (0);
 	if (cmd[0][0] == '.' && cmd[0][1] == '/')
 		check_exec(cmd[0], infos, path);
-	file = is_dir(cmd[0], 0, infos);
+	file = is_dir(cmd[0], 0, infos, path);
 	if (!access(*cmd, X_OK) && file == 1)
 		return (1);
 	access_cmd(path, cmd, i, infos);

@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/11 13:19:20 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:33:49 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,7 @@ t_token			*new_list_token(t_minishell *infos, char *value);
 void			signal_status(int state);
 void			signal_fork(void);
 void			signal_heredoc(void);
+void			check_received_signal(t_minishell *infos);
 
 /*--------------------------------- errors ----------------------------------*/
 void			ft_puterrors(char *s);
@@ -209,7 +210,7 @@ int				make_lstcmd(t_minishell *infos);
 int				check_cmds(t_cmd *cmds, t_env *env, t_minishell *infos);
 int				access_cmd(char **path, char **cmd, int j, t_minishell *infos);
 void			access_error(char *cmd, char *error);
-int				is_dir(char *cmd, int i, t_minishell *infos);
+int				is_dir(char *cmd, int i, t_minishell *infos, char **path);
 int				check_access(t_token *redir);
 int				ft_redirects(t_cmd *cmd, t_minishell *infos);
 int				children_process(int (*pipes)[2], int i, t_cmd *cmd,
@@ -218,7 +219,6 @@ void			ft_cmdsclear(t_cmd **lst, void (*del)(void*));
 void			close_pipes(int (*pipes)[2]);
 void			wait_and_close(t_minishell *infos, pid_t *pids,
 					int (*pipes)[2]);
-void			close_std(void);
 void			close_fds(t_cmd *cmd);
 
 //here_doc :

@@ -6,11 +6,20 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 19:37:00 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/10 19:39:25 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:26:11 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	check_received_signal(t_minishell *infos)
+{
+	if (g_exit_code == SIGINT)
+	{
+		g_exit_code = 0;
+		infos->exit_code = 130;
+	}
+}
 
 void	free_here_doc(t_minishell *infos, char *doc)
 {

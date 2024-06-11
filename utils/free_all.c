@@ -6,18 +6,11 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:41:06 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/10 20:20:42 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:33:46 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	close_std(void)
-{
-	close(0);
-	close(1);
-	close(2);
-}
 
 void	free_tab(void **tab)
 {

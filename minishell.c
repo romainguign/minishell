@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:01:18 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/11 13:22:55 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:33:32 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,7 @@ static int	minishell_loop(t_minishell *infos)
 		if (!infos->line)
 			return (0);
 		signal_status(0);
-		if (g_exit_code == SIGINT)
-		{
-			g_exit_code = 0;
-			infos->exit_code = 130;
-		}
+		check_received_signal(infos);
 		if (infos->line && infos->line[0] != '\0')
 		{
 			add_history(infos->line);

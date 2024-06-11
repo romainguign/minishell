@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 19:21:57 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/10 19:33:19 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:07:58 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static int	search_directory(char *cmd)
 	return (0);
 }
 
-int	is_dir(char *cmd, int i, t_minishell *infos)
+int	is_dir(char *cmd, int i, t_minishell *infos, char **path)
 {
 	struct stat	st;
 
@@ -82,6 +82,7 @@ int	is_dir(char *cmd, int i, t_minishell *infos)
 		{
 			access_error(cmd, ": Is a directory\n");
 			free_close(infos);
+			free_tab((void **)path);
 			exit(126);
 		}
 		else
@@ -99,7 +100,7 @@ int	access_cmd(char **path, char **cmd, int j, t_minishell *infos)
 		command_path = ft_concatenate_dir(path[j], *cmd);
 		if (!command_path)
 			return (1);
-		if (!access(command_path, F_OK) && is_dir(command_path, 1, infos))
+		if (!access(command_path, F_OK) && is_dir(command_path, 1, infos, path))
 		{
 			free(*cmd);
 			*cmd = ft_strdup(command_path);

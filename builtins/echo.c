@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 22:36:52 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/11 11:24:58 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:04:58 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,11 @@ int	ft_echo(char **cmd)
 	int	i;
 
 	i = 1;
+	if (!cmd[1])
+	{
+		printf("\n");
+		return (0);
+	}
 	if (!ft_strncmp(cmd[1], "-n", 2))
 		echo_no_newline(cmd);
 	else

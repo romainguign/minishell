@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 14:52:39 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/11 13:29:47 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:33:43 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	wait_end(t_minishell *infos, pid_t *pids)
 		if (waitpid(pids[i], &status, 0) == -1)
 		{
 			perror("minishell: waitpid");
+			free_all(infos);
 			exit(EXIT_FAILURE);
 		}
 		check_status(status, infos);
