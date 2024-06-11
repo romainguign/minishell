@@ -6,7 +6,7 @@
 #    By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/12 15:00:46 by roguigna          #+#    #+#              #
-#    Updated: 2024/06/11 13:09:29 by roguigna         ###   ########.fr        #
+#    Updated: 2024/06/11 19:39:02 by roguigna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,6 +73,7 @@ SRC_FILES		= minishell.c \
 				  builtins/export_utils2.c \
 				  builtins/export_utils3.c \
 				  signals/signal_handler.c \
+				  signals/signal_ignore.c \
 				  signals/signal_handler_heredoc.c \
 				  errors/puterrors.c  \
 				  execution/execute.c  \

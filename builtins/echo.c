@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 22:36:52 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/11 14:04:58 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/11 19:26:04 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	check_n(char **cmd)
 	int	j;
 
 	i = 1;
-	while (cmd[i] && cmd[i][0])
+	while (cmd[i] && cmd[i][0] == '-')
 	{
 		j = 1;
 		while (cmd[i][j])
@@ -37,6 +37,7 @@ static int	echo_no_newline(char **cmd)
 	int	i;
 
 	i = check_n(cmd);
+	printf("i : %s\n", cmd[i]);
 	if (!cmd[i])
 	{
 		printf("%s", "");

@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:58:19 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/11 15:00:45 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/11 18:46:35 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	ft_execution(char **cmd, char **envp, t_minishell *infos)
 	exec_builtin(cmd, infos);
 	if (cmd[0])
 	{
+		signal_ignore();
 		execve(cmd[0], cmd, envp);
 		if (cmd[0][0] == '\0' && access(cmd[0], F_OK) == -1)
 		{
@@ -116,7 +117,7 @@ int	ft_execute(t_minishell *infos)
 	if (builtin != -2 && !ft_strcmp(infos->cmd->cmd[0], "exit")
 		&& !infos->cmd->next)
 	{
-		if (infos->exit_code == -1)
+		if (builtin == -1)
 		{
 			infos->exit_code = 1;
 			return (1);

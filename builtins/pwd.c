@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 14:46:29 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/11 10:27:35 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/11 19:48:54 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,22 @@ static char	*home_path(char *home, char *path)
 	return (new_path);
 }
 
+static char	*get_cwd_fail(void)
+{
+	char	*path;
+
+	if (errno == ENOENT)
+	{
+		perror("minishell");
+		path = ft_strdup("$ Minishell >");
+		if (!path)
+			return (0);
+		return (path);
+	}
+	ft_putstr_fd(MALLOC_ERROR, 2);
+	return (0);
+}
+
 char	*get_pwd(t_env *env)
 {
 	char	*path;
@@ -81,6 +97,8 @@ char	*get_pwd(t_env *env)
 	while (tmp && strcmp(tmp->name, "HOME"))
 		tmp = tmp->next;
 	path = getcwd(path, 0);
+	if (!path)
+		return (get_cwd_fail());
 	if (!tmp)
 	{
 		path = ft_strjoinfree(path, "$ Minishell > ");

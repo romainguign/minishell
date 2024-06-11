@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/11 14:33:49 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/11 19:47:46 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,7 @@ void			signal_status(int state);
 void			signal_fork(void);
 void			signal_heredoc(void);
 void			check_received_signal(t_minishell *infos);
+void			signal_ignore(void);
 
 /*--------------------------------- errors ----------------------------------*/
 void			ft_puterrors(char *s);
@@ -203,15 +204,20 @@ int				ft_env(t_env *env);
 long long int	ft_exit(char **cmd, t_minishell *infos, int fork);
 
 /*--------------------------------- execution -------------------------------*/
+//exec :
 int				ft_execute(t_minishell *infos);
 long long int	only_builtin(t_minishell *infos);
 void			exec_builtin(char **cmd, t_minishell *infos);
+
+//listcmd and check args:
 int				make_lstcmd(t_minishell *infos);
 int				check_cmds(t_cmd *cmds, t_env *env, t_minishell *infos);
 int				access_cmd(char **path, char **cmd, int j, t_minishell *infos);
 void			access_error(char *cmd, char *error);
 int				is_dir(char *cmd, int i, t_minishell *infos, char **path);
 int				check_access(t_token *redir);
+
+//fork process:
 int				ft_redirects(t_cmd *cmd, t_minishell *infos);
 int				children_process(int (*pipes)[2], int i, t_cmd *cmd,
 					t_minishell *infos);
