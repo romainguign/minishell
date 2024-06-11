@@ -6,50 +6,11 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 13:46:59 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/10 20:22:04 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/11 13:11:30 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int	ft_is_sep(char *charset, char charc)
-{
-	int	index;
-
-	index = 0;
-	while (charset[index])
-	{
-		if (charset[index] == charc)
-		{
-			return (1);
-		}
-		index++;
-	}
-	return (0);
-}
-
-static int	ft_get_number_of_word(char *str, char *charset)
-{
-	int	index;
-	int	count;
-
-	index = 1;
-	count = 0;
-	if (str == NULL)
-		return (0);
-	if (!ft_is_sep(charset, str[0]))
-		count++;
-	while (str[index] && str)
-	{
-		if (!ft_is_sep(charset, str[index])
-			&& ft_is_sep(charset, str[index - 1]))
-		{
-			count++;
-		}
-		index++;
-	}
-	return (count);
-}
 
 static int	ft_get_size_word(char *str, char *charset)
 {
@@ -82,22 +43,14 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 	return (len);
 }
 
-char	**ft_split_token(char *str, char *charset)
+static int	split_chain(int nbwords, char *charset, char *str, char **strs)
 {
-	int		index;
-	int		size_word;
-	char	**strs;
-	int		nbwords;
+	int	index;
+	int	size_word;
 
-	nbwords = ft_get_number_of_word(str, charset);
-	index = -1;
+	index = 0;
 	size_word = 0;
-	if (!str || !charset)
-		return (NULL);
-	strs = ft_calloc(sizeof(char *), (ft_get_number_of_word(str, charset) + 2));
-	if (strs == NULL)
-		return (NULL);
-	while (++index < nbwords)
+	while (index < nbwords)
 	{
 		while (ft_is_sep(charset, *str) || size_word > 0)
 		{
@@ -105,14 +58,32 @@ char	**ft_split_token(char *str, char *charset)
 			size_word--;
 		}
 		size_word = ft_get_size_word(str, charset);
-		strs[index] = malloc(sizeof(char) * (size_word + 1));
+		strs[index] = ft_calloc(sizeof(char), (size_word + 1));
 		if (!strs[index])
 		{
+			free_tab((void **)strs);
 			ft_putstr_fd(MALLOC_ERROR, 2);
 			return (0);
 		}
 		ft_strlcpy(strs[index], str, size_word + 1);
+		index++;
 	}
 	strs[index] = 0;
+	return (1);
+}
+
+char	**ft_split_token(char *str, char *charset)
+{
+	char	**strs;
+	int		nbwords;
+
+	nbwords = ft_get_number_of_word(str, charset);
+	if (!str || !charset)
+		return (NULL);
+	strs = ft_calloc(sizeof(char *), (ft_get_number_of_word(str, charset) + 2));
+	if (strs == NULL)
+		return (NULL);
+	if (!split_chain(nbwords, charset, str, strs))
+		return (0);
 	return (strs);
 }

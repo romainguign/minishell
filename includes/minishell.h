@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/11 11:24:35 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/11 13:19:20 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # include <dirent.h>
 # include <limits.h>
 # include <termios.h>
+
+extern int	g_exit_code;
 
 typedef struct s_env
 {
@@ -111,6 +113,8 @@ char			*ft_strjoin_env(char *s1, char *s2);
 char			*ft_strjoin_export(char *s1, char *s2);
 char			**ft_split(char const *s, char c);
 char			**ft_split_token(char *str, char *charset);
+int				ft_get_number_of_word(char *str, char *charset);
+int				ft_is_sep(char *charset, char charc);
 char			*get_pwd(t_env *env);
 size_t			ft_strlcat(char *dst, const char *src, size_t size);
 

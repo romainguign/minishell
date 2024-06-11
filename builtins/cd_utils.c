@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 09:55:51 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/11 10:41:47 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/11 12:56:48 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	update_env(t_minishell *infos, char *path)
 		return (1);
 	pwd_env->value = ft_realloc((void *)pwd_env->value, ft_strlen(path));
 	pwd_env->value = ft_memcpy(pwd_env->value, path, ft_strlen(path));
+	free(path);
 	return (0);
 }
 

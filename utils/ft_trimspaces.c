@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 20:17:30 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/10 20:20:27 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/11 13:01:25 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	ft_strlen_space(char *str)
 	return (len);
 }
 
-static void	*trim_cpy(char *str, char *trimmed)
+static void	trim_cpy(char *str, char *trimmed)
 {
 	int		i;
 	int		j;

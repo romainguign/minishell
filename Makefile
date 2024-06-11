@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+         #
+#    By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/12 15:00:46 by roguigna          #+#    #+#              #
-#    Updated: 2024/06/11 10:02:41 by brguicho         ###   ########.fr        #
+#    Updated: 2024/06/11 13:09:29 by roguigna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,7 @@ SRC_FILES		= minishell.c \
 				  utils/ft_strjoin.c  \
 				  utils/ft_trimspaces.c\
 				  utils/ft_split_token.c\
+				  utils/ft_split_token2.c\
 				  parsing/env/pars_env.c \
 				  parsing/env/free_env.c  \
 				  parsing/env/env_token.c  \

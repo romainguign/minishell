@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 14:52:39 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/10 19:20:27 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/11 13:29:47 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,16 @@ static void	check_status(int status, t_minishell *infos)
 		infos->exit_code = WSTOPSIG(status);
 	if (WIFCONTINUED(status))
 		infos->exit_code = 0;
+	if (g_exit_code == SIGINT)
+	{
+		infos->exit_code = 130;
+		g_exit_code = 0;
+	}
+	if (g_exit_code == SIGQUIT)
+	{
+		infos->exit_code = 131;
+		g_exit_code = 0;
+	}
 }
 
 void	wait_end(t_minishell *infos, pid_t *pids)

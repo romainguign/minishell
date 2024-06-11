@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 09:22:39 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/10 19:39:34 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/11 13:27:38 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,13 @@ static void	sig_handler_fork(int sig)
 	if (sig == SIGINT)
 	{
 		printf("\n");
+		g_exit_code = SIGINT;
 		return ;
 	}
 	if (sig == SIGQUIT)
 	{
 		ft_putstr_fd("Quit (core dumped)\n", 2);
+		g_exit_code = SIGQUIT;
 		return ;
 	}
 }
@@ -39,6 +41,7 @@ static void	sig_handler(int sig)
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
+		g_exit_code = SIGINT;
 	}
 }
 

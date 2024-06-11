@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:58:19 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/10 19:17:49 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/11 13:01:41 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,15 @@ void	ft_execution(char **cmd, char **envp, t_minishell *infos)
 	if (cmd[0])
 	{
 		execve(cmd[0], cmd, envp);
+		if (cmd[0][0] == '\0' && access(cmd[0], F_OK) == -1)
+		{
+			access_error(cmd[0], ": command not found\n");
+			ft_free_env(envp);
+			free_all(infos);
+			close_std();
+			signal_status(1);
+			exit (127);
+		}
 		ft_puterrors(cmd[0]);
 	}
 	ft_free_env(envp);

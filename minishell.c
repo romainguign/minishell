@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:01:18 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/10 11:13:08 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/11 13:22:55 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,6 @@ static int	exec_line(t_minishell *infos)
 		return (0);
 	if (!env_tokenizer(infos))
 		return (0);
-	// t_token *tmp2 = infos->token;
-	// while (tmp2)
-	// {
-	// 	printf("tk_value : %s\n", tmp2->value);
-	// 	tmp2 = tmp2->next;
-	// }
 	if (!check_token(infos))
 		return (0);
 	ft_execute(infos);
@@ -38,22 +32,27 @@ static int	exec_line(t_minishell *infos)
 	return (1);
 }
 
-char	*no_autocomplete(const char *text, int state)
+static char	*no_autocomplete(const char *text, int state)
 {
 	(void)text;
 	(void)state;
 	return (NULL);
 }
 
-static int	minishell_loop(t_minishell *infos)
+static void	check_tty(void)
 {
-	char	*pwd;
-
 	if (!isatty(STDIN_FILENO))
 	{
 		rl_completion_entry_function = &no_autocomplete;
 		rl_attempted_completion_over = 1;
 	}
+}
+
+static int	minishell_loop(t_minishell *infos)
+{
+	char	*pwd;
+
+	check_tty();
 	while (1)
 	{
 		pwd = get_pwd(infos->env);
@@ -64,6 +63,11 @@ static int	minishell_loop(t_minishell *infos)
 		if (!infos->line)
 			return (0);
 		signal_status(0);
+		if (g_exit_code == SIGINT)
+		{
+			g_exit_code = 0;
+			infos->exit_code = 130;
+		}
 		if (infos->line && infos->line[0] != '\0')
 		{
 			add_history(infos->line);
@@ -82,7 +86,7 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argv;
 	signal_status(1);
-	g_exit_code = 1;
+	g_exit_code = 0;
 	if (argc > 1)
 		return (1);
 	infos = ft_calloc(1, sizeof(t_minishell));
@@ -100,6 +104,5 @@ int	main(int argc, char **argv, char **envp)
 	exit_code = infos->exit_code;
 	free_all(infos);
 	ft_putstr_fd("exit\n", 1);
-	close_std();
 	return (exit_code);
 }
