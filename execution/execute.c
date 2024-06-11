@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:58:19 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/11 14:33:41 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/11 15:00:45 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,8 @@ int	ft_execute(t_minishell *infos)
 	builtin = only_builtin(infos);
 	start_program(infos->env_tab, infos);
 	ft_free_env(infos->env_tab);
-	if (builtin != -2 && !ft_strcmp(infos->cmd->cmd[0], "exit"))
+	if (builtin != -2 && !ft_strcmp(infos->cmd->cmd[0], "exit")
+		&& !infos->cmd->next)
 	{
 		if (infos->exit_code == -1)
 		{
