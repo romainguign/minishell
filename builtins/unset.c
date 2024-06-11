@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 15:48:02 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/10 15:58:59 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/11 09:54:55 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,13 @@ int	is_env_key_exist(t_env *env, char *key)
 	return (0);
 }
 
+static void	free_node(t_env *node_to_remove)
+{
+	free(node_to_remove->name);
+	free(node_to_remove->value);
+	free(node_to_remove);
+}
+
 static void	erase_env_node(t_env **env, char *key)
 {
 	t_env	*tmp;
@@ -41,9 +48,7 @@ static void	erase_env_node(t_env **env, char *key)
 		{
 			node_to_remove = tmp->next;
 			tmp->next = tmp->next->next;
-			free(node_to_remove->name);
-			free(node_to_remove->value);
-			free(node_to_remove);
+			free_node(node_to_remove);
 			return ;
 		}
 		prev = tmp;
@@ -53,9 +58,7 @@ static void	erase_env_node(t_env **env, char *key)
 	{
 		node_to_remove = *env;
 		*env = (*env)->next;
-		free(node_to_remove->name);
-		free(node_to_remove->value);
-		free(node_to_remove);
+		free_node(node_to_remove);
 	}
 }
 

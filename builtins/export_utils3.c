@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 11:01:29 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/04 14:26:22 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/11 10:20:12 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,26 @@ t_env	*ft_newenv_export(char *envp)
 	}
 	env->next = NULL;
 	return (env);
+}
+
+int	export_with_args(t_env *env, char **cmd, int fork)
+{
+	int	i;
+	int	exit_code;
+
+	i = 1;
+	exit_code = 0;
+	while (cmd[i])
+	{
+		if (is_input_correct(cmd[i]))
+			check_type_and_add(cmd[i], env);
+		else
+		{
+			exit_code = 1;
+			if (fork == 0)
+				print_error_identifier(cmd[i]);
+		}
+		i++;
+	}
+	return (exit_code);
 }

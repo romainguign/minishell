@@ -6,11 +6,20 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 14:46:29 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/09 15:34:46 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/11 10:27:35 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	print_pwd_errors(void)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd("cd: ", 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(strerror(errno), 2);
+	ft_putstr_fd("\n", 2);
+}
 
 int	ft_pwd(char **cmd)
 {
@@ -20,8 +29,13 @@ int	ft_pwd(char **cmd)
 	if (!ft_strcmp(cmd[0], "pwd"))
 	{
 		path = getcwd(path, 0);
-		// si errno == ENOENT alors pas de fail malloc
-		// et donc pas arreter minishell
+		if (errno == ENOENT)
+		{
+			print_pwd_errors();
+			return (1);
+		}
+		if (!path)
+			return (1);
 		printf("%s\n", path);
 		free(path);
 	}

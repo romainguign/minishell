@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+         #
+#    By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/12 15:00:46 by roguigna          #+#    #+#              #
-#    Updated: 2024/06/10 19:55:00 by roguigna         ###   ########.fr        #
+#    Updated: 2024/06/11 10:02:41 by brguicho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,7 @@ SRC_FILES		= minishell.c \
 				  parsing/env/find_env_name.c    \
 				  parsing/lexer/check_token.c     \
 				  parsing/lexer/token_identifier.c \
+				  builtins/cd_utils.c    \
 				  builtins/cd.c    \
 				  builtins/pwd.c    \
 				  builtins/env.c     \

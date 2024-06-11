@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/10 20:04:30 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/11 10:18:57 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,9 @@ int				ft_pwd(char **cmd);
 //cd :
 int				ft_cd(t_minishell *infos, char **cmd, int fork);
 t_env			*get_env_node(t_env *env, char *node);
+int				update_env(t_minishell *infos, char *path);
+int 			cd_no_args(t_minishell *infos, char **cmd, int fork, char *path);
+int 			cd_one_args(t_minishell *infos, char **cmd, int fork, char *path);
 
 //echo :
 int				ft_echo(char **cmd);
@@ -179,6 +182,7 @@ void			check_type_and_add(char *cmd, t_env *env);
 int				get_len_key(char *cmd);
 void			join_value(t_env **env, char *cmd);
 t_env			*ft_newenv_export(char *envp);
+int 			export_with_args(t_env *env, char **cmd, int fork);
 
 //unset :
 int				ft_unset(t_env **env, char **cmd);
