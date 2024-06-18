@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/18 15:04:50 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/18 17:20:20 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,6 @@ char			*dup_token(char *line, int *i, t_minishell *infos,
 char			*strljoin_token(char *s1, char *s2, int len);
 char			*find_dollar_value(char *line, t_minishell *infos,
 					int *i, char quote);
-char			*ft_strtrim_spaces(char *str);
 char			*parse_redirect(char *line, int	*i);
 void			ft_tokenclear(t_token **lst, void (*del)(void*));
 t_token_type	get_token_type(char *value, t_token *token);

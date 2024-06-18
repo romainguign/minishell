@@ -6,7 +6,7 @@
 #    By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/12 15:00:46 by roguigna          #+#    #+#              #
-#    Updated: 2024/06/18 15:59:23 by roguigna         ###   ########.fr        #
+#    Updated: 2024/06/18 17:21:03 by roguigna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,6 @@ SRC_FILES		= minishell.c \
 				  utils/isascii.c   \
 				  utils/free_all.c   \
 				  utils/ft_strjoin.c  \
-				  utils/ft_trimspaces.c\
 				  utils/ft_split_token.c\
 				  utils/ft_split_token2.c\
 				  parsing/env/pars_env.c \

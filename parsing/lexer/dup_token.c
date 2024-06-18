@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:22:24 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/11 19:01:25 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/18 17:20:17 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,17 +73,14 @@ static char	*manage_dollar_quote(char *word, char *line, int *len,
 	t_minishell *infos)
 {
 	char	*dollar_value;
-	char	*trimmed;
 	int		i;
 
 	i = 1;
 	if (line[0] == '$')
 	{
 		dollar_value = find_dollar_value(line, infos, &i, 0);
-		trimmed = ft_strtrim_spaces(dollar_value);
+		word = ft_strjoinfree(word, dollar_value);
 		free(dollar_value);
-		word = ft_strjoinfree(word, trimmed);
-		free(trimmed);
 		if (!word)
 			return (0);
 		i--;
