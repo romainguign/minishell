@@ -6,19 +6,29 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 14:46:29 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/11 19:48:54 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/18 15:22:56 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	print_pwd_errors(void)
+static char	*copy_prompted_path(char *new_path, int len_home, char *path)
 {
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd("cd: ", 2);
-	ft_putstr_fd(": ", 2);
-	ft_putstr_fd(strerror(errno), 2);
-	ft_putstr_fd("\n", 2);
+	int	i;
+
+	i = 1;
+	new_path[0] = '~';
+	while (path[len_home])
+	{
+		new_path[i] = path[len_home];
+		len_home++;
+		i++;
+	}
+	free(path);
+	new_path = ft_strjoinfree(new_path, "$ Minishell > ");
+	if (!new_path)
+		ft_putstr_fd(MALLOC_ERROR, 2);
+	return (new_path);
 }
 
 int	ft_pwd(char **cmd)
@@ -46,28 +56,21 @@ static char	*home_path(char *home, char *path)
 {
 	char	*new_path;
 	int		len_home;
-	int		i;
 
 	len_home = ft_strlen(home);
-	new_path = ft_calloc(ft_strlen(path) - len_home + 3, sizeof(char));
+	if (len_home < ft_strlen(path))
+	{
+		new_path = ft_calloc(ft_strlen(path) - len_home + 3, sizeof(char));
+		new_path = copy_prompted_path(new_path, len_home, path);
+	}
+	else
+		new_path = ft_strjoinfree(path, "$ Minishell > ");
 	if (!new_path)
 	{
 		free(path);
 		ft_putstr_fd(MALLOC_ERROR, 2);
 		return (0);
 	}
-	i = 1;
-	new_path[0] = '~';
-	while (path[len_home])
-	{
-		new_path[i] = path[len_home];
-		len_home++;
-		i++;
-	}
-	free(path);
-	new_path = ft_strjoinfree(new_path, "$ Minishell > ");
-	if (!new_path)
-		ft_putstr_fd(MALLOC_ERROR, 2);
 	return (new_path);
 }
 

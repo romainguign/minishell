@@ -6,11 +6,20 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:15:13 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/11 14:58:41 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/18 15:04:28 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	print_pwd_errors(void)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd("cd: ", 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(strerror(errno), 2);
+	ft_putstr_fd("\n", 2);
+}
 
 void	ft_puterrors(char *s)
 {

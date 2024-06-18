@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/11 19:47:46 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/18 15:04:50 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,7 @@ void			signal_ignore(void);
 void			ft_puterrors(char *s);
 void			syntax_errors(char c, t_minishell *infos);
 void			ft_tokenerror(t_token_type type, t_minishell *infos);
+void			print_pwd_errors(void);
 char			*error_code_ascii(int *len, t_minishell *infos);
 
 /*--------------------------------- builtins --------------------------------*/
