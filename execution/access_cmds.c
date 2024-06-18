@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 19:21:57 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/11 14:07:58 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/18 10:11:22 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static char	*ft_concatenate_dir(char *s1, char *s2)
 	i = 0;
 	if (!s1)
 		s1 = ft_calloc(1, sizeof(char));
+	if (!s1)
+		return (0);
 	str_len = ft_strlen(s1) + ft_strlen(s2) + 2;
 	str = malloc(sizeof(char) * (str_len));
 	if (str == 0)

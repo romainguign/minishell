@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:48:53 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/25 20:38:25 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/18 10:14:16 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,11 @@ void	*ft_realloc(void *ptr, size_t newsize)
 	if (newsize <= cursize)
 		return (ptr);
 	newptr = ft_calloc(newsize, sizeof(ptr));
+	if (!newptr)
+	{
+		ft_putstr_fd(MALLOC_ERROR, 2);
+		return (0);
+	}
 	ft_memcpy(ptr, newptr, cursize);
 	free(ptr);
 	return (newptr);

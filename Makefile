@@ -6,7 +6,7 @@
 #    By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/12 15:00:46 by roguigna          #+#    #+#              #
-#    Updated: 2024/06/11 19:39:02 by roguigna         ###   ########.fr        #
+#    Updated: 2024/06/18 10:27:28 by roguigna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME			= minishell
 
 CC				= cc
 
-CFLAGS 			= -Wall -Wextra -g3  #-Werror 
+CFLAGS 			= -Wall -Wextra -Werror 
 
 READLINE_FLAG	= -lreadline
 

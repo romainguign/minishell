@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 22:36:52 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/11 19:26:04 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/18 10:06:28 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ static int	echo_no_newline(char **cmd)
 	int	i;
 
 	i = check_n(cmd);
-	printf("i : %s\n", cmd[i]);
 	if (!cmd[i])
 	{
 		printf("%s", "");

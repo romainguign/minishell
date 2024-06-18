@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 09:43:27 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/10 19:14:24 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/18 10:18:14 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,12 @@ char	**lst_to_tab_export(t_env *env)
 	while (tmp)
 	{
 		tab_env[i] = ft_strjoin_export(tmp->name, tmp->value);
+		if (!tab_env[i])
+		{
+			free_tab((void **)tab_env);
+			ft_putstr_fd(MALLOC_ERROR, 2);
+			return (0);
+		}
 		i++;
 		tmp = tmp->next;
 	}
