@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 14:28:25 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/11 12:54:46 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/19 08:51:31 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,11 @@ int	ft_cd(t_minishell *infos, char **cmd, int fork)
 
 	path = NULL;
 	path = getcwd(path, 0);
+	if (errno == ENOENT)
+	{
+		print_pwd_errors();
+		return (1);
+	}
 	if (!path)
 		return (1);
 	if (ft_tab_len(cmd) > 2)

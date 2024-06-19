@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:01:22 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/11 10:42:40 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/19 07:37:21 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,8 @@ static void	print_env(char **env_tab)
 int	ft_export(t_env *env, char **cmd, int fork)
 {
 	char	**env_tab;
-	int		i;
 	int		exit_code;
 
-	i = 1;
 	exit_code = 0;
 	if (ft_tab_len(cmd) == 1)
 	{

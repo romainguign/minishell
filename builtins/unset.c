@@ -6,7 +6,7 @@
 /*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 15:48:02 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/11 09:54:55 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/19 07:36:51 by brguicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,9 @@ static void	free_node(t_env *node_to_remove)
 static void	erase_env_node(t_env **env, char *key)
 {
 	t_env	*tmp;
-	t_env	*prev;
 	t_env	*node_to_remove;
 
 	tmp = *env;
-	prev = NULL;
 	node_to_remove = NULL;
 	while (tmp)
 	{
@@ -51,7 +49,6 @@ static void	erase_env_node(t_env **env, char *key)
 			free_node(node_to_remove);
 			return ;
 		}
-		prev = tmp;
 		tmp = tmp->next;
 	}
 	if (*env && !ft_strcmp((*env)->name, key))
