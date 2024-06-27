@@ -1,4 +1,5 @@
 *.o
+object
 a.out
 minishell
 object
@@ -9,3 +10,4 @@ out
 minishell_tester
 perms
 tester
+.gitignore

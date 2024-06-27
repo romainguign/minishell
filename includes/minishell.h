@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/18 17:20:20 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/27 14:40:11 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,11 +171,11 @@ int				ft_pwd(char **cmd);
 //cd :
 int				ft_cd(t_minishell *infos, char **cmd, int fork);
 t_env			*get_env_node(t_env *env, char *node);
-int				update_env(t_minishell *infos, char *path);
 int				cd_no_args(t_minishell *infos, int fork, char *path);
 int				cd_one_args(t_minishell *infos, int fork, char *path);
 int				check_env_home(t_env *env);
 void			print_cd_errors(char *str);
+int				update_env(t_minishell *infos, char *path);
 
 //echo :
 int				ft_echo(char **cmd);

@@ -6,7 +6,7 @@
 #    By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/12 15:00:46 by roguigna          #+#    #+#              #
-#    Updated: 2024/06/18 17:21:03 by roguigna         ###   ########.fr        #
+#    Updated: 2024/06/27 14:41:47 by roguigna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME			= minishell
 
 CC				= cc
 
-CFLAGS 			= -Wall -Wextra -Werror -g3
+CFLAGS 			= -Wall -Wextra -Werror -g
 
 READLINE_FLAG	= -lreadline
 
@@ -61,7 +61,8 @@ SRC_FILES		= minishell.c \
 				  parsing/lexer/check_token.c     \
 				  parsing/lexer/token_identifier.c \
 				  builtins/cd_utils.c    \
-				  builtins/cd.c    \
+				  builtins/cd.c \
+				  builtins/cd_update_env.c 	\
 				  builtins/pwd.c    \
 				  builtins/env.c     \
 				  builtins/echo.c     \

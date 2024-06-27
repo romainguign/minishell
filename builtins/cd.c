@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 14:28:25 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/19 08:51:31 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/27 14:35:10 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,21 @@ void	print_cd_errors(char *str)
 	ft_putstr_fd("\n", 2);
 }
 
+int	exec_cd(t_minishell *infos, char **cmd, int fork, char *path)
+{
+	if (!cmd[1])
+	{
+		if (cd_no_args(infos, fork, path))
+			return (1);
+	}
+	if (cmd[1])
+	{
+		if (cd_one_args(infos, fork, path))
+			return (1);
+	}
+	return (0);
+}
+
 int	ft_cd(t_minishell *infos, char **cmd, int fork)
 {
 	char	*path;
@@ -70,15 +85,7 @@ int	ft_cd(t_minishell *infos, char **cmd, int fork)
 		free(path);
 		return (1);
 	}
-	if (!cmd[1])
-	{
-		if (cd_no_args(infos, fork, path))
-			return (1);
-	}
-	if (cmd[1])
-	{
-		if (cd_one_args(infos, fork, path))
-			return (1);
-	}
+	if (exec_cd(infos, cmd, fork, path))
+		return (1);
 	return (0);
 }
