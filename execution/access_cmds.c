@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 19:21:57 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/18 10:11:22 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/28 19:50:13 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,15 @@ void	access_error(char *cmd, char *error)
 {
 	char	*error_msg;
 
-	error_msg = ft_strjoin("minishell: ", cmd);
+	if (cmd[0] == '\0')
+	{
+		error_msg = ft_strjoin("minishell: '", cmd);
+		if (!error_msg)
+			return ;
+		error_msg = ft_strjoinfree(error_msg, "'");
+	}
+	else
+		error_msg = ft_strjoin("minishell: ", cmd);
 	if (!error_msg)
 	{
 		ft_putstr_fd(MALLOC_ERROR, 2);

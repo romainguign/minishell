@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brguicho <brguicho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:01:22 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/19 07:37:21 by brguicho         ###   ########.fr       */
+/*   Updated: 2024/06/28 19:26:22 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	ft_export(t_env *env, char **cmd, int fork)
 	int		exit_code;
 
 	exit_code = 0;
-	if (ft_tab_len(cmd) == 1)
+	if (ft_tab_len(cmd) == 1 || (ft_tab_len(cmd) == 2 && cmd[1][0] == '\0'))
 	{
 		env_tab = sort_env_tab(env);
 		if (!env_tab)
