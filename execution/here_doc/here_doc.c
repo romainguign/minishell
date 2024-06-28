@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:39:54 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/10 19:33:49 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/28 19:13:11 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,27 +77,55 @@ static char	*here_doc_loop(char *limiter, char *doc,
 	return (doc);
 }
 
-int	here_doc(t_token *token, t_cmd *cmd, char *limiter, t_minishell *infos)
+int	here_doc_fork(t_token *token, t_cmd *cmd, char *limiter, t_minishell *infos)
 {
 	char	*doc;
 
-	if (!init_tmp_file(cmd, token))
-		return (0);
 	doc = ft_calloc(1, sizeof(char));
 	if (!doc)
 	{
 		ft_putstr_fd(MALLOC_ERROR, 2);
-		return (0);
+		exit (1);
 	}
 	signal_heredoc();
 	doc = here_doc_loop(limiter, doc, token, infos);
 	if (!doc)
-		return (0);
-	ft_putstr_fd(doc, cmd->fd_in);
-	close (cmd->fd_in);
-	cmd->fd_in = open(cmd->tmp_file, O_RDONLY, 0777);
+		exit (0);
+	if (cmd->fd_in > 0)
+		close (cmd->fd_in);
+	cmd->fd_in = open(cmd->tmp_file, O_WRONLY | O_CREAT | O_APPEND, 0777);
 	if (cmd->fd_in == -1)
 		ft_puterrors(token->next->value);
+	ft_putstr_fd(doc, cmd->fd_in);
+	close (cmd->fd_in);
 	free(doc);
-	return (1);
+	ft_free_env(infos->env_tab);
+	free_all_here_doc(infos);
+	close_std();
+	exit (0);
+}
+
+int	here_doc(t_token *token, t_cmd *cmd, char *limiter, t_minishell *infos)
+{
+	pid_t	here_doc_pid;
+	int		status;
+
+	if (!init_tmp_file(cmd))
+		return (1);
+	here_doc_pid = fork();
+	if (here_doc_pid == -1)
+	{
+		perror("minishell: fork");
+		return (1);
+	}
+	if (here_doc_pid == 0)
+		here_doc_fork(token, cmd, limiter, infos);
+	if (waitpid(here_doc_pid, &status, 0) == -1)
+	{
+		perror("minishell: waitpid");
+		free_all(infos);
+		exit(EXIT_FAILURE);
+	}
+	status = check_status(status, infos);
+	return (status);
 }

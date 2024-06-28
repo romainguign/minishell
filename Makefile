@@ -6,7 +6,7 @@
 #    By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/12 15:00:46 by roguigna          #+#    #+#              #
-#    Updated: 2024/06/27 14:41:47 by roguigna         ###   ########.fr        #
+#    Updated: 2024/06/28 19:12:44 by roguigna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,10 +81,12 @@ SRC_FILES		= minishell.c \
 				  execution/check_cmds.c \
 				  execution/make_lstcmd.c \
 				  execution/access_cmds.c  \
-				  execution/exec_builtin.c \
-				  execution/check_access.c  \
+				  execution/exec_builtin.c  \
+				  execution/check_access.c   \
+				  execution/check_redirects.c \
 				  execution/redirects.c \
 				  execution/dup_process.c \
+				  execution/exit_exec.c \
 				  execution/wait_and_close.c \
 				  execution/here_doc/here_doc.c \
 				  execution/here_doc/here_doc_env.c \

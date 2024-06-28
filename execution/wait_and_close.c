@@ -6,13 +6,13 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 14:52:39 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/11 14:33:43 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/28 18:31:37 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	check_status(int status, t_minishell *infos)
+int	check_status(int status, t_minishell *infos)
 {
 	if (WIFEXITED(status))
 		infos->exit_code = WEXITSTATUS(status);
@@ -30,6 +30,7 @@ static void	check_status(int status, t_minishell *infos)
 		infos->exit_code = 131;
 		g_exit_code = 0;
 	}
+	return (infos->exit_code);
 }
 
 void	wait_end(t_minishell *infos, pid_t *pids)

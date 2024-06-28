@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/27 15:14:06 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/28 19:12:23 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ size_t			ft_strlcat(char *dst, const char *src, size_t size);
 void			free_tab(void **tab);
 void			free_all(t_minishell *infos);
 void			free_close(t_minishell *infos);
+void			close_std(void);
 
 /*--------------------------------- parsing ---------------------------------*/
 //env :
@@ -208,6 +209,7 @@ long long int	ft_exit(char **cmd, t_minishell *infos, int fork);
 int				ft_execute(t_minishell *infos);
 long long int	only_builtin(t_minishell *infos);
 void			exec_builtin(char **cmd, t_minishell *infos);
+int				exec_exit(long long int builtin, t_minishell *infos);
 
 //listcmd and check args:
 int				make_lstcmd(t_minishell *infos);
@@ -222,15 +224,19 @@ int				ft_redirects(t_cmd *cmd, t_minishell *infos);
 int				children_process(int (*pipes)[2], int i, t_cmd *cmd,
 					t_minishell *infos);
 void			ft_cmdsclear(t_cmd **lst, void (*del)(void*));
+int				check_redirections(t_minishell *infos);
+void			ft_cmds_heredoc_clear(t_cmd **lst, void (*del)(void*));
+void			free_all_here_doc(t_minishell *infos);
 void			close_pipes(int (*pipes)[2]);
 void			wait_and_close(t_minishell *infos, pid_t *pids,
 					int (*pipes)[2]);
 void			close_fds(t_cmd *cmd);
+int				check_status(int status, t_minishell *infos);
 
 //here_doc :
 int				here_doc(t_token *token, t_cmd *cmd, char *limiter,
 					t_minishell *infos);
-int				init_tmp_file(t_cmd *cmd, t_token *token);
+int				init_tmp_file(t_cmd *cmd);
 char			*check_env_var(char quote, char *line, t_minishell *infos);
 void			ft_create_tmp_file(int infile, char *doc, char *limiter,
 					int len_limiter);

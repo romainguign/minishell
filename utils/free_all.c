@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:41:06 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/11 14:33:46 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/28 18:02:44 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,19 @@ void	free_tab(void **tab)
 	free(tab);
 }
 
+void	free_all_here_doc(t_minishell *infos)
+{
+	if (infos->env)
+		ft_envclear(&infos->env, free);
+	if (infos->token)
+		ft_tokenclear(&infos->token, free);
+	if (infos->cmd)
+		ft_cmds_heredoc_clear(&infos->cmd, free);
+	if (infos->line)
+		free(infos->line);
+	free(infos);
+}
+
 void	free_all(t_minishell *infos)
 {
 	if (infos->env)
@@ -38,6 +51,13 @@ void	free_all(t_minishell *infos)
 	free(infos);
 }
 
+void	close_std(void)
+{
+	close(0);
+	close(0);
+	close(0);
+}
+
 void	free_close(t_minishell *infos)
 {
 	if (infos->env_tab)
@@ -47,5 +67,5 @@ void	free_close(t_minishell *infos)
 	}
 	close_pipes(infos->pipes);
 	close_fds(infos->cmd);
-	free_all(infos);
+	free_all_here_doc(infos);
 }

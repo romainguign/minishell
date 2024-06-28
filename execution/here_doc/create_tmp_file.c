@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:41:45 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/08 17:48:33 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/28 18:04:26 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	create_tmp_filename(char *tmp_file)
 	}
 }
 
-int	init_tmp_file(t_cmd *cmd, t_token *token)
+int	init_tmp_file(t_cmd *cmd)
 {
 	if (cmd->tmp_file)
 	{
@@ -51,10 +51,5 @@ int	init_tmp_file(t_cmd *cmd, t_token *token)
 	if (!cmd->tmp_file)
 		return (0);
 	create_tmp_filename(cmd->tmp_file);
-	if (cmd->fd_in > 0)
-		close (cmd->fd_in);
-	cmd->fd_in = open(cmd->tmp_file, O_WRONLY | O_CREAT | O_APPEND, 0777);
-	if (cmd->fd_in == -1)
-		ft_puterrors(token->next->value);
 	return (1);
 }
