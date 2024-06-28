@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 14:36:34 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/27 14:42:04 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/27 15:08:48 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	update_env(t_minishell *infos, char *path)
 		free(path);
 	path = NULL;
 	path = getcwd(path, 0);
-	if (errno == ENOENT)
+	if (!path && errno == ENOENT)
 	{
 		print_pwd_errors();
 		return (1);

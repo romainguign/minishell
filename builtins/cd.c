@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 14:28:25 by brguicho          #+#    #+#             */
-/*   Updated: 2024/06/27 14:35:10 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/27 15:16:17 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	ft_cd(t_minishell *infos, char **cmd, int fork)
 
 	path = NULL;
 	path = getcwd(path, 0);
-	if (errno == ENOENT)
+	if (!path && errno == ENOENT)
 	{
 		print_pwd_errors();
 		return (1);

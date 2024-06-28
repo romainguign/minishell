@@ -73,13 +73,39 @@ int	ft_envadd_back(t_env **env, t_env *new)
 	return (1);
 }
 
+t_env	*init_env(void)
+{
+	t_env	*env;
+	int		i;
+
+	i = 0;
+	env = ft_calloc(1, sizeof(t_env));
+	if (!env)
+	{
+		ft_putstr_fd(MALLOC_ERROR, 2);
+		ft_envclear(&env, free);
+		return (0);
+	}
+	env->name = NULL;
+	env->value = NULL;
+	env->next = NULL;
+	return (env);
+}
+
 int	get_env(char **envp, t_minishell *infos)
 {
 	int		i;
 
 	i = 0;
+	if (!ft_envadd_back(&infos->env, init_env()))
+		return (0);
 	while (envp[i])
 	{
+		if (i == 0)
+		{
+			free(infos->env);
+			infos->env = NULL;
+		}
 		if (!ft_envadd_back(&infos->env, ft_newenv(envp[i])))
 			return (0);
 		i++;

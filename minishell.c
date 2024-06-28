@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:01:18 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/18 15:30:34 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/27 15:14:10 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int	minishell_loop(t_minishell *infos)
 	check_tty();
 	while (1)
 	{
-		pwd = get_pwd(infos->env);
+		pwd = get_pwd();
 		if (!pwd)
 			return (0);
 		infos->line = readline(pwd);

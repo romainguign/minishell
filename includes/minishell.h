@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/27 14:40:11 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/06/27 15:14:06 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ char			**ft_split(char const *s, char c);
 char			**ft_split_token(char *str, char *charset);
 int				ft_get_number_of_word(char *str, char *charset);
 int				ft_is_sep(char *charset, char charc);
-char			*get_pwd(t_env *env);
+char			*get_pwd(void);
 size_t			ft_strlcat(char *dst, const char *src, size_t size);
 
 //free_all :
