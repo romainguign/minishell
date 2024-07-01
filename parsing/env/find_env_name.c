@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:50:01 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/10 20:08:32 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/07/01 10:24:53 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static char	*cpy_value(char *value)
 {
 	char	*word;
 
+	if (!value)
+		return (NULL);
 	word = ft_strdup(value);
 	if (!word)
 	{

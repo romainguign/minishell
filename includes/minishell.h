@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:55:17 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/28 19:12:23 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/07/01 13:15:38 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,7 @@ char			*find_dollar_value(char *line, t_minishell *infos,
 					int *i, char quote);
 char			*parse_redirect(char *line, int	*i);
 void			ft_tokenclear(t_token **lst, void (*del)(void*));
+void			ft_lstdeltoken(t_token *lst, void (*del)(void *));
 t_token_type	get_token_type(char *value, t_token *token);
 t_token			*new_list_token(t_minishell *infos, char *value);
 

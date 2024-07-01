@@ -6,7 +6,7 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 14:46:39 by roguigna          #+#    #+#             */
-/*   Updated: 2024/06/04 16:36:07 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/07/01 10:19:05 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,15 @@ char	*check_env_var(char quote, char *line, t_minishell *infos)
 		return (line);
 	new_line = ft_calloc(1, sizeof(char));
 	if (!new_line)
-	{
-		ft_putstr_fd(MALLOC_ERROR, 2);
 		return (0);
-	}
 	while (line[i])
 	{
 		if (line[i] == '$')
 		{
 			value = find_dollar_value(&line[i], infos, &i, quote);
 			new_line = ft_strjoinfree(new_line, value);
+			if (value)
+				free(value);
 		}
 		else
 			new_line = strljoin_token(new_line, &line[i], 1);

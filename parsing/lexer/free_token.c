@@ -6,13 +6,13 @@
 /*   By: roguigna <roguigna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:53:54 by roguigna          #+#    #+#             */
-/*   Updated: 2024/05/08 13:32:39 by roguigna         ###   ########.fr       */
+/*   Updated: 2024/07/01 13:15:08 by roguigna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_lstdelone(t_token *lst, void (*del)(void *))
+void	ft_lstdeltoken(t_token *lst, void (*del)(void *))
 {
 	if (!lst || !del)
 		return ;
@@ -34,9 +34,9 @@ void	ft_tokenclear(t_token **lst, void (*del)(void*))
 	while (curr && curr->next && curr->next != start)
 	{
 		tmp = curr->next;
-		ft_lstdelone(curr, del);
+		ft_lstdeltoken(curr, del);
 		curr = tmp;
 	}
-	ft_lstdelone(curr, del);
+	ft_lstdeltoken(curr, del);
 	*lst = NULL;
 }
