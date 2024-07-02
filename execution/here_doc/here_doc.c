@@ -41,7 +41,7 @@ static char	*ft_strjoin_doc(char *s1, char *s2)
 
 static void	eof_warning(char *s)
 {
-	ft_putstr_fd("pipex: warning: here-document delimited by end-of-file \
+	ft_putstr_fd("minishell: warning: here-document delimited by end-of-file \
 	(wanted `", 2);
 	ft_putstr_fd(s, 2);
 	ft_putstr_fd("')\n", 2);

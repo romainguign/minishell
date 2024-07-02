@@ -83,7 +83,8 @@ static void	print_env(char **env_tab)
 			i++;
 		else
 		{
-			printf("declare -x %s\n", env_tab[i]);
+			if (env_tab[i][0] != '\0')
+				printf("declare -x %s\n", env_tab[i]);
 			i++;
 		}
 	}
