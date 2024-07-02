@@ -68,7 +68,10 @@ static int	check_overflow(char *nbr, char sign)
 	while (is_num(nbr[i]))
 	{
 		if (nbr[i] > max[i])
+		{
+			free (max);
 			return (0);
+		}
 		i++;
 	}
 	free(max);

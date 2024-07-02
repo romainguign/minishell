@@ -16,6 +16,8 @@ static int	check_files(t_cmd *cmd, t_token *redir, t_minishell *infos)
 {
 	int	result;
 
+	if (redir->token_type == REDIRECT_OUT)
+		return (0);
 	if (redir->token_type == HERE_DOC)
 	{
 		result = here_doc(redir, cmd, redir->next->value, infos);
