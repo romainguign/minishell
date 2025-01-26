@@ -8,6 +8,7 @@ It was developed as part of the 42 Angoulême curriculum. It has to respect the 
 - The project must be normed.
 - The project must be compiled with the flags `-Wall`, `-Wextra`, and `-Werror`.
 - The project must be compiled with the Makefile.
+- The project must not have any valgrind errors (no leak, no fds not close...).
 
 ## 🚀 Usage
 To compile the project, run the following command:
