@@ -76,9 +76,7 @@ int	ft_envadd_back(t_env **env, t_env *new)
 t_env	*init_env(void)
 {
 	t_env	*env;
-	int		i;
 
-	i = 0;
 	env = ft_calloc(1, sizeof(t_env));
 	if (!env)
 	{
