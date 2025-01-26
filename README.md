@@ -32,7 +32,7 @@ Then, you can run any command you want.
 - Manage heredocs `<<`
 - Manage the signals: `Ctrl-C`, `Ctrl-D`, `Ctrl-\`
 
-## Exemple
+## 💻 Exemple
 ```cat -e << EOF | grep "word" | wc -l > file.txt```
 ## 🛠️ Tools
 - C language (execve, fork, waitpid, pipe, dup2, open, close, read, write, malloc, free, ...)
