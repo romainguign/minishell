@@ -62,7 +62,7 @@ static char	**ft_free_tab(char **tab, int size)
 		i++;
 	}
 	free(tab);
-	return (tab);
+	return (NULL);
 }
 
 static char	**ft_copy_words(char **strs, const char *str, char c, int words_nbr)
